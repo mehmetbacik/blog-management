@@ -1,0 +1,25 @@
+.container {
+  @include container;
+}
+
+.section {
+  padding: $spacing-unit * 16 0;
+}
+
+.grid {
+  display: grid;
+  gap: $spacing-unit * 4;
+  
+  @include breakpoint('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include breakpoint('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.flex {
+  display: flex;
+  gap: $spacing-unit * 2;
+} 

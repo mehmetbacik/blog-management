@@ -1,0 +1,31 @@
+.form {
+  &__group {
+    margin-bottom: $spacing-unit * 4;
+  }
+  
+  &__label {
+    display: block;
+    margin-bottom: $spacing-unit * 2;
+    font-weight: 500;
+  }
+  
+  &__input {
+    width: 100%;
+    padding: $spacing-unit * 2;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+  
+  &__error {
+    color: $danger-color;
+    font-size: 0.875rem;
+    margin-top: $spacing-unit;
+  }
+} 

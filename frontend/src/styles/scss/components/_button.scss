@@ -1,0 +1,24 @@
+.button {
+  @include button-variant($primary-color);
+  
+  &--secondary {
+    @include button-variant($secondary-color);
+  }
+  
+  &--success {
+    @include button-variant($success-color);
+  }
+  
+  &--danger {
+    @include button-variant($danger-color);
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 1px solid currentColor;
+    
+    &:hover {
+      background: rgba($primary-color, 0.1);
+    }
+  }
+} 
