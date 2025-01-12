@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import postRoutes from './routes/postRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +29,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 const PORT = process.env.PORT || 3000;
 
