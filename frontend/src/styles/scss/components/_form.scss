@@ -1,3 +1,18 @@
+.form-wrapper {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba($dark-color, 0.1);
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: $dark-color;
+    text-align: center;
+  }
+}
+
 .form {
   &__group {
     margin-bottom: $spacing-unit * 4;
@@ -27,5 +42,10 @@
     color: $danger-color;
     font-size: 0.875rem;
     margin-top: $spacing-unit;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    margin-top: $spacing-unit * 4;
   }
 } 
