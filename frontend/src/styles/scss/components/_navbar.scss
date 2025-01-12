@@ -1,0 +1,37 @@
+.navbar {
+  padding: $spacing-unit * 4 0;
+  border-bottom: 1px solid $border-color;
+  background-color: white;
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $primary-color;
+  }
+  
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: $spacing-unit * 4;
+  }
+  
+  &__link {
+    color: $secondary-color;
+    transition: $transition-base;
+    
+    &:hover {
+      color: $primary-color;
+    }
+    
+    &.active {
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
+} 
