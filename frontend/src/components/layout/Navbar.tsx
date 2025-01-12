@@ -1,8 +1,9 @@
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
 
