@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
 import postRoutes from './routes/postRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { specs } from './config/swagger';
 
 // Load environment variables
 dotenv.config();
@@ -30,6 +32,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 const PORT = process.env.PORT || 3000;
 
