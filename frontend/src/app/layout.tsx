@@ -1,10 +1,13 @@
-import React from 'react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import '@/styles/scss/main.scss';
 
-export const metadata = {
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
   title: 'Blog Management System',
-  description: 'A modern blog management system built with Next.js',
+  description: 'A modern blog management system built with Next.js 14',
 };
 
 export default function RootLayout({
@@ -14,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <Navbar />
         <main>{children}</main>
       </body>
