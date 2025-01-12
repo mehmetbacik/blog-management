@@ -36,6 +36,11 @@
       border-color: $primary-color;
       box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
     }
+
+    &--textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
   }
   
   &__error {
@@ -47,5 +52,12 @@
   button[type="submit"] {
     width: 100%;
     margin-top: $spacing-unit * 4;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-unit * 4;
+    margin-top: $spacing-unit * 6;
   }
 } 
