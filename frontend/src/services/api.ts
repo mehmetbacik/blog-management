@@ -59,6 +59,11 @@ export const postService = {
     const { data } = await api.delete(`/posts/${id}`);
     return data;
   },
+  
+  getUserPosts: async () => {
+    const { data } = await api.get('/posts/user');
+    return data;
+  },
 };
 
 export default api; 

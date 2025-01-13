@@ -1,0 +1,57 @@
+.profile {
+  padding: $spacing-unit * 8 0;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-unit * 12;
+    padding-bottom: $spacing-unit * 6;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $dark-color;
+    margin-bottom: $spacing-unit * 2;
+  }
+
+  &__role {
+    font-size: 1rem;
+    color: $primary-color;
+    background: rgba($primary-color, 0.1);
+    padding: $spacing-unit $spacing-unit * 3;
+    border-radius: $border-radius;
+    display: inline-block;
+    margin-bottom: $spacing-unit * 2;
+  }
+
+  &__email {
+    color: $secondary-color;
+    font-size: 0.875rem;
+  }
+
+  &__content {
+    min-height: 400px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $dark-color;
+    margin-bottom: $spacing-unit * 6;
+  }
+
+  &__empty {
+    text-align: center;
+    color: $secondary-color;
+    padding: $spacing-unit * 8;
+    background: rgba($secondary-color, 0.05);
+    border-radius: $border-radius;
+  }
+} 
