@@ -1,0 +1,42 @@
+.hero {
+  text-align: center;
+  padding: $spacing-unit * 16 0;
+  background: linear-gradient(
+    to bottom,
+    rgba($primary-color, 0.05),
+    rgba($primary-color, 0.02)
+  );
+  border-radius: $border-radius;
+  margin-bottom: $spacing-unit * 12;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: $dark-color;
+    margin-bottom: $spacing-unit * 4;
+
+    @include breakpoint('md') {
+      font-size: 3.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.25rem;
+    color: $secondary-color;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.content {
+  padding: $spacing-unit * 8 0;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: $dark-color;
+    margin-bottom: $spacing-unit * 8;
+    text-align: center;
+  }
+} 
