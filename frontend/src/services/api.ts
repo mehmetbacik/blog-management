@@ -54,6 +54,11 @@ export const postService = {
     const { data } = await api.put(`/posts/${id}`, postData);
     return data;
   },
+  
+  deletePost: async (id: string) => {
+    const { data } = await api.delete(`/posts/${id}`);
+    return data;
+  },
 };
 
 export default api; 
