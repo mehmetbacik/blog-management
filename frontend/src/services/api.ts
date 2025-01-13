@@ -44,6 +44,16 @@ export const postService = {
     const { data } = await api.post('/posts', postData);
     return data;
   },
+  
+  updatePost: async (id: string, postData: {
+    title: string;
+    content: string;
+    tags: string[];
+    status: string;
+  }) => {
+    const { data } = await api.put(`/posts/${id}`, postData);
+    return data;
+  },
 };
 
 export default api; 
