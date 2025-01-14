@@ -10,7 +10,6 @@ export const SearchBar = () => {
   const [tags, setTags] = useState('');
 
   useEffect(() => {
-    // Update form values when URL parameters change
     setSearchTerm(searchParams.get('query') || '');
     setTags(searchParams.get('tags') || '');
   }, [searchParams]);
@@ -21,6 +20,7 @@ export const SearchBar = () => {
     const params = new URLSearchParams();
     if (searchTerm.trim()) params.append('query', searchTerm.trim());
     if (tags.trim()) params.append('tags', tags.trim());
+    params.set('page', '1'); // Reset to first page on new search
     
     const searchPath = params.toString() ? `?${params.toString()}` : '';
     router.push(`/search${searchPath}`);
