@@ -39,5 +39,40 @@ const router = express.Router();
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/profile', auth, userController.getProfile);
+router.put('/profile', auth, userController.updateProfile);
+
+/**
+ * @swagger
+ * /users/profile:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               currentPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *       400:
+ *         description: Invalid current password
+ *       401:
+ *         description: Not authenticated
+ *       500:
+ *         description: Server error
+ */
 
 export default router; 

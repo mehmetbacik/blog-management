@@ -27,6 +27,16 @@ export const authService = {
     const { data } = await api.get('/users/profile');
     return data;
   },
+  
+  updateProfile: async (data: {
+    username?: string;
+    email?: string;
+    currentPassword?: string;
+    newPassword?: string;
+  }) => {
+    const { data: response } = await api.put('/users/profile', data);
+    return response;
+  }
 };
 
 export const postService = {

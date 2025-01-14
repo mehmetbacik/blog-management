@@ -75,5 +75,40 @@ export const userController = {
     } catch (error) {
       res.status(500).json({ error: 'Error fetching profile' });
     }
+  },
+
+  // Update user profile
+  updateProfile: async (req: AuthRequest, res: Response) => {
+    try {
+      const { username, email, currentPassword, newPassword } = req.body;
+      const user = await User.findById(req.user.userId);
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Validate current password if trying to change password
+      if (newPassword) {
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+          return res.status(400).json({ error: 'Current password is incorrect' });
+        }
+        user.password = newPassword;
+      }
+
+      // Update other fields
+      if (username) user.username = username;
+      if (email) user.email = email;
+
+      await user.save();
+
+      // Don't send password in response
+      const userResponse = user.toObject();
+      delete userResponse.password;
+
+      res.json(userResponse);
+    } catch (error) {
+      res.status(500).json({ error: 'Error updating profile' });
+    }
   }
 }; 
