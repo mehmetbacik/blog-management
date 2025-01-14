@@ -145,11 +145,11 @@ export const postController = {
   },
 
   // Search posts with pagination
-  search: async (req: Request, res: Response) => {
+  search: async (req: AuthRequest, res: Response) => {
     try {
       const { query, tags, status, page = '1', limit = '9' } = req.query;
       
-      let searchQuery: any = { status: 'published' };
+      const searchQuery: any = { status: 'published' };
 
       if (query) {
         searchQuery.$or = [
