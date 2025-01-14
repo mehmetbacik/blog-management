@@ -5,10 +5,13 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { Post } from '@/types';
 import { postService } from '@/services/api';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
 
 export default function DashboardPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -22,8 +25,9 @@ export default function DashboardPage() {
       try {
         const data = await postService.getPosts();
         setPosts(data);
+        setError(null);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        setError('Failed to fetch posts. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -35,7 +39,15 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading...</div>
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container">
+        <ErrorMessage message={error} />
       </div>
     );
   }
