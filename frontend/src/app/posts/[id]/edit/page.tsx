@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { postService } from '@/services/api';
+import { showToast } from '@/utils/toast';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
 import { Post } from '@/types';
 
 interface PostFormData {
@@ -25,6 +28,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const fetchPost = async () => {
+      const loadingToast = showToast.loading('Loading post...');
       try {
         const post = await postService.getPost(params.id);
         setFormData({
@@ -33,7 +37,10 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
           tags: post.tags,
           status: post.status
         });
+        showToast.dismiss(loadingToast);
       } catch (err) {
+        showToast.dismiss(loadingToast);
+        showToast.error('Failed to fetch post');
         setError('Failed to fetch post');
       } finally {
         setLoading(false);
@@ -45,13 +52,16 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    const loadingToast = showToast.loading('Updating post...');
 
     try {
       await postService.updatePost(params.id, formData);
+      showToast.dismiss(loadingToast);
+      showToast.success('Post updated successfully!');
       router.push('/dashboard');
     } catch (err) {
-      setError('Failed to update post');
+      showToast.dismiss(loadingToast);
+      showToast.error('Failed to update post');
     }
   };
 

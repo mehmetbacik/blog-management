@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Post } from '@/types';
 import { postService } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { showToast } from '@/utils/toast';
 
 export default function PostPage({ params }: { params: { id: string } }) {
   const [post, setPost] = useState<Post | null>(null);
@@ -15,10 +16,14 @@ export default function PostPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const fetchPost = async () => {
+      const loadingToast = showToast.loading('Loading post...');
       try {
         const data = await postService.getPost(params.id);
         setPost(data);
+        showToast.dismiss(loadingToast);
       } catch (err) {
+        showToast.dismiss(loadingToast);
+        showToast.error('Failed to fetch post');
         setError('Failed to fetch post');
       } finally {
         setLoading(false);
@@ -33,11 +38,16 @@ export default function PostPage({ params }: { params: { id: string } }) {
       return;
     }
 
+    const loadingToast = showToast.loading('Deleting post...');
+
     try {
       await postService.deletePost(params.id);
+      showToast.dismiss(loadingToast);
+      showToast.success('Post deleted successfully!');
       router.push('/dashboard');
     } catch (err) {
-      setError('Failed to delete post');
+      showToast.dismiss(loadingToast);
+      showToast.error('Failed to delete post');
     }
   };
 
