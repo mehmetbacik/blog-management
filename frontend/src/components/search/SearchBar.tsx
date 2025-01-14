@@ -1,22 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export const SearchBar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get('query') || '');
-  const [tags, setTags] = useState(searchParams.get('tags') || '');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [tags, setTags] = useState('');
+
+  useEffect(() => {
+    // Update form values when URL parameters change
+    setSearchTerm(searchParams.get('query') || '');
+    setTags(searchParams.get('tags') || '');
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const params = new URLSearchParams();
-    if (searchTerm) params.append('query', searchTerm);
-    if (tags) params.append('tags', tags);
+    if (searchTerm.trim()) params.append('query', searchTerm.trim());
+    if (tags.trim()) params.append('tags', tags.trim());
     
-    router.push(`/search?${params.toString()}`);
+    const searchPath = params.toString() ? `?${params.toString()}` : '';
+    router.push(`/search${searchPath}`);
+  };
+
+  const handleClear = () => {
+    setSearchTerm('');
+    setTags('');
+    router.push('/search');
   };
 
   return (
@@ -36,9 +49,20 @@ export const SearchBar = () => {
           placeholder="Tags (comma separated)"
           className="search-bar__input"
         />
-        <button type="submit" className="button">
-          Search
-        </button>
+        <div className="search-bar__actions">
+          <button type="submit" className="button">
+            Search
+          </button>
+          {(searchTerm || tags) && (
+            <button 
+              type="button" 
+              onClick={handleClear}
+              className="button button--outline"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
     </form>
   );

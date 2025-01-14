@@ -19,10 +19,17 @@ export default function SearchPage() {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const query = searchParams.get('query');
-        const tags = searchParams.get('tags');
+        const queryParam = searchParams.get('query');
+        const tagsParam = searchParams.get('tags');
         
-        const searchResults = await postService.searchPosts({ query, tags });
+        // Convert null values to undefined for the API call
+        const searchQuery = queryParam || undefined;
+        const searchTags = tagsParam || undefined;
+        
+        const searchResults = await postService.searchPosts({ 
+          query: searchQuery, 
+          tags: searchTags 
+        });
         setPosts(searchResults);
         setError(null);
       } catch (err) {
@@ -34,6 +41,12 @@ export default function SearchPage() {
 
     fetchPosts();
   }, [searchParams]);
+
+  const getResultsText = () => {
+    const count = posts.length;
+    if (count === 0) return 'No results found';
+    return `${count} ${count === 1 ? 'Result' : 'Results'} Found`;
+  };
 
   return (
     <div className="container">
@@ -47,9 +60,9 @@ export default function SearchPage() {
         ) : (
           <div className="search-page__results">
             <h2 className="search-page__title">
-              {posts.length} Results Found
+              {getResultsText()}
             </h2>
-            <PostList posts={posts} />
+            {posts.length > 0 && <PostList posts={posts} />}
           </div>
         )}
       </div>
