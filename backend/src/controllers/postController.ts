@@ -94,13 +94,32 @@ export const postController = {
     }
   },
 
-  // Get user's posts
+  // Get user's posts with pagination
   getUserPosts: async (req: AuthRequest, res: Response) => {
     try {
-      const posts = await Post.find({ author: req.user.userId })
-        .populate('author', 'username')
-        .sort({ createdAt: -1 });
-      res.json(posts);
+      const { page = '1', limit = '6' } = req.query;
+      const pageNumber = parseInt(page as string);
+      const limitNumber = parseInt(limit as string);
+      const skip = (pageNumber - 1) * limitNumber;
+
+      const [posts, total] = await Promise.all([
+        Post.find({ author: req.user.userId })
+          .populate('author', 'username')
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limitNumber),
+        Post.countDocuments({ author: req.user.userId })
+      ]);
+
+      res.json({
+        posts,
+        pagination: {
+          total,
+          page: pageNumber,
+          limit: limitNumber,
+          totalPages: Math.ceil(total / limitNumber)
+        }
+      });
     } catch (error) {
       res.status(500).json({ error: 'Error fetching user posts' });
     }
