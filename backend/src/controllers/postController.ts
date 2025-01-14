@@ -92,5 +92,17 @@ export const postController = {
     } catch (error) {
       res.status(500).json({ error: 'Error deleting post' });
     }
-  }
+  },
+
+  // Get user's posts
+  getUserPosts: async (req: AuthRequest, res: Response) => {
+    try {
+      const posts = await Post.find({ author: req.user.userId })
+        .populate('author', 'username')
+        .sort({ createdAt: -1 });
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching user posts' });
+    }
+  },
 }; 
