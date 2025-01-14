@@ -106,10 +106,10 @@ export const postController = {
     }
   },
 
-  // Search posts
+  // Search posts with pagination
   search: async (req: Request, res: Response) => {
     try {
-      const { query, tags, status } = req.query;
+      const { query, tags, status, page = '1', limit = '9' } = req.query;
       
       let searchQuery: any = { status: 'published' };
 
@@ -129,11 +129,28 @@ export const postController = {
         searchQuery.status = status;
       }
 
-      const posts = await Post.find(searchQuery)
-        .populate('author', 'username')
-        .sort({ createdAt: -1 });
+      const pageNumber = parseInt(page as string);
+      const limitNumber = parseInt(limit as string);
+      const skip = (pageNumber - 1) * limitNumber;
 
-      res.json(posts);
+      const [posts, total] = await Promise.all([
+        Post.find(searchQuery)
+          .populate('author', 'username')
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limitNumber),
+        Post.countDocuments(searchQuery)
+      ]);
+
+      res.json({
+        posts,
+        pagination: {
+          total,
+          page: pageNumber,
+          limit: limitNumber,
+          totalPages: Math.ceil(total / limitNumber)
+        }
+      });
     } catch (error) {
       res.status(500).json({ error: 'Error searching posts' });
     }

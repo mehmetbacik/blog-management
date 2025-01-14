@@ -39,6 +39,23 @@ export const authService = {
   }
 };
 
+interface SearchParams {
+  query?: string;
+  tags?: string;
+  page?: number;
+  limit?: number;
+}
+
+interface SearchResponse {
+  posts: Post[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
 export const postService = {
   getPosts: async () => {
     const { data } = await api.get('/posts');
@@ -75,10 +92,12 @@ export const postService = {
     return data;
   },
   
-  searchPosts: async (params: { query?: string; tags?: string }) => {
+  searchPosts: async (params: SearchParams): Promise<SearchResponse> => {
     const searchParams = new URLSearchParams();
     if (params.query) searchParams.append('query', params.query);
     if (params.tags) searchParams.append('tags', params.tags);
+    if (params.page) searchParams.append('page', params.page.toString());
+    if (params.limit) searchParams.append('limit', params.limit.toString());
     
     const { data } = await api.get(`/posts/search?${searchParams.toString()}`);
     return data;
