@@ -54,4 +54,18 @@
     background: rgba($secondary-color, 0.05);
     border-radius: $border-radius;
   }
+}
+
+.post-grid {
+  display: grid;
+  gap: $spacing-unit * 6;
+  margin-bottom: $spacing-unit * 8;
+  
+  @include breakpoint('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include breakpoint('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
 } 

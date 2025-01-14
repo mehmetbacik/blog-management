@@ -56,6 +56,21 @@ interface SearchResponse {
   };
 }
 
+interface UserPostsParams {
+  page?: number;
+  limit?: number;
+}
+
+interface PostsResponse {
+  posts: Post[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
 export const postService = {
   getPosts: async () => {
     const { data } = await api.get('/posts');
@@ -87,8 +102,12 @@ export const postService = {
     return data;
   },
   
-  getUserPosts: async () => {
-    const { data } = await api.get('/posts/user');
+  getUserPosts: async (params?: UserPostsParams): Promise<PostsResponse> => {
+    const searchParams = new URLSearchParams();
+    if (params?.page) searchParams.append('page', params.page.toString());
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    
+    const { data } = await api.get(`/posts/user?${searchParams.toString()}`);
     return data;
   },
   
