@@ -33,15 +33,27 @@ mongoose.connect(process.env.MONGODB_URI!)
     console.error('MongoDB connection error:', error);
   });
 
-// Basic error handling
+// Swagger UI configuration
+const swaggerOptions = {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Blog Management API Documentation',
+  customfavIcon: '/favicon.ico'
+};
+
+// API Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerOptions));
+
+// Basic error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).json({ 
+    error: 'Something went wrong!',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 });
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 const PORT = process.env.PORT || 3000;
 
