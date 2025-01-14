@@ -10,6 +10,7 @@ router.get('/user', auth, postController.getUserPosts);
 router.get('/:id', postController.getById);
 router.put('/:id', auth, postController.update);
 router.delete('/:id', auth, postController.delete);
+router.get('/search', postController.search);
 
 /**
  * @swagger

@@ -105,4 +105,37 @@ export const postController = {
       res.status(500).json({ error: 'Error fetching user posts' });
     }
   },
+
+  // Search posts
+  search: async (req: Request, res: Response) => {
+    try {
+      const { query, tags, status } = req.query;
+      
+      let searchQuery: any = { status: 'published' };
+
+      if (query) {
+        searchQuery.$or = [
+          { title: { $regex: query, $options: 'i' } },
+          { content: { $regex: query, $options: 'i' } }
+        ];
+      }
+
+      if (tags) {
+        const tagArray = (tags as string).split(',').map(tag => tag.trim());
+        searchQuery.tags = { $in: tagArray };
+      }
+
+      if (status && req.user?.role === 'admin') {
+        searchQuery.status = status;
+      }
+
+      const posts = await Post.find(searchQuery)
+        .populate('author', 'username')
+        .sort({ createdAt: -1 });
+
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ error: 'Error searching posts' });
+    }
+  }
 }; 

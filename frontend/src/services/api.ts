@@ -74,6 +74,15 @@ export const postService = {
     const { data } = await api.get('/posts/user');
     return data;
   },
+  
+  searchPosts: async (params: { query?: string; tags?: string }) => {
+    const searchParams = new URLSearchParams();
+    if (params.query) searchParams.append('query', params.query);
+    if (params.tags) searchParams.append('tags', params.tags);
+    
+    const { data } = await api.get(`/posts/search?${searchParams.toString()}`);
+    return data;
+  },
 };
 
 export default api; 
