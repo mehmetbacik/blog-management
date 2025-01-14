@@ -14,6 +14,54 @@ router.get('/search', postController.search);
 
 /**
  * @swagger
+ * /posts:
+ *   get:
+ *     summary: Get all published posts with pagination
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number (default: 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of posts per page (default: 9)
+ *     responses:
+ *       200:
+ *         description: List of published posts with pagination
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 posts:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Post'
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: integer
+ *                       description: Total number of posts
+ *                     page:
+ *                       type: integer
+ *                       description: Current page number
+ *                     limit:
+ *                       type: integer
+ *                       description: Posts per page
+ *                     totalPages:
+ *                       type: integer
+ *                       description: Total number of pages
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
  * /posts/user:
  *   get:
  *     summary: Get user's posts with pagination
