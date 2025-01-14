@@ -6,6 +6,7 @@ import userRoutes from './routes/userRoutes';
 import postRoutes from './routes/postRoutes';
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './config/swagger';
+import { errorHandler } from './middleware/errorHandler';
 
 // Load environment variables
 dotenv.config();
@@ -54,6 +55,17 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+
+// 404 handler
+app.use((req: express.Request, res: express.Response) => {
+  res.status(404).json({
+    status: 'error',
+    message: 'Route not found'
+  });
+});
+
+// Error handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
