@@ -6,6 +6,13 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Users
+ *   description: User management endpoints
+ */
+
+/**
+ * @swagger
  * /users/register:
  *   post:
  *     summary: Register a new user
@@ -23,19 +30,63 @@ const router = express.Router();
  *             properties:
  *               username:
  *                 type: string
+ *                 minLength: 3
  *               email:
  *                 type: string
+ *                 format: email
  *               password:
  *                 type: string
+ *                 minLength: 6
  *               role:
  *                 type: string
  *                 enum: [admin, author, visitor]
  *     responses:
  *       201:
  *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserResponse'
  *       400:
- *         description: User already exists
+ *         description: Invalid input or user already exists
+ *       500:
+ *         description: Server error
  */
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Authenticate user and get token
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserResponse'
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Server error
+ */
+
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/profile', auth, userController.getProfile);

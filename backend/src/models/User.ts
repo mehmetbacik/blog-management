@@ -1,6 +1,45 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - email
+ *         - password
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: Auto-generated user ID
+ *         username:
+ *           type: string
+ *           description: User's unique username
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: User's email address
+ *         role:
+ *           type: string
+ *           enum: [admin, author, visitor]
+ *           description: User's role in the system
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Account creation date
+ *     UserResponse:
+ *       type: object
+ *       properties:
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ *         token:
+ *           type: string
+ *           description: JWT authentication token
+ */
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
