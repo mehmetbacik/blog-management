@@ -60,4 +60,23 @@
     gap: $spacing-unit * 4;
     margin-top: $spacing-unit * 6;
   }
+
+  &__section {
+    margin: $spacing-unit * 8 0;
+    padding-top: $spacing-unit * 6;
+    border-top: 1px solid $border-color;
+
+    &-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $dark-color;
+      margin-bottom: $spacing-unit * 2;
+    }
+
+    &-desc {
+      font-size: 0.875rem;
+      color: $secondary-color;
+      margin-bottom: $spacing-unit * 4;
+    }
+  }
 } 
