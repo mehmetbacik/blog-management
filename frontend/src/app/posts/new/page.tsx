@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { postService } from '@/services/api';
+import { showToast } from '@/utils/toast';
 
 interface PostFormData {
   title: string;
@@ -21,13 +22,16 @@ export default function NewPostPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    const loadingToast = showToast.loading('Creating post...');
 
     try {
       await postService.createPost(formData);
+      showToast.dismiss(loadingToast);
+      showToast.success('Post created successfully!');
       router.push('/dashboard');
     } catch (err) {
-      setError('Failed to create post. Please try again.');
+      showToast.dismiss(loadingToast);
+      showToast.error('Failed to create post. Please try again.');
     }
   };
 

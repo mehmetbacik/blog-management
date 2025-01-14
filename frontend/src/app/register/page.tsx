@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { authService } from '@/services/api';
+import { showToast } from '@/utils/toast';
 
 interface RegisterFormData {
   username: string;
@@ -31,19 +32,23 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-
+    
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      showToast.error('Passwords do not match');
       return;
     }
+
+    const loadingToast = showToast.loading('Creating account...');
 
     try {
       const { confirmPassword, ...registerData } = formData;
       await authService.register(registerData);
+      showToast.dismiss(loadingToast);
+      showToast.success('Account created successfully!');
       router.push('/login');
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      showToast.dismiss(loadingToast);
+      showToast.error('Registration failed. Please try again.');
     }
   };
 

@@ -2,19 +2,24 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { showToast } from '@/utils/toast';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const loadingToast = showToast.loading('Logging in...');
+    
     try {
       await login(email, password);
+      showToast.dismiss(loadingToast);
+      showToast.success('Successfully logged in!');
     } catch (err) {
-      setError('Invalid credentials');
+      showToast.dismiss(loadingToast);
+      showToast.error('Invalid credentials');
     }
   };
 
@@ -22,7 +27,6 @@ export default function LoginPage() {
     <div className="container">
       <div className="form-wrapper">
         <h1>Login</h1>
-        {error && <div className="form__error">{error}</div>}
         <form onSubmit={handleSubmit} className="form">
           <div className="form__group">
             <label htmlFor="email" className="form__label">
