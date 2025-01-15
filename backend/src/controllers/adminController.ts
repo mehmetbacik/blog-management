@@ -89,5 +89,69 @@ export const adminController = {
     } catch (error) {
       res.status(500).json({ error: 'Error fetching stats' });
     }
+  },
+
+  // Get all posts with filters
+  getAllPosts: async (req: Request, res: Response) => {
+    try {
+      const { status, page = '1', limit = '10' } = req.query;
+      const pageNumber = parseInt(page as string);
+      const limitNumber = parseInt(limit as string);
+      const skip = (pageNumber - 1) * limitNumber;
+
+      const query: any = {};
+      if (status) {
+        query.status = status;
+      }
+
+      const [posts, total] = await Promise.all([
+        Post.find(query)
+          .populate('author', 'username email')
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limitNumber),
+        Post.countDocuments(query)
+      ]);
+
+      res.json({
+        posts,
+        pagination: {
+          total,
+          page: pageNumber,
+          limit: limitNumber,
+          totalPages: Math.ceil(total / limitNumber)
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching posts' });
+    }
+  },
+
+  // Update post status
+  updatePostStatus: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      if (!['draft', 'pending', 'published'].includes(status)) {
+        throw new ValidationError('Invalid status');
+      }
+
+      const post = await Post.findById(id);
+      if (!post) {
+        throw new NotFoundError('Post');
+      }
+
+      post.status = status;
+      await post.save();
+
+      res.json(post);
+    } catch (error) {
+      if (error instanceof ValidationError || error instanceof NotFoundError) {
+        res.status(error.statusCode).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: 'Error updating post status' });
+      }
+    }
   }
 }; 

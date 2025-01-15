@@ -138,6 +138,25 @@ export const adminService = {
   getStats: async () => {
     const { data } = await api.get('/admin/stats');
     return data;
+  },
+  
+  getAllPosts: async (params?: {
+    status?: string;
+    page?: number;
+    limit?: number;
+  }) => {
+    const searchParams = new URLSearchParams();
+    if (params?.status) searchParams.append('status', params.status);
+    if (params?.page) searchParams.append('page', params.page.toString());
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    
+    const { data } = await api.get(`/admin/posts?${searchParams.toString()}`);
+    return data;
+  },
+  
+  updatePostStatus: async (postId: string, status: string) => {
+    const { data } = await api.put(`/admin/posts/${postId}/status`, { status });
+    return data;
   }
 };
 

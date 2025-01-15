@@ -108,4 +108,68 @@ router.put('/users/:id', auth, adminAuth, adminController.updateUserRole);
  */
 router.get('/stats', auth, adminAuth, adminController.getStats);
 
+/**
+ * @swagger
+ * /admin/posts:
+ *   get:
+ *     summary: Get all posts with filters
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [draft, pending, published]
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of posts with pagination
+ *       403:
+ *         description: Not authorized
+ */
+router.get('/posts', auth, adminAuth, adminController.getAllPosts);
+
+/**
+ * @swagger
+ * /admin/posts/{id}/status:
+ *   put:
+ *     summary: Update post status
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [draft, pending, published]
+ *     responses:
+ *       200:
+ *         description: Post status updated successfully
+ *       403:
+ *         description: Not authorized
+ *       404:
+ *         description: Post not found
+ */
+router.put('/posts/:id/status', auth, adminAuth, adminController.updatePostStatus);
+
 export default router; 

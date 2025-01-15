@@ -114,4 +114,20 @@
     font-size: 0.875rem;
     color: $secondary-color;
   }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-unit * 6;
+  }
+
+  &__filters {
+    display: flex;
+    gap: $spacing-unit * 4;
+  }
+
+  &__pagination {
+    margin-top: $spacing-unit * 6;
+  }
 } 
