@@ -20,4 +20,14 @@ export interface Post {
 export interface AuthResponse {
   user: User;
   token: string;
+}
+
+export interface AdminPostsResponse {
+  posts: Post[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 } 

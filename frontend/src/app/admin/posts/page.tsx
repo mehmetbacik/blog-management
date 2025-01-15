@@ -3,21 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { Post } from '@/types';
+import { Post, AdminPostsResponse } from '@/types';
 import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Pagination } from '@/components/ui/Pagination';
 import { showToast } from '@/utils/toast';
 
-interface PostsState {
-  posts: Post[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
-}
+interface PostsState extends AdminPostsResponse {}
 
 const POSTS_PER_PAGE = 10;
 
@@ -32,7 +24,7 @@ export default function AdminPostsPage() {
     }
   });
   const [loading, setLoading] = useState(true);
-  const [selectedStatus, setSelectedStatus] = useState<string>('');
+  const [selectedStatus, setSelectedStatus] = useState<Post['status'] | ''>('');
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -66,13 +58,13 @@ export default function AdminPostsPage() {
     fetchPosts();
   }, [user, router, searchParams]);
 
-  const handleStatusChange = async (postId: string, newStatus: string) => {
+  const handleStatusChange = async (postId: string, newStatus: Post['status']) => {
     try {
-      await adminService.updatePostStatus(postId, newStatus);
+      const updatedPost = await adminService.updatePostStatus(postId, newStatus);
       setPostsState(prev => ({
         ...prev,
         posts: prev.posts.map(post =>
-          post._id === postId ? { ...post, status: newStatus } : post
+          post._id === postId ? updatedPost : post
         )
       }));
       showToast.success('Post status updated successfully');
@@ -81,7 +73,7 @@ export default function AdminPostsPage() {
     }
   };
 
-  const handleFilterChange = (status: string) => {
+  const handleFilterChange = (status: Post['status'] | '') => {
     const params = new URLSearchParams(searchParams.toString());
     if (status) {
       params.set('status', status);
@@ -114,7 +106,7 @@ export default function AdminPostsPage() {
           <div className="admin__filters">
             <select
               value={selectedStatus}
-              onChange={(e) => handleFilterChange(e.target.value)}
+              onChange={(e) => handleFilterChange(e.target.value as Post['status'] | '')}
               className="admin__select"
             >
               <option value="">All Status</option>
@@ -147,7 +139,7 @@ export default function AdminPostsPage() {
                     <td>
                       <select
                         value={post.status}
-                        onChange={(e) => handleStatusChange(post._id, e.target.value)}
+                        onChange={(e) => handleStatusChange(post._id, e.target.value as Post['status'])}
                         className="admin__select"
                       >
                         <option value="draft">Draft</option>

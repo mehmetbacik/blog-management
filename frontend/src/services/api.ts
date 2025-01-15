@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post } from '@/types';
+import { Post, AdminPostsResponse } from '@/types';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
@@ -141,10 +141,10 @@ export const adminService = {
   },
   
   getAllPosts: async (params?: {
-    status?: string;
+    status?: 'draft' | 'pending' | 'published';
     page?: number;
     limit?: number;
-  }) => {
+  }): Promise<AdminPostsResponse> => {
     const searchParams = new URLSearchParams();
     if (params?.status) searchParams.append('status', params.status);
     if (params?.page) searchParams.append('page', params.page.toString());
@@ -154,7 +154,7 @@ export const adminService = {
     return data;
   },
   
-  updatePostStatus: async (postId: string, status: string) => {
+  updatePostStatus: async (postId: string, status: 'draft' | 'pending' | 'published'): Promise<Post> => {
     const { data } = await api.put(`/admin/posts/${postId}/status`, { status });
     return data;
   }
