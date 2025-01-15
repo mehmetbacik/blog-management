@@ -124,4 +124,21 @@ export const postService = {
   },
 };
 
+export const adminService = {
+  getAllUsers: async () => {
+    const { data } = await api.get('/admin/users');
+    return data;
+  },
+  
+  updateUserRole: async (userId: string, role: string) => {
+    const { data } = await api.put(`/admin/users/${userId}`, { role });
+    return data;
+  },
+  
+  getStats: async () => {
+    const { data } = await api.get('/admin/stats');
+    return data;
+  }
+};
+
 export default api; 
