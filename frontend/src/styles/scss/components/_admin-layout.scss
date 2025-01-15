@@ -1,0 +1,81 @@
+.admin-layout {
+  display: flex;
+  min-height: calc(100vh - 64px); // Navbar yüksekliğini çıkarıyoruz
+  
+  &__sidebar {
+    width: 240px;
+    background: white;
+    border-right: 1px solid $border-color;
+    padding: $spacing-unit * 4;
+    
+    @media (max-width: map-get($breakpoints, 'md')) {
+      display: none;
+    }
+  }
+  
+  &__main {
+    flex: 1;
+    padding: $spacing-unit * 4;
+    background: rgba($light-color, 0.5);
+  }
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-unit * 2;
+  
+  &__link {
+    display: flex;
+    align-items: center;
+    padding: $spacing-unit * 3;
+    border-radius: $border-radius;
+    color: $secondary-color;
+    transition: $transition-base;
+    
+    &:hover {
+      background: rgba($primary-color, 0.05);
+      color: $primary-color;
+    }
+    
+    &--active {
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
+}
+
+// Mobil menü
+.admin-mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid $border-color;
+  padding: $spacing-unit * 2;
+  
+  @media (max-width: map-get($breakpoints, 'md')) {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-unit;
+    color: $secondary-color;
+    font-size: 0.875rem;
+    
+    &:hover {
+      color: $primary-color;
+    }
+    
+    &--active {
+      color: $primary-color;
+    }
+  }
+} 
