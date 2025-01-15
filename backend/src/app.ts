@@ -7,6 +7,7 @@ import postRoutes from './routes/postRoutes';
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './config/swagger';
 import { errorHandler } from './middleware/errorHandler';
+import adminRoutes from './routes/adminRoutes';
 
 // Load environment variables
 dotenv.config();
@@ -55,6 +56,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
