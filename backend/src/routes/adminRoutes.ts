@@ -67,4 +67,45 @@ router.get('/users', auth, adminAuth, adminController.getAllUsers);
  */
 router.put('/users/:id', auth, adminAuth, adminController.updateUserRole);
 
+/**
+ * @swagger
+ * /admin/stats:
+ *   get:
+ *     summary: Get system statistics
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: System statistics
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 users:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: number
+ *                     authors:
+ *                       type: number
+ *                     visitors:
+ *                       type: number
+ *                 posts:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: number
+ *                     published:
+ *                       type: number
+ *                     pending:
+ *                       type: number
+ *                     draft:
+ *                       type: number
+ *       403:
+ *         description: Not authorized
+ */
+router.get('/stats', auth, adminAuth, adminController.getStats);
+
 export default router; 

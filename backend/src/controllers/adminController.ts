@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/User';
 import { AuthRequest } from '../middleware/auth';
 import { ValidationError, NotFoundError } from '../utils/errors';
+import { Post } from '../models/Post';
 
 export const adminController = {
   // Get all users
@@ -50,6 +51,43 @@ export const adminController = {
       } else {
         res.status(500).json({ error: 'Error updating user role' });
       }
+    }
+  },
+
+  // Get system stats
+  getStats: async (_req: Request, res: Response) => {
+    try {
+      const [
+        totalUsers,
+        totalPosts,
+        publishedPosts,
+        pendingPosts,
+        totalAuthors
+      ] = await Promise.all([
+        User.countDocuments(),
+        Post.countDocuments(),
+        Post.countDocuments({ status: 'published' }),
+        Post.countDocuments({ status: 'pending' }),
+        User.countDocuments({ role: 'author' })
+      ]);
+
+      const stats = {
+        users: {
+          total: totalUsers,
+          authors: totalAuthors,
+          visitors: totalUsers - totalAuthors
+        },
+        posts: {
+          total: totalPosts,
+          published: publishedPosts,
+          pending: pendingPosts,
+          draft: totalPosts - publishedPosts - pendingPosts
+        }
+      };
+
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching stats' });
     }
   }
 }; 

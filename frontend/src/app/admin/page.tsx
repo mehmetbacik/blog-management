@@ -8,8 +8,23 @@ import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { showToast } from '@/utils/toast';
 
+interface Stats {
+  users: {
+    total: number;
+    authors: number;
+    visitors: number;
+  };
+  posts: {
+    total: number;
+    published: number;
+    pending: number;
+    draft: number;
+  };
+}
+
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const router = useRouter();
@@ -20,18 +35,22 @@ export default function AdminPage() {
       return;
     }
 
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const data = await adminService.getAllUsers();
-        setUsers(data);
+        const [usersData, statsData] = await Promise.all([
+          adminService.getAllUsers(),
+          adminService.getStats()
+        ]);
+        setUsers(usersData);
+        setStats(statsData);
       } catch (error) {
-        showToast.error('Failed to fetch users');
+        showToast.error('Failed to fetch data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchData();
   }, [user, router]);
 
   const handleRoleUpdate = async (userId: string, newRole: string) => {
@@ -59,6 +78,53 @@ export default function AdminPage() {
       <div className="admin">
         <h1 className="admin__title">Admin Dashboard</h1>
         
+        {stats && (
+          <section className="admin__section">
+            <h2 className="admin__subtitle">System Statistics</h2>
+            <div className="admin__stats">
+              <div className="admin__stat-group">
+                <h3 className="admin__stat-title">Users</h3>
+                <div className="admin__stat-cards">
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.users.total}</span>
+                    <span className="admin__stat-label">Total Users</span>
+                  </div>
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.users.authors}</span>
+                    <span className="admin__stat-label">Authors</span>
+                  </div>
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.users.visitors}</span>
+                    <span className="admin__stat-label">Visitors</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin__stat-group">
+                <h3 className="admin__stat-title">Posts</h3>
+                <div className="admin__stat-cards">
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.posts.total}</span>
+                    <span className="admin__stat-label">Total Posts</span>
+                  </div>
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.posts.published}</span>
+                    <span className="admin__stat-label">Published</span>
+                  </div>
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.posts.pending}</span>
+                    <span className="admin__stat-label">Pending</span>
+                  </div>
+                  <div className="admin__stat-card">
+                    <span className="admin__stat-value">{stats.posts.draft}</span>
+                    <span className="admin__stat-label">Draft</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="admin__section">
           <h2 className="admin__subtitle">User Management</h2>
           <div className="admin__table-wrapper">

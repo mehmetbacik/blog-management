@@ -60,4 +60,58 @@
       border-color: $primary-color;
     }
   }
+
+  &__stats {
+    display: grid;
+    gap: $spacing-unit * 6;
+    
+    @include breakpoint('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__stat-group {
+    background: rgba($primary-color, 0.02);
+    border-radius: $border-radius;
+    padding: $spacing-unit * 4;
+  }
+
+  &__stat-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $dark-color;
+    margin-bottom: $spacing-unit * 4;
+  }
+
+  &__stat-cards {
+    display: grid;
+    gap: $spacing-unit * 4;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  &__stat-card {
+    background: white;
+    border-radius: $border-radius;
+    padding: $spacing-unit * 3;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba($dark-color, 0.05);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba($dark-color, 0.1);
+    }
+  }
+
+  &__stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: $spacing-unit;
+  }
+
+  &__stat-label {
+    font-size: 0.875rem;
+    color: $secondary-color;
+  }
 } 
