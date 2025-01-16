@@ -4,6 +4,21 @@ import { AuthRequest } from '../middleware/auth';
 import { ValidationError, NotFoundError } from '../utils/errors';
 import { Post } from '../models/Post';
 
+interface AdminStats {
+  users: {
+    total: number;
+    admins: number;
+    authors: number;
+    visitors: number;
+  };
+  posts: {
+    total: number;
+    published: number;
+    pending: number;
+    draft: number;
+  };
+}
+
 export const adminController = {
   // Get all users
   getAllUsers: async (_req: Request, res: Response) => {
@@ -59,35 +74,42 @@ export const adminController = {
     try {
       const [
         totalUsers,
+        adminUsers,
+        authorUsers,
+        visitorUsers,
         totalPosts,
         publishedPosts,
         pendingPosts,
-        totalAuthors
+        draftPosts
       ] = await Promise.all([
         User.countDocuments(),
+        User.countDocuments({ role: 'admin' }),
+        User.countDocuments({ role: 'author' }),
+        User.countDocuments({ role: 'visitor' }),
         Post.countDocuments(),
         Post.countDocuments({ status: 'published' }),
         Post.countDocuments({ status: 'pending' }),
-        User.countDocuments({ role: 'author' })
+        Post.countDocuments({ status: 'draft' })
       ]);
 
-      const stats = {
+      const stats: AdminStats = {
         users: {
           total: totalUsers,
-          authors: totalAuthors,
-          visitors: totalUsers - totalAuthors
+          admins: adminUsers,
+          authors: authorUsers,
+          visitors: visitorUsers
         },
         posts: {
           total: totalPosts,
           published: publishedPosts,
           pending: pendingPosts,
-          draft: totalPosts - publishedPosts - pendingPosts
+          draft: draftPosts
         }
       };
 
       res.json(stats);
     } catch (error) {
-      res.status(500).json({ error: 'Error fetching stats' });
+      res.status(500).json({ error: 'Error fetching statistics' });
     }
   },
 

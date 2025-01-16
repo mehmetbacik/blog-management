@@ -30,4 +30,19 @@ export interface AdminPostsResponse {
     limit: number;
     totalPages: number;
   };
+}
+
+export interface AdminStats {
+  users: {
+    total: number;
+    admins: number;
+    authors: number;
+    visitors: number;
+  };
+  posts: {
+    total: number;
+    published: number;
+    pending: number;
+    draft: number;
+  };
 } 

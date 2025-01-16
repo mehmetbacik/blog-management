@@ -71,13 +71,13 @@ router.put('/users/:id', auth, adminAuth, adminController.updateUserRole);
  * @swagger
  * /admin/stats:
  *   get:
- *     summary: Get system statistics
+ *     summary: Get admin statistics
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: System statistics
+ *         description: Admin statistics
  *         content:
  *           application/json:
  *             schema:
@@ -87,6 +87,8 @@ router.put('/users/:id', auth, adminAuth, adminController.updateUserRole);
  *                   type: object
  *                   properties:
  *                     total:
+ *                       type: number
+ *                     admins:
  *                       type: number
  *                     authors:
  *                       type: number
