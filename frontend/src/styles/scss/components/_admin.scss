@@ -126,11 +126,10 @@
   &__filters {
     display: flex;
     gap: $spacing-unit * 4;
-    align-items: center;
+    margin-bottom: $spacing-unit * 6;
     
     @media (max-width: map-get($breakpoints, 'md')) {
       flex-direction: column;
-      align-items: stretch;
     }
   }
 
@@ -204,6 +203,20 @@
     
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &__filter-actions {
+    display: flex;
+    gap: $spacing-unit * 2;
+    align-items: flex-start;
+    
+    @media (max-width: map-get($breakpoints, 'md')) {
+      width: 100%;
+      
+      .button {
+        flex: 1;
+      }
     }
   }
 } 

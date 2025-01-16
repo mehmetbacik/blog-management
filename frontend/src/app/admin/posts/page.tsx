@@ -9,6 +9,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Pagination } from '@/components/ui/Pagination';
 import { showToast } from '@/utils/toast';
 import Link from 'next/link';
+import { SearchFilter } from '@/components/admin/SearchFilter';
 
 const POSTS_PER_PAGE = 10;
 
@@ -111,6 +112,12 @@ export default function AdminPostsPage() {
     }
   };
 
+  const statusOptions = [
+    { value: 'draft', label: 'Draft' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'published', label: 'Published' }
+  ];
+
   if (loading) {
     return (
       <div className="container">
@@ -124,31 +131,19 @@ export default function AdminPostsPage() {
       <div className="admin">
         <header className="admin__header">
           <h1 className="admin__title">Post Management</h1>
-          <div className="admin__filters">
-            <form onSubmit={handleSearch} className="admin__search-form">
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="admin__search"
-              />
-              <button type="submit" className="button">
-                Search
-              </button>
-            </form>
-            <select
-              value={selectedStatus}
-              onChange={(e) => handleFilterChange(e.target.value as Post['status'] | '')}
-              className="admin__select"
-            >
-              <option value="">All Status</option>
-              <option value="draft">Draft</option>
-              <option value="pending">Pending</option>
-              <option value="published">Published</option>
-            </select>
-          </div>
         </header>
+
+        <SearchFilter
+          statusOptions={statusOptions}
+          placeholder="Search posts..."
+          onSearch={({ search, status }) => {
+            const params = new URLSearchParams();
+            if (search) params.set('search', search);
+            if (status) params.set('status', status);
+            params.set('page', '1');
+            router.push(`/admin/posts?${params.toString()}`);
+          }}
+        />
 
         <section className="admin__section">
           <div className="admin__table-wrapper">
