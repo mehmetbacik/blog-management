@@ -11,6 +11,8 @@ import { showToast } from '@/utils/toast';
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState<User['role'] | ''>('');
   const { user } = useAuth();
   const router = useRouter();
 
@@ -46,6 +48,16 @@ export default function AdminUsersPage() {
     }
   };
 
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = searchTerm === '' || 
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesRole = roleFilter === '' || user.role === roleFilter;
+    
+    return matchesSearch && matchesRole;
+  });
+
   if (loading) {
     return (
       <div className="container">
@@ -59,6 +71,25 @@ export default function AdminUsersPage() {
       <div className="admin">
         <header className="admin__header">
           <h1 className="admin__title">User Management</h1>
+          <div className="admin__filters">
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="admin__search"
+            />
+            <select
+              value={roleFilter}
+              onChange={(e) => setRoleFilter(e.target.value as User['role'] | '')}
+              className="admin__select"
+            >
+              <option value="">All Roles</option>
+              <option value="admin">Admin</option>
+              <option value="author">Author</option>
+              <option value="visitor">Visitor</option>
+            </select>
+          </div>
         </header>
 
         <section className="admin__section">
@@ -74,7 +105,7 @@ export default function AdminUsersPage() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <tr key={user._id}>
                     <td>{user.username}</td>
                     <td>{user.email}</td>
@@ -96,6 +127,9 @@ export default function AdminUsersPage() {
               </tbody>
             </table>
           </div>
+          {filteredUsers.length === 0 && (
+            <p className="admin__empty">No users found matching your criteria.</p>
+          )}
         </section>
       </div>
     </div>

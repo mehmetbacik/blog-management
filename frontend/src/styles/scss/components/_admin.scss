@@ -125,6 +125,35 @@
   &__filters {
     display: flex;
     gap: $spacing-unit * 4;
+    align-items: center;
+    
+    @media (max-width: map-get($breakpoints, 'md')) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__search {
+    min-width: 240px;
+    padding: $spacing-unit * 2 $spacing-unit * 3;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: $secondary-color;
+    padding: $spacing-unit * 8;
+    background: rgba($secondary-color, 0.05);
+    border-radius: $border-radius;
+    margin-top: $spacing-unit * 4;
   }
 
   &__pagination {
