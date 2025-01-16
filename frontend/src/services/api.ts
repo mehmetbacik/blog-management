@@ -140,13 +140,10 @@ export const adminService = {
     return data;
   },
   
-  getAllPosts: async (params?: {
-    status?: 'draft' | 'pending' | 'published';
-    page?: number;
-    limit?: number;
-  }): Promise<AdminPostsResponse> => {
+  getAllPosts: async (params?: GetAllPostsParams): Promise<AdminPostsResponse> => {
     const searchParams = new URLSearchParams();
     if (params?.status) searchParams.append('status', params.status);
+    if (params?.search) searchParams.append('search', params.search);
     if (params?.page) searchParams.append('page', params.page.toString());
     if (params?.limit) searchParams.append('limit', params.limit.toString());
     

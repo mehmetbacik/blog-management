@@ -22,6 +22,13 @@ export interface AuthResponse {
   token: string;
 }
 
+interface GetAllPostsParams {
+  status?: Post['status'];
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
 export interface AdminPostsResponse {
   posts: Post[];
   pagination: {
