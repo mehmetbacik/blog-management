@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User';
-import { AuthRequest } from '../middleware/auth';
 import { ValidationError, NotFoundError } from '../utils/errors';
 import { Post } from '../models/Post';
 
@@ -58,7 +57,7 @@ export const adminController = {
       user.role = role;
       await user.save();
 
-      const userResponse = user.toObject();
+      const userResponse = user.toObject() as { password?: string };
       delete userResponse.password;
 
       res.json(userResponse);
