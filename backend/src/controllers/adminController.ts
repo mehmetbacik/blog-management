@@ -23,7 +23,9 @@ export const adminController = {
   // Get all users
   getAllUsers: async (_req: Request, res: Response) => {
     try {
-      const users = await User.find().select('-password');
+      const users = await User.find()
+        .select('-password')
+        .sort({ createdAt: -1 });
       res.json(users);
     } catch (error) {
       res.status(500).json({ error: 'Error fetching users' });
@@ -31,10 +33,10 @@ export const adminController = {
   },
 
   // Update user role
-  updateUserRole: async (req: AuthRequest, res: Response) => {
+  updateUserRole: async (req: Request, res: Response) => {
     try {
-      const { role } = req.body;
       const { id } = req.params;
+      const { role } = req.body;
 
       if (!['admin', 'author', 'visitor'].includes(role)) {
         throw new ValidationError('Invalid role');

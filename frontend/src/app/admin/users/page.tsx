@@ -59,79 +59,73 @@ export default function AdminUsersPage() {
   });
 
   if (loading) {
-    return (
-      <div className="container">
-        <LoadingSpinner />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
-    <div className="container">
-      <div className="admin">
-        <header className="admin__header">
-          <h1 className="admin__title">User Management</h1>
-          <div className="admin__filters">
-            <input
-              type="text"
-              placeholder="Search users..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="admin__search"
-            />
-            <select
-              value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value as User['role'] | '')}
-              className="admin__select"
-            >
-              <option value="">All Roles</option>
-              <option value="admin">Admin</option>
-              <option value="author">Author</option>
-              <option value="visitor">Visitor</option>
-            </select>
-          </div>
-        </header>
+    <div className="admin">
+      <header className="admin__header">
+        <h1 className="admin__title">User Management</h1>
+        <div className="admin__filters">
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="admin__search"
+          />
+          <select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value as User['role'] | '')}
+            className="admin__select"
+          >
+            <option value="">All Roles</option>
+            <option value="admin">Admin</option>
+            <option value="author">Author</option>
+            <option value="visitor">Visitor</option>
+          </select>
+        </div>
+      </header>
 
-        <section className="admin__section">
-          <div className="admin__table-wrapper">
-            <table className="admin__table">
-              <thead>
-                <tr>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Joined Date</th>
-                  <th>Actions</th>
+      <section className="admin__section">
+        <div className="admin__table-wrapper">
+          <table className="admin__table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <select
+                      value={user.role}
+                      onChange={(e) => handleRoleUpdate(user._id, e.target.value as User['role'])}
+                      className="admin__select"
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="author">Author</option>
+                      <option value="visitor">Visitor</option>
+                    </select>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map((user) => (
-                  <tr key={user._id}>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.role}</td>
-                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td>
-                      <select
-                        value={user.role}
-                        onChange={(e) => handleRoleUpdate(user._id, e.target.value as User['role'])}
-                        className="admin__select"
-                      >
-                        <option value="admin">Admin</option>
-                        <option value="author">Author</option>
-                        <option value="visitor">Visitor</option>
-                      </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {filteredUsers.length === 0 && (
-            <p className="admin__empty">No users found matching your criteria.</p>
-          )}
-        </section>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {filteredUsers.length === 0 && (
+          <p className="admin__empty">No users found matching your criteria.</p>
+        )}
+      </section>
     </div>
   );
 } 
