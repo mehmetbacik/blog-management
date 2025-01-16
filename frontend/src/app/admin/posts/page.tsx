@@ -3,28 +3,24 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { Post, AdminPostsResponse } from '@/types';
+import { Post } from '@/types';
 import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Pagination } from '@/components/ui/Pagination';
 import { showToast } from '@/utils/toast';
 
-interface PostsState extends AdminPostsResponse {}
-
 const POSTS_PER_PAGE = 10;
 
 export default function AdminPostsPage() {
-  const [postsState, setPostsState] = useState<PostsState>({
-    posts: [],
-    pagination: {
-      total: 0,
-      page: 1,
-      limit: POSTS_PER_PAGE,
-      totalPages: 0
-    }
-  });
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState<Post['status'] | ''>('');
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    totalPages: 0
+  });
+  
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -35,19 +31,23 @@ export default function AdminPostsPage() {
       return;
     }
 
+    const page = Number(searchParams.get('page')) || 1;
+    const status = searchParams.get('status') || '';
+    setSelectedStatus(status as Post['status'] | '');
+
     const fetchPosts = async () => {
       try {
-        const pageParam = searchParams.get('page');
-        const statusParam = searchParams.get('status');
-        
-        const response = await adminService.getAllPosts({
-          status: statusParam || undefined,
-          page: pageParam ? parseInt(pageParam) : 1,
+        const data = await adminService.getAllPosts({
+          status: status as Post['status'],
+          page,
           limit: POSTS_PER_PAGE
         });
-        
-        setPostsState(response);
-        setSelectedStatus(statusParam || '');
+        setPosts(data.posts);
+        setPagination({
+          total: data.pagination.total,
+          page: data.pagination.page,
+          totalPages: data.pagination.totalPages
+        });
       } catch (error) {
         showToast.error('Failed to fetch posts');
       } finally {
@@ -60,33 +60,26 @@ export default function AdminPostsPage() {
 
   const handleStatusChange = async (postId: string, newStatus: Post['status']) => {
     try {
-      const updatedPost = await adminService.updatePostStatus(postId, newStatus);
-      setPostsState(prev => ({
-        ...prev,
-        posts: prev.posts.map(post =>
-          post._id === postId ? updatedPost : post
-        )
-      }));
+      await adminService.updatePostStatus(postId, newStatus);
+      setPosts(posts.map(post => 
+        post._id === postId ? { ...post, status: newStatus } : post
+      ));
       showToast.success('Post status updated successfully');
     } catch (error) {
       showToast.error('Failed to update post status');
     }
   };
 
-  const handleFilterChange = (status: Post['status'] | '') => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (status) {
-      params.set('status', status);
-    } else {
-      params.delete('status');
-    }
-    params.set('page', '1');
-    router.push(`/admin/posts?${params.toString()}`);
-  };
-
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
+    router.push(`/admin/posts?${params.toString()}`);
+  };
+
+  const handleFilterChange = (status: Post['status'] | '') => {
+    const params = new URLSearchParams();
+    if (status) params.set('status', status);
+    params.set('page', '1');
     router.push(`/admin/posts?${params.toString()}`);
   };
 
@@ -130,7 +123,7 @@ export default function AdminPostsPage() {
                 </tr>
               </thead>
               <tbody>
-                {postsState.posts.map((post) => (
+                {posts.map((post) => (
                   <tr key={post._id}>
                     <td>{post.title}</td>
                     <td>{post.author.username}</td>
@@ -153,11 +146,11 @@ export default function AdminPostsPage() {
             </table>
           </div>
 
-          {postsState.pagination.totalPages > 1 && (
+          {pagination.totalPages > 1 && (
             <div className="admin__pagination">
               <Pagination
-                currentPage={postsState.pagination.page}
-                totalPages={postsState.pagination.totalPages}
+                currentPage={pagination.page}
+                totalPages={pagination.totalPages}
                 onPageChange={handlePageChange}
               />
             </div>
