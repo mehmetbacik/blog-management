@@ -159,4 +159,29 @@
   &__pagination {
     margin-top: $spacing-unit * 6;
   }
+
+  &__search-form {
+    display: flex;
+    gap: $spacing-unit * 2;
+    flex: 1;
+    
+    @media (max-width: map-get($breakpoints, 'md')) {
+      flex-direction: column;
+    }
+  }
+
+  &__search {
+    flex: 1;
+    min-width: 200px;
+    padding: $spacing-unit * 2 $spacing-unit * 3;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    }
+  }
 } 

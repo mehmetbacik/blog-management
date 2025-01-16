@@ -15,6 +15,7 @@ export default function AdminPostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState<Post['status'] | ''>('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [pagination, setPagination] = useState({
     total: 0,
     page: 1,
@@ -33,12 +34,15 @@ export default function AdminPostsPage() {
 
     const page = Number(searchParams.get('page')) || 1;
     const status = searchParams.get('status') || '';
+    const search = searchParams.get('search') || '';
     setSelectedStatus(status as Post['status'] | '');
+    setSearchTerm(search);
 
     const fetchPosts = async () => {
       try {
         const data = await adminService.getAllPosts({
           status: status as Post['status'],
+          search,
           page,
           limit: POSTS_PER_PAGE
         });
@@ -83,6 +87,15 @@ export default function AdminPostsPage() {
     router.push(`/admin/posts?${params.toString()}`);
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchTerm) params.set('search', searchTerm);
+    if (selectedStatus) params.set('status', selectedStatus);
+    params.set('page', '1');
+    router.push(`/admin/posts?${params.toString()}`);
+  };
+
   if (loading) {
     return (
       <div className="container">
@@ -97,6 +110,18 @@ export default function AdminPostsPage() {
         <header className="admin__header">
           <h1 className="admin__title">Post Management</h1>
           <div className="admin__filters">
+            <form onSubmit={handleSearch} className="admin__search-form">
+              <input
+                type="text"
+                placeholder="Search posts..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="admin__search"
+              />
+              <button type="submit" className="button">
+                Search
+              </button>
+            </form>
             <select
               value={selectedStatus}
               onChange={(e) => handleFilterChange(e.target.value as Post['status'] | '')}

@@ -116,14 +116,24 @@ export const adminController = {
   // Get all posts with filters
   getAllPosts: async (req: Request, res: Response) => {
     try {
-      const { status, page = '1', limit = '10' } = req.query;
+      const { status, search, page = '1', limit = '10' } = req.query;
       const pageNumber = parseInt(page as string);
       const limitNumber = parseInt(limit as string);
       const skip = (pageNumber - 1) * limitNumber;
 
       const query: any = {};
+      
+      // Add status filter
       if (status) {
         query.status = status;
+      }
+
+      // Add search filter
+      if (search) {
+        query.$or = [
+          { title: { $regex: search, $options: 'i' } },
+          { content: { $regex: search, $options: 'i' } }
+        ];
       }
 
       const [posts, total] = await Promise.all([
