@@ -1,12 +1,15 @@
 .admin-layout {
   display: flex;
-  min-height: calc(100vh - 64px); // Navbar yüksekliğini çıkarıyoruz
+  min-height: calc(100vh - 64px);
   
   &__sidebar {
     width: 240px;
     background: white;
     border-right: 1px solid $border-color;
     padding: $spacing-unit * 4;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
     
     @media (max-width: map-get($breakpoints, 'md')) {
       display: none;
@@ -17,6 +20,8 @@
     flex: 1;
     padding: $spacing-unit * 4;
     background: rgba($light-color, 0.5);
+    min-height: calc(100vh - 64px);
+    padding-bottom: 80px;
   }
 }
 
@@ -46,7 +51,6 @@
   }
 }
 
-// Mobil menü
 .admin-mobile-nav {
   display: none;
   position: fixed;
@@ -56,6 +60,7 @@
   background: white;
   border-top: 1px solid $border-color;
   padding: $spacing-unit * 2;
+  z-index: 10;
   
   @media (max-width: map-get($breakpoints, 'md')) {
     display: flex;

@@ -48,7 +48,9 @@ export default function AdminLayout({
         </nav>
       </aside>
       <main className="admin-layout__main">
-        {children}
+        <div className="container">
+          {children}
+        </div>
       </main>
       <MobileNav />
     </div>

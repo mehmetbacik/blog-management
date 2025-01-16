@@ -22,7 +22,7 @@ export interface AuthResponse {
   token: string;
 }
 
-interface GetAllPostsParams {
+export interface GetAllPostsParams {
   status?: Post['status'];
   search?: string;
   page?: number;
