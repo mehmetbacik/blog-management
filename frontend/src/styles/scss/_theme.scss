@@ -1,0 +1,61 @@
+:root {
+  // Light theme variables
+  --bg-primary: #{$light-color};
+  --bg-secondary: white;
+  --text-primary: #{$dark-color};
+  --text-secondary: #{$secondary-color};
+  --border-color: #{$border-color};
+  
+  &[data-theme='dark'] {
+    // Dark theme variables
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --border-color: #404040;
+  }
+}
+
+// Tema değiştirme butonu stilleri
+.theme-toggle {
+  padding: $spacing-unit * 2 $spacing-unit * 3;
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  transition: $transition-base;
+  
+  &:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+}
+
+// Admin layout tema güncellemeleri
+.admin-layout {
+  background: var(--bg-primary);
+  
+  &__sidebar {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+  }
+}
+
+.admin-nav {
+  &__link {
+    color: var(--text-secondary);
+    
+    &:hover {
+      color: $primary-color;
+    }
+    
+    &--active {
+      color: $primary-color;
+    }
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: $spacing-unit * 4;
+  }
+} 

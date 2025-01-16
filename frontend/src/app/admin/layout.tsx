@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { MobileNav } from '@/components/admin/MobileNav';
+import { ThemeToggle } from '@/components/admin/ThemeToggle';
 
 export default function AdminLayout({
   children,
@@ -46,6 +47,9 @@ export default function AdminLayout({
             Users
           </Link>
         </nav>
+        <div className="admin-nav__footer">
+          <ThemeToggle />
+        </div>
       </aside>
       <main className="admin-layout__main">
         <div className="container">
