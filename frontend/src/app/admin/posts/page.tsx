@@ -8,6 +8,7 @@ import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Pagination } from '@/components/ui/Pagination';
 import { showToast } from '@/utils/toast';
+import Link from 'next/link';
 
 const POSTS_PER_PAGE = 10;
 
@@ -96,6 +97,20 @@ export default function AdminPostsPage() {
     router.push(`/admin/posts?${params.toString()}`);
   };
 
+  const handleDelete = async (postId: string) => {
+    if (!window.confirm('Are you sure you want to delete this post?')) {
+      return;
+    }
+
+    try {
+      await adminService.deletePost(postId);
+      setPosts(posts.filter(post => post._id !== postId));
+      showToast.success('Post deleted successfully');
+    } catch (error) {
+      showToast.error('Failed to delete post');
+    }
+  };
+
   if (loading) {
     return (
       <div className="container">
@@ -150,20 +165,36 @@ export default function AdminPostsPage() {
               <tbody>
                 {posts.map((post) => (
                   <tr key={post._id}>
-                    <td>{post.title}</td>
+                    <td>
+                      <Link 
+                        href={`/posts/${post._id}`}
+                        className="admin__link"
+                        target="_blank"
+                      >
+                        {post.title}
+                      </Link>
+                    </td>
                     <td>{post.author.username}</td>
                     <td>{post.status}</td>
                     <td>{new Date(post.createdAt).toLocaleDateString()}</td>
                     <td>
-                      <select
-                        value={post.status}
-                        onChange={(e) => handleStatusChange(post._id, e.target.value as Post['status'])}
-                        className="admin__select"
-                      >
-                        <option value="draft">Draft</option>
-                        <option value="pending">Pending</option>
-                        <option value="published">Published</option>
-                      </select>
+                      <div className="admin__actions">
+                        <select
+                          value={post.status}
+                          onChange={(e) => handleStatusChange(post._id, e.target.value as Post['status'])}
+                          className="admin__select"
+                        >
+                          <option value="draft">Draft</option>
+                          <option value="pending">Pending</option>
+                          <option value="published">Published</option>
+                        </select>
+                        <button
+                          onClick={() => handleDelete(post._id)}
+                          className="button button--danger"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

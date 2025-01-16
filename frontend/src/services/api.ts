@@ -157,6 +157,15 @@ export const adminService = {
   updatePostStatus: async (postId: string, status: 'draft' | 'pending' | 'published'): Promise<Post> => {
     const { data } = await api.put(`/admin/posts/${postId}/status`, { status });
     return data;
+  },
+  
+  getPostById: async (postId: string): Promise<Post> => {
+    const { data } = await api.get(`/admin/posts/${postId}`);
+    return data;
+  },
+  
+  deletePost: async (postId: string): Promise<void> => {
+    await api.delete(`/admin/posts/${postId}`);
   }
 };
 

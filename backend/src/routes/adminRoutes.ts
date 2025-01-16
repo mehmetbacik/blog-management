@@ -174,4 +174,47 @@ router.get('/posts', auth, adminAuth, adminController.getAllPosts);
  */
 router.put('/posts/:id/status', auth, adminAuth, adminController.updatePostStatus);
 
+/**
+ * @swagger
+ * /admin/posts/{id}:
+ *   get:
+ *     summary: Get post by ID
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Post details
+ *       403:
+ *         description: Not authorized
+ *       404:
+ *         description: Post not found
+ *   delete:
+ *     summary: Delete post
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Post deleted successfully
+ *       403:
+ *         description: Not authorized
+ *       404:
+ *         description: Post not found
+ */
+router.get('/posts/:id', auth, adminAuth, adminController.getPostById);
+router.delete('/posts/:id', auth, adminAuth, adminController.deletePost);
+
 export default router; 

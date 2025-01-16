@@ -185,5 +185,46 @@ export const adminController = {
         res.status(500).json({ error: 'Error updating post status' });
       }
     }
+  },
+
+  // Delete post
+  deletePost: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      
+      const post = await Post.findById(id);
+      if (!post) {
+        throw new NotFoundError('Post');
+      }
+
+      await post.deleteOne();
+      res.json({ message: 'Post deleted successfully' });
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        res.status(error.statusCode).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: 'Error deleting post' });
+      }
+    }
+  },
+
+  // Get post by id
+  getPostById: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      
+      const post = await Post.findById(id).populate('author', 'username email');
+      if (!post) {
+        throw new NotFoundError('Post');
+      }
+
+      res.json(post);
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        res.status(error.statusCode).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: 'Error fetching post' });
+      }
+    }
   }
 }; 
