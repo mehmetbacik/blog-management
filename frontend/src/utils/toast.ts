@@ -1,4 +1,4 @@
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 export const showToast = {
   success: (message: string) => {
@@ -7,8 +7,8 @@ export const showToast = {
   error: (message: string) => {
     toast.error(message);
   },
-  loading: (message: string) => {
-    return toast.loading(message);
+  loading: () => {
+    return toast.loading('Loading...');
   },
   dismiss: (toastId: string) => {
     toast.dismiss(toastId);
