@@ -7,6 +7,7 @@ import { AdminStats } from '@/types';
 import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { showToast } from '@/utils/toast';
+import { StatCard } from '@/components/admin/StatCard';
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -49,44 +50,20 @@ export default function AdminDashboardPage() {
           <div className="admin__stat-group">
             <h2 className="admin__stat-title">User Statistics</h2>
             <div className="admin__stat-cards">
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.users.total}</span>
-                <span className="admin__stat-label">Total Users</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.users.admins}</span>
-                <span className="admin__stat-label">Admins</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.users.authors}</span>
-                <span className="admin__stat-label">Authors</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.users.visitors}</span>
-                <span className="admin__stat-label">Visitors</span>
-              </div>
+              <StatCard value={stats.users.total} label="Total Users" />
+              <StatCard value={stats.users.admins} label="Admins" />
+              <StatCard value={stats.users.authors} label="Authors" />
+              <StatCard value={stats.users.visitors} label="Visitors" />
             </div>
           </div>
 
           <div className="admin__stat-group">
             <h2 className="admin__stat-title">Post Statistics</h2>
             <div className="admin__stat-cards">
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.posts.total}</span>
-                <span className="admin__stat-label">Total Posts</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.posts.published}</span>
-                <span className="admin__stat-label">Published</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.posts.pending}</span>
-                <span className="admin__stat-label">Pending</span>
-              </div>
-              <div className="admin__stat-card">
-                <span className="admin__stat-value">{stats.posts.draft}</span>
-                <span className="admin__stat-label">Draft</span>
-              </div>
+              <StatCard value={stats.posts.total} label="Total Posts" />
+              <StatCard value={stats.posts.published} label="Published" />
+              <StatCard value={stats.posts.pending} label="Pending" />
+              <StatCard value={stats.posts.draft} label="Draft" />
             </div>
           </div>
         </div>

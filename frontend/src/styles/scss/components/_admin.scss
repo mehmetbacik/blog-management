@@ -64,6 +64,7 @@
   &__stats {
     display: grid;
     gap: $spacing-unit * 6;
+    animation: fadeIn 0.5s ease-out;
     
     @include breakpoint('md') {
       grid-template-columns: repeat(2, 1fr);
@@ -71,9 +72,17 @@
   }
 
   &__stat-group {
-    background: rgba($primary-color, 0.02);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: $border-radius;
-    padding: $spacing-unit * 4;
+    padding: $spacing-unit * 6;
+    box-shadow: 0 2px 4px rgba(var(--shadow-color), 0.05);
+    transition: $transition-base;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(var(--shadow-color), 0.1);
+    }
   }
 
   &__stat-title {
@@ -86,34 +95,53 @@
   &__stat-cards {
     display: grid;
     gap: $spacing-unit * 4;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   &__stat-card {
-    background: var(--bg-secondary);
+    position: relative;
+    background: var(--bg-primary);
     border-radius: $border-radius;
-    padding: $spacing-unit * 3;
+    padding: $spacing-unit * 4;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(var(--text-primary), 0.05);
+    overflow: hidden;
     transition: $transition-base;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: $primary-color;
+      opacity: 0;
+      transition: $transition-base;
+    }
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba($dark-color, 0.1);
+      
+      &::before {
+        opacity: 1;
+      }
     }
   }
 
   &__stat-value {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: $primary-color;
-    margin-bottom: $spacing-unit;
+    margin-bottom: $spacing-unit * 2;
+    animation: countUp 1s ease-out;
   }
 
   &__stat-label {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   &__header {
@@ -218,5 +246,27 @@
         flex: 1;
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 } 
