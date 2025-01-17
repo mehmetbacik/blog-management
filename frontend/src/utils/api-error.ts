@@ -1,3 +1,9 @@
+interface ErrorResponse {
+  status: number;
+  statusText: string;
+  errors?: Array<{ field: string; message: string }>;
+}
+
 export class ApiError extends Error {
   constructor(
     public statusCode: number,
@@ -8,7 +14,7 @@ export class ApiError extends Error {
     this.name = 'ApiError';
   }
 
-  static fromResponse(response: Response) {
+  static fromResponse(response: ErrorResponse) {
     return new ApiError(
       response.status,
       response.statusText,

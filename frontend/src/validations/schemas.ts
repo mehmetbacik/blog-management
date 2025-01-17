@@ -27,7 +27,7 @@ export const registerSchema = z.object({
   confirmPassword: z
     .string()
     .min(1, 'Please confirm your password'),
-}).refine((data) => data.password === data.confirmPassword, {
+}).refine((data: { password: string; confirmPassword: string }) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
 });
@@ -68,7 +68,7 @@ export const profileUpdateSchema = z.object({
     .min(6, 'New password must be at least 6 characters')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 'Password must contain at least one uppercase letter, one lowercase letter and one number')
     .optional(),
-}).refine((data) => {
+}).refine((data: { newPassword?: string; currentPassword?: string }) => {
   if (data.newPassword && !data.currentPassword) {
     return false;
   }

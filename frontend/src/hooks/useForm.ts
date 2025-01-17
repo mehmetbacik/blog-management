@@ -7,7 +7,7 @@ interface UseFormProps<T> {
 }
 
 interface FormState {
-  errors: { [key: string]: string };
+  errors: { [key: string]: string | undefined };
   isSubmitting: boolean;
 }
 
@@ -28,7 +28,7 @@ export function useForm<T>({ schema, onSubmit }: UseFormProps<T>) {
         }
       }));
       return true;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof z.ZodError) {
         setFormState(prev => ({
           ...prev,
@@ -55,11 +55,11 @@ export function useForm<T>({ schema, onSubmit }: UseFormProps<T>) {
       setFormState({ errors: {}, isSubmitting: false });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errors = error.errors.reduce((acc, curr) => {
+        const errors = error.errors.reduce<{ [key: string]: string }>((acc, curr) => {
           const path = curr.path[0] as string;
           acc[path] = curr.message;
           return acc;
-        }, {} as { [key: string]: string });
+        }, {});
 
         setFormState(prev => ({
           ...prev,
