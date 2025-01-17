@@ -7,6 +7,7 @@ import { User } from '@/types';
 import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { showToast } from '@/utils/toast';
+import { UserFilter } from '@/components/admin/UserFilter';
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -48,15 +49,12 @@ export default function AdminUsersPage() {
     }
   };
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = searchTerm === '' || 
-      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesRole = roleFilter === '' || user.role === roleFilter;
-    
-    return matchesSearch && matchesRole;
-  });
+  const handleFilter = ({ search, role }: { search?: string; role?: User['role'] }) => {
+    const params = new URLSearchParams();
+    if (search) params.set('search', search);
+    if (role) params.set('role', role);
+    router.push(`/admin/users?${params.toString()}`);
+  };
 
   if (loading) {
     return <LoadingSpinner />;
@@ -66,26 +64,9 @@ export default function AdminUsersPage() {
     <div className="admin">
       <header className="admin__header">
         <h1 className="admin__title">User Management</h1>
-        <div className="admin__filters">
-          <input
-            type="text"
-            placeholder="Search users..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="admin__search"
-          />
-          <select
-            value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value as User['role'] | '')}
-            className="admin__select"
-          >
-            <option value="">All Roles</option>
-            <option value="admin">Admin</option>
-            <option value="author">Author</option>
-            <option value="visitor">Visitor</option>
-          </select>
-        </div>
       </header>
+
+      <UserFilter onFilter={handleFilter} />
 
       <section className="admin__section">
         <div className="admin__table-wrapper">
@@ -100,17 +81,22 @@ export default function AdminUsersPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map((user) => (
+              {users.map((user) => (
                 <tr key={user._id}>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.role}</td>
+                  <td>
+                    <span className={`admin__role admin__role--${user.role}`}>
+                      {user.role}
+                    </span>
+                  </td>
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                   <td>
                     <select
                       value={user.role}
                       onChange={(e) => handleRoleUpdate(user._id, e.target.value as User['role'])}
                       className="admin__select"
+                      disabled={user.role === 'admin' && users.filter(u => u.role === 'admin').length === 1}
                     >
                       <option value="admin">Admin</option>
                       <option value="author">Author</option>
@@ -122,7 +108,7 @@ export default function AdminUsersPage() {
             </tbody>
           </table>
         </div>
-        {filteredUsers.length === 0 && (
+        {users.length === 0 && (
           <p className="admin__empty">No users found matching your criteria.</p>
         )}
       </section>
