@@ -1,0 +1,28 @@
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: $spacing-unit * 4;
+  text-align: center;
+  
+  h2 {
+    color: $danger-color;
+    margin-bottom: $spacing-unit * 4;
+  }
+  
+  pre {
+    background: rgba($danger-color, 0.1);
+    padding: $spacing-unit * 4;
+    border-radius: $border-radius;
+    margin-bottom: $spacing-unit * 4;
+    max-width: 100%;
+    overflow-x: auto;
+    color: $danger-color;
+  }
+  
+  button {
+    margin-top: $spacing-unit * 4;
+  }
+} 

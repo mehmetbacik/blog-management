@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Post, AdminPostsResponse, GetAllPostsParams } from '@/types';
+import { handleApiError } from '@/utils/api-error';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
@@ -12,6 +13,13 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    return Promise.reject(await handleApiError(error));
+  }
+);
 
 export const authService = {
   login: async (email: string, password: string) => {
