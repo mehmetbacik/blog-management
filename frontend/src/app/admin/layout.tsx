@@ -27,28 +27,30 @@ export default function AdminLayout({
   return (
     <div className="admin-layout">
       <aside className="admin-layout__sidebar">
-        <nav className="admin-nav">
-          <Link 
-            href="/admin"
-            className={`admin-nav__link ${isActive('/admin') ? 'admin-nav__link--active' : ''}`}
-          >
-            Dashboard
-          </Link>
-          <Link 
-            href="/admin/posts"
-            className={`admin-nav__link ${isActive('/admin/posts') ? 'admin-nav__link--active' : ''}`}
-          >
-            Posts
-          </Link>
-          <Link 
-            href="/admin/users"
-            className={`admin-nav__link ${isActive('/admin/users') ? 'admin-nav__link--active' : ''}`}
-          >
-            Users
-          </Link>
-        </nav>
-        <div className="admin-nav__footer">
-          <ThemeToggle />
+        <div className="admin-nav">
+          <div className="admin-nav__links">
+            <Link 
+              href="/admin"
+              className={`admin-nav__link ${isActive('/admin') ? 'admin-nav__link--active' : ''}`}
+            >
+              Dashboard
+            </Link>
+            <Link 
+              href="/admin/posts"
+              className={`admin-nav__link ${isActive('/admin/posts') ? 'admin-nav__link--active' : ''}`}
+            >
+              Posts
+            </Link>
+            <Link 
+              href="/admin/users"
+              className={`admin-nav__link ${isActive('/admin/users') ? 'admin-nav__link--active' : ''}`}
+            >
+              Users
+            </Link>
+          </div>
+          <div className="admin-nav__footer">
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
       <main className="admin-layout__main">

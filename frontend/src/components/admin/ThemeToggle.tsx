@@ -9,9 +9,16 @@ export const ThemeToggle = () => {
     <button 
       onClick={toggleTheme}
       className="theme-toggle"
-      aria-label="Toggle theme"
+      title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
-      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+      {theme === 'light' ? (
+        <span className="theme-toggle__icon">🌙</span>
+      ) : (
+        <span className="theme-toggle__icon">☀️</span>
+      )}
+      <span className="theme-toggle__text">
+        {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+      </span>
     </button>
   );
 }; 

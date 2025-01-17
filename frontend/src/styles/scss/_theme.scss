@@ -18,18 +18,29 @@
   }
 }
 
-// Tema değiştirme butonu stilleri
 .theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-unit * 2;
   padding: $spacing-unit * 2 $spacing-unit * 3;
   border: 1px solid var(--border-color);
   border-radius: $border-radius;
   color: var(--text-secondary);
   background: var(--bg-secondary);
   transition: $transition-base;
+  width: 100%;
   
   &:hover {
     background: var(--bg-primary);
     color: var(--text-primary);
+  }
+
+  &__icon {
+    font-size: 1.25rem;
+  }
+
+  &__text {
+    font-size: 0.875rem;
   }
 }
 
@@ -41,23 +52,33 @@
     background: var(--bg-secondary);
     border-color: var(--border-color);
   }
+
+  &__main {
+    background: var(--bg-primary);
+  }
 }
 
-.admin-nav {
-  &__link {
-    color: var(--text-secondary);
-    
-    &:hover {
-      color: $primary-color;
+// Admin bileşenleri tema güncellemeleri
+.admin {
+  &__section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  &__table {
+    th {
+      background: rgba(var(--text-secondary), 0.05);
     }
     
-    &--active {
-      color: $primary-color;
+    td {
+      border-color: var(--border-color);
     }
   }
-  
-  &__footer {
-    margin-top: auto;
-    padding-top: $spacing-unit * 4;
+
+  &__search,
+  &__select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
   }
 } 
