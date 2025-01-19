@@ -54,6 +54,43 @@
     background: rgba($secondary-color, 0.05);
     border-radius: $border-radius;
   }
+
+  &__tabs {
+    display: flex;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 6;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &__tab {
+    padding: $spacing-unit * 3 $spacing-unit * 4;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: $transition-base;
+    
+    &:hover {
+      color: var(--text-primary);
+    }
+    
+    &--active {
+      color: $primary-color;
+      border-bottom-color: $primary-color;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-unit * 2;
+    
+    @media (max-width: map-get($breakpoints, 'md')) {
+      flex-direction: column;
+      width: 100%;
+      
+      .button {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .post-grid {
