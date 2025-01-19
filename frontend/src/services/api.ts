@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post, AdminPostsResponse, GetAllPostsParams } from '@/types';
+import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse } from '@/types';
 import { handleApiError } from '@/utils/api-error';
 
 const api = axios.create({
@@ -65,11 +65,6 @@ interface SearchResponse {
   };
 }
 
-interface UserPostsParams {
-  page?: number;
-  limit?: number;
-}
-
 interface PostsResponse {
   posts: Post[];
   pagination: {
@@ -111,10 +106,11 @@ export const postService = {
     return data;
   },
   
-  getUserPosts: async (params?: UserPostsParams): Promise<PostsResponse> => {
+  getUserPosts: async (params?: UserPostsParams): Promise<UserPostsResponse> => {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.append('page', params.page.toString());
     if (params?.limit) searchParams.append('limit', params.limit.toString());
+    if (params?.status) searchParams.append('status', params.status);
     
     const { data } = await api.get(`/posts/user?${searchParams.toString()}`);
     return data;

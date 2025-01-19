@@ -52,4 +52,20 @@ export interface AdminStats {
     pending: number;
     draft: number;
   };
+}
+
+export interface UserPostsParams {
+  page?: number;
+  limit?: number;
+  status?: 'published' | 'draft' | 'pending';
+}
+
+export interface UserPostsResponse {
+  posts: Post[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 } 

@@ -116,18 +116,23 @@ export const postController = {
   // Get user's posts with pagination
   getUserPosts: async (req: AuthRequest, res: Response) => {
     try {
-      const { page = '1', limit = '6' } = req.query;
+      const { page = '1', limit = '6', status } = req.query;
       const pageNumber = parseInt(page as string);
       const limitNumber = parseInt(limit as string);
       const skip = (pageNumber - 1) * limitNumber;
 
+      const query: any = { author: req.user.userId };
+      if (status) {
+        query.status = status;
+      }
+
       const [posts, total] = await Promise.all([
-        Post.find({ author: req.user.userId })
+        Post.find(query)
           .populate('author', 'username')
           .sort({ createdAt: -1 })
           .skip(skip)
           .limit(limitNumber),
-        Post.countDocuments({ author: req.user.userId })
+        Post.countDocuments(query)
       ]);
 
       res.json({
