@@ -1,0 +1,18 @@
+.auth-layout {
+  min-height: calc(100vh - 64px);
+  padding: $spacing-unit * 8 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba($primary-color, 0.05),
+    rgba($primary-color, 0.02)
+  );
+
+  &__content {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    border-radius: $border-radius;
+    box-shadow: 0 4px 6px rgba(var(--shadow-color), 0.1);
+    padding: $spacing-unit * 6;
+  }
+} 

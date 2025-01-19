@@ -1,5 +1,7 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 import { MobileNav } from '@/components/admin/MobileNav';
 import { ThemeToggle } from '@/components/admin/ThemeToggle';
@@ -9,6 +11,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
+
   return (
     <AuthGuard requireAuth allowedRoles={['admin']}>
       <div className="admin-layout">
