@@ -69,4 +69,28 @@ export interface UserPostsResponse {
     limit: number;
     totalPages: number;
   };
+}
+
+export interface Comment {
+  _id: string;
+  content: string;
+  author: User;
+  post: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateCommentData {
+  content: string;
+  postId: string;
+}
+
+export interface CommentsResponse {
+  comments: Comment[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 } 

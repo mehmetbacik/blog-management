@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse } from '@/types';
+import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse, CommentsResponse, CreateCommentData } from '@/types';
 import { handleApiError } from '@/utils/api-error';
 
 const api = axios.create({
@@ -168,6 +168,25 @@ export const adminService = {
   
   deletePost: async (postId: string): Promise<void> => {
     await api.delete(`/admin/posts/${postId}`);
+  }
+};
+
+export const commentService = {
+  getComments: async (postId: string, page = 1, limit = 10): Promise<CommentsResponse> => {
+    const { data } = await api.get(`/posts/${postId}/comments?page=${page}&limit=${limit}`);
+    return data;
+  },
+
+  createComment: async (commentData: CreateCommentData) => {
+    const { data } = await api.post(`/posts/${commentData.postId}/comments`, {
+      content: commentData.content
+    });
+    return data;
+  },
+
+  deleteComment: async (postId: string, commentId: string) => {
+    const { data } = await api.delete(`/posts/${postId}/comments/${commentId}`);
+    return data;
   }
 };
 
