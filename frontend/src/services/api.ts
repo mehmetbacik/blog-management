@@ -95,7 +95,7 @@ export const postService = {
     title: string;
     content: string;
     tags: string[];
-    status: string;
+    status: Post['status'];
   }) => {
     const { data } = await api.put(`/posts/${id}`, postData);
     return data;
