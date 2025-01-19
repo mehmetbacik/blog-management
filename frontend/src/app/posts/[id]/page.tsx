@@ -2,117 +2,99 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Post } from '@/types';
-import { postService } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { postService } from '@/services/api';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { showToast } from '@/utils/toast';
+import { DeletePostButton } from '@/components/posts/DeletePostButton';
 
-export default function PostPage({ params }: { params: { id: string } }) {
-  const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+export default function PostDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { user } = useAuth();
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
-      const loadingToast = showToast.loading('Loading post...');
       try {
         const data = await postService.getPost(params.id);
         setPost(data);
-        showToast.dismiss(loadingToast);
-      } catch (err) {
-        showToast.dismiss(loadingToast);
+      } catch (error) {
         showToast.error('Failed to fetch post');
-        setError('Failed to fetch post');
+        router.push('/');
       } finally {
         setLoading(false);
       }
     };
 
     fetchPost();
-  }, [params.id]);
-
-  const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
-      return;
-    }
-
-    const loadingToast = showToast.loading('Deleting post...');
-
-    try {
-      await postService.deletePost(params.id);
-      showToast.dismiss(loadingToast);
-      showToast.success('Post deleted successfully!');
-      router.push('/dashboard');
-    } catch (err) {
-      showToast.dismiss(loadingToast);
-      showToast.error('Failed to delete post');
-    }
-  };
+  }, [params.id, router]);
 
   if (loading) {
     return (
       <div className="container">
-        <div className="loading">Loading...</div>
+        <LoadingSpinner />
       </div>
     );
   }
 
-  if (error || !post) {
-    return (
-      <div className="container">
-        <div className="error">{error || 'Post not found'}</div>
-      </div>
-    );
+  if (!post) {
+    return null;
   }
 
   const canEdit = user && (user._id === post.author._id || user.role === 'admin');
 
   return (
     <div className="container">
-      <article className="post">
-        <header className="post__header">
-          <h1 className="post__title">{post.title}</h1>
-          <div className="post__meta">
-            <span>By {post.author.username}</span>
-            <span>•</span>
-            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-            <span>•</span>
-            <span className="post__status">Status: {post.status}</span>
+      <article className="post-detail">
+        <header className="post-detail__header">
+          <h1 className="post-detail__title">{post.title}</h1>
+          <div className="post-detail__meta">
+            <Link href={`/profile/${post.author._id}`} className="post-detail__author">
+              By {post.author.username}
+            </Link>
+            <span className="post-detail__date">
+              {new Date(post.createdAt).toLocaleDateString()}
+            </span>
+            <span className={`post-detail__status post-detail__status--${post.status}`}>
+              {post.status}
+            </span>
           </div>
+          {post.tags.length > 0 && (
+            <div className="post-detail__tags">
+              {post.tags.map(tag => (
+                <Link
+                  key={tag}
+                  href={`/search?tags=${tag}`}
+                  className="post-detail__tag"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          )}
         </header>
 
-        <div className="post__content">
+        <div className="post-detail__content">
           {post.content.split('\n').map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
         </div>
 
-        {post.tags.length > 0 && (
-          <div className="post__tags">
-            {post.tags.map(tag => (
-              <span key={tag} className="post__tag">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
         {canEdit && (
-          <div className="post__actions">
-            <button
-              onClick={() => router.push(`/posts/${post._id}/edit`)}
-              className="button button--secondary"
+          <div className="post-detail__actions">
+            <Link
+              href={`/posts/${post._id}/edit`}
+              className="button button--outline"
             >
-              Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              className="button button--danger"
-            >
-              Delete
-            </button>
+              Edit Post
+            </Link>
+            <DeletePostButton
+              postId={post._id}
+              onDelete={() => router.push('/dashboard')}
+            />
           </div>
         )}
       </article>
