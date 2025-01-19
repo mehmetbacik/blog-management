@@ -1,0 +1,103 @@
+.comment-form {
+  margin-bottom: $spacing-unit * 8;
+  
+  &__input {
+    width: 100%;
+    padding: $spacing-unit * 3;
+    margin-bottom: $spacing-unit * 3;
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: inherit;
+    resize: vertical;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    }
+  }
+}
+
+.comment-list {
+  margin-top: $spacing-unit * 8;
+  border-top: 1px solid var(--border-color);
+  padding-top: $spacing-unit * 8;
+  
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: $spacing-unit * 6;
+  }
+  
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit * 4;
+  }
+  
+  &__empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: $spacing-unit * 6;
+    background: rgba(var(--text-secondary), 0.05);
+    border-radius: $border-radius;
+  }
+}
+
+.comment-item {
+  padding: $spacing-unit * 4;
+  background: var(--bg-secondary);
+  border-radius: $border-radius;
+  border: 1px solid var(--border-color);
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 2;
+  }
+  
+  &__author {
+    color: $primary-color;
+    font-weight: 500;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  &__date {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  &__content {
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+  
+  &__delete {
+    margin-top: $spacing-unit * 3;
+    padding: $spacing-unit $spacing-unit * 2;
+    color: $danger-color;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: $transition-base;
+    
+    &:hover:not(:disabled) {
+      color: darken($danger-color, 10%);
+      text-decoration: underline;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+} 

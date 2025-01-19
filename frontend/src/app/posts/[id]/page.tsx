@@ -7,14 +7,17 @@ import { Post } from '@/types';
 import { useAuth } from '@/hooks/useAuth';
 import { postService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { showToast } from '@/utils/toast';
 import { DeletePostButton } from '@/components/posts/DeletePostButton';
+import { CommentForm } from '@/components/comments/CommentForm';
+import { CommentList } from '@/components/comments/CommentList';
+import { showToast } from '@/utils/toast';
 
 export default function PostDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { user } = useAuth();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshComments, setRefreshComments] = useState(0);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -97,6 +100,20 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
             />
           </div>
         )}
+
+        <div className="post-detail__comments">
+          {user ? (
+            <CommentForm
+              postId={post._id}
+              onCommentCreated={() => setRefreshComments(prev => prev + 1)}
+            />
+          ) : (
+            <p className="post-detail__login-prompt">
+              Please <Link href="/login">login</Link> to comment.
+            </p>
+          )}
+          <CommentList postId={post._id} refreshTrigger={refreshComments} />
+        </div>
       </article>
     </div>
   );
