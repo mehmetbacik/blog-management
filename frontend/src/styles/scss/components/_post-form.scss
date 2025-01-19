@@ -1,0 +1,25 @@
+.post-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg-secondary);
+  padding: $spacing-unit * 6;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(var(--shadow-color), 0.1);
+
+  .form__input--textarea {
+    font-family: inherit;
+    line-height: 1.6;
+  }
+}
+
+.post-page {
+  padding: $spacing-unit * 8 0;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: $spacing-unit * 6;
+  }
+} 
