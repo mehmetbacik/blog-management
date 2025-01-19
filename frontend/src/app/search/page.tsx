@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Post } from '@/types';
 import { postService } from '@/services/api';
-import { SearchBar } from '@/components/search/SearchBar';
+import { SearchForm } from '@/components/search/SearchForm';
 import { PostList } from '@/components/posts/PostList';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { ErrorMessage } from '@/components/ui/ErrorMessage';
 import { Pagination } from '@/components/ui/Pagination';
+import { showToast } from '@/utils/toast';
 
 interface SearchState {
   posts: Post[];
@@ -25,6 +25,7 @@ const POSTS_PER_PAGE = 9;
 export default function SearchPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(true);
   const [searchState, setSearchState] = useState<SearchState>({
     posts: [],
     pagination: {
@@ -34,28 +35,24 @@ export default function SearchPage() {
       totalPages: 0
     }
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setLoading(true);
       try {
-        const queryParam = searchParams.get('query');
-        const tagsParam = searchParams.get('tags');
-        const pageParam = searchParams.get('page');
-        
-        const searchResults = await postService.searchPosts({
-          query: queryParam || undefined,
-          tags: tagsParam || undefined,
-          page: pageParam ? parseInt(pageParam) : 1,
+        const query = searchParams.get('query');
+        const tags = searchParams.get('tags');
+        const page = searchParams.get('page') || '1';
+
+        const response = await postService.searchPosts({
+          query: query || undefined,
+          tags: tags || undefined,
+          page: parseInt(page),
           limit: POSTS_PER_PAGE
         });
 
-        setSearchState(searchResults);
-        setError(null);
-      } catch (err) {
-        setError('Failed to fetch search results');
+        setSearchState(response);
+      } catch (error) {
+        showToast.error('Failed to fetch search results');
       } finally {
         setLoading(false);
       }
@@ -70,35 +67,32 @@ export default function SearchPage() {
     router.push(`/search?${params.toString()}`);
   };
 
-  const getResultsText = () => {
-    const { total } = searchState.pagination;
-    if (total === 0) return 'No results found';
-    return `${total} ${total === 1 ? 'Result' : 'Results'} Found`;
-  };
-
   return (
     <div className="container">
       <div className="search-page">
-        <SearchBar />
-        
+        <h1 className="search-page__title">Search Posts</h1>
+        <SearchForm />
+
         {loading ? (
           <LoadingSpinner />
-        ) : error ? (
-          <ErrorMessage message={error} />
         ) : (
           <div className="search-page__results">
-            <h2 className="search-page__title">
-              {getResultsText()}
+            <h2 className="search-page__subtitle">
+              {searchState.pagination.total} Results Found
             </h2>
-            {searchState.posts.length > 0 && (
+            {searchState.posts.length > 0 ? (
               <>
                 <PostList posts={searchState.posts} />
-                <Pagination
-                  currentPage={searchState.pagination.page}
-                  totalPages={searchState.pagination.totalPages}
-                  onPageChange={handlePageChange}
-                />
+                {searchState.pagination.totalPages > 1 && (
+                  <Pagination
+                    currentPage={searchState.pagination.page}
+                    totalPages={searchState.pagination.totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                )}
               </>
+            ) : (
+              <p className="search-page__empty">No posts found matching your criteria.</p>
             )}
           </div>
         )}
