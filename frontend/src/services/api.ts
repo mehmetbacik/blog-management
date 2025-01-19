@@ -108,6 +108,7 @@ export const postService = {
   
   getUserPosts: async (params?: UserPostsParams): Promise<UserPostsResponse> => {
     const searchParams = new URLSearchParams();
+    if (params?.userId) searchParams.append('userId', params.userId);
     if (params?.page) searchParams.append('page', params.page.toString());
     if (params?.limit) searchParams.append('limit', params.limit.toString());
     if (params?.status) searchParams.append('status', params.status);

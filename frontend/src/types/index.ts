@@ -55,9 +55,10 @@ export interface AdminStats {
 }
 
 export interface UserPostsParams {
+  userId?: string;
   page?: number;
   limit?: number;
-  status?: 'published' | 'draft' | 'pending';
+  status?: Post['status'];
 }
 
 export interface UserPostsResponse {
