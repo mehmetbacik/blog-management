@@ -1,9 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 import { MobileNav } from '@/components/admin/MobileNav';
 import { ThemeToggle } from '@/components/admin/ThemeToggle';
 
@@ -12,53 +9,43 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      router.push('/');
-    }
-  }, [user, router]);
-
-  const isActive = (path: string) => pathname === path;
-
   return (
-    <div className="admin-layout">
-      <aside className="admin-layout__sidebar">
-        <div className="admin-nav">
-          <div className="admin-nav__links">
-            <Link 
-              href="/admin"
-              className={`admin-nav__link ${isActive('/admin') ? 'admin-nav__link--active' : ''}`}
-            >
-              Dashboard
-            </Link>
-            <Link 
-              href="/admin/posts"
-              className={`admin-nav__link ${isActive('/admin/posts') ? 'admin-nav__link--active' : ''}`}
-            >
-              Posts
-            </Link>
-            <Link 
-              href="/admin/users"
-              className={`admin-nav__link ${isActive('/admin/users') ? 'admin-nav__link--active' : ''}`}
-            >
-              Users
-            </Link>
+    <AuthGuard requireAuth allowedRoles={['admin']}>
+      <div className="admin-layout">
+        <aside className="admin-layout__sidebar">
+          <div className="admin-nav">
+            <div className="admin-nav__links">
+              <Link 
+                href="/admin"
+                className={`admin-nav__link ${isActive('/admin') ? 'admin-nav__link--active' : ''}`}
+              >
+                Dashboard
+              </Link>
+              <Link 
+                href="/admin/posts"
+                className={`admin-nav__link ${isActive('/admin/posts') ? 'admin-nav__link--active' : ''}`}
+              >
+                Posts
+              </Link>
+              <Link 
+                href="/admin/users"
+                className={`admin-nav__link ${isActive('/admin/users') ? 'admin-nav__link--active' : ''}`}
+              >
+                Users
+              </Link>
+            </div>
+            <div className="admin-nav__footer">
+              <ThemeToggle />
+            </div>
           </div>
-          <div className="admin-nav__footer">
-            <ThemeToggle />
+        </aside>
+        <main className="admin-layout__main">
+          <div className="container">
+            {children}
           </div>
-        </div>
-      </aside>
-      <main className="admin-layout__main">
-        <div className="container">
-          {children}
-        </div>
-      </main>
-      <MobileNav />
-    </div>
+        </main>
+        <MobileNav />
+      </div>
+    </AuthGuard>
   );
 } 
