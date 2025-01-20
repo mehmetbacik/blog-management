@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { authService } from '@/services/api';
 import { User, AuthResponse } from '@/types';
 
@@ -9,26 +11,29 @@ export const useAuth = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      authService.getProfile()
-        .then(user => setUser(user))
-        .catch(() => {
-          localStorage.removeItem('token');
-          setUser(null);
-        })
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const userData = await authService.getProfile();
+          setUser(userData);
+        }
+      } catch (error) {
+        localStorage.removeItem('token');
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<void> => {
     try {
       const response: AuthResponse = await authService.login(email, password);
       localStorage.setItem('token', response.token);
       setUser(response.user);
-      router.push('/dashboard');
     } catch (error) {
       throw error;
     }
@@ -37,7 +42,6 @@ export const useAuth = () => {
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
-    router.push('/');
   };
 
   return { user, loading, login, logout };

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/scss/main.scss';
 import { Providers } from './providers';
 
@@ -22,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <main>{children}</main>
+          <ToastContainer />
         </Providers>
       </body>
     </html>

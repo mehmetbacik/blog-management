@@ -10,6 +10,11 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { user, logout } = useAuth();
 
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -48,10 +53,7 @@ export const Navbar: React.FC = () => {
                     Admin
                   </Link>
                 )}
-                <button onClick={() => {
-                  logout();
-                  router.push('/');
-                }} className="button button--outline">
+                <button onClick={handleLogout} className="button button--outline">
                   Logout
                 </button>
               </>
