@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse, CommentsResponse, CreateCommentData } from '@/types';
+import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse, CommentsResponse, CreateCommentData, Comment } from '@/types';
 import { handleApiError } from '@/utils/api-error';
 
 const api = axios.create({
@@ -172,22 +172,42 @@ export const adminService = {
 };
 
 export const commentService = {
-  getComments: async (postId: string, page = 1, limit = 10): Promise<CommentsResponse> => {
-    const { data } = await api.get(`/posts/${postId}/comments?page=${page}&limit=${limit}`);
-    return data;
+  getComments: async (postId: string, page: number = 1, limit: number = 10): Promise<CommentsResponse> => {
+    try {
+      const { data } = await api.get(`/posts/${postId}/comments`, {
+        params: { page, limit }
+      });
+      return data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
   },
 
-  createComment: async (commentData: CreateCommentData) => {
-    const { data } = await api.post(`/posts/${commentData.postId}/comments`, {
-      content: commentData.content
-    });
-    return data;
+  createComment: async (commentData: CreateCommentData): Promise<Comment> => {
+    try {
+      const { data } = await api.post(`/posts/${commentData.postId}/comments`, {
+        content: commentData.content
+      });
+      return data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
   },
 
-  deleteComment: async (postId: string, commentId: string) => {
-    const { data } = await api.delete(`/posts/${postId}/comments/${commentId}`);
-    return data;
+  deleteComment: async (postId: string, commentId: string): Promise<void> => {
+    try {
+      await api.delete(`/posts/${postId}/comments/${commentId}`);
+    } catch (error) {
+      throw handleApiError(error);
+    }
   }
 };
 
-export default api; 
+export const services = {
+  auth: authService,
+  post: postService,
+  comment: commentService,
+  admin: adminService
+};
+
+export default services; 

@@ -74,15 +74,13 @@ export interface UserPostsResponse {
 export interface Comment {
   _id: string;
   content: string;
-  author: User;
+  author: {
+    _id: string;
+    username: string;
+  };
   post: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface CreateCommentData {
-  content: string;
-  postId: string;
 }
 
 export interface CommentsResponse {
@@ -93,4 +91,9 @@ export interface CommentsResponse {
     limit: number;
     totalPages: number;
   };
+}
+
+export interface CreateCommentData {
+  postId: string;
+  content: string;
 } 
