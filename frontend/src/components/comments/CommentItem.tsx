@@ -29,6 +29,7 @@ export const CommentItem = ({ comment, postId, onDelete }: CommentItemProps) => 
       onDelete();
     } catch (error) {
       showToast.error('Failed to delete comment');
+    } finally {
       setIsDeleting(false);
     }
   };

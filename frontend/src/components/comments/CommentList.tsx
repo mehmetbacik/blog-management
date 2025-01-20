@@ -32,13 +32,9 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
     const fetchComments = async () => {
       try {
         const page = searchParams.get('commentPage') || '1';
-        const response = await commentService.getComments(
-          postId,
-          parseInt(page),
-          COMMENTS_PER_PAGE
-        );
-        setComments(response.comments);
-        setPagination(response.pagination);
+        const data = await commentService.getComments(postId, parseInt(page));
+        setComments(data.comments);
+        setPagination(data.pagination);
       } catch (error) {
         showToast.error('Failed to load comments');
       } finally {
@@ -62,9 +58,9 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
   return (
     <div className="comment-list">
       <h3 className="comment-list__title">
-        {pagination.total} {pagination.total === 1 ? 'Comment' : 'Comments'}
+        Comments ({pagination.total})
       </h3>
-      
+
       {comments.length > 0 ? (
         <>
           <div className="comment-list__items">

@@ -33,12 +33,6 @@
     margin-bottom: $spacing-unit * 6;
   }
   
-  &__items {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-unit * 4;
-  }
-  
   &__empty {
     text-align: center;
     color: var(--text-secondary);
@@ -46,13 +40,19 @@
     background: rgba(var(--text-secondary), 0.05);
     border-radius: $border-radius;
   }
+  
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit * 6;
+  }
 }
 
 .comment-item {
-  padding: $spacing-unit * 4;
   background: var(--bg-secondary);
-  border-radius: $border-radius;
   border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  padding: $spacing-unit * 4;
   
   &__header {
     display: flex;
