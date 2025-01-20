@@ -7,16 +7,8 @@
 
 // Components
 @import 'components/button';
-@import 'components/card';
 @import 'components/form';
 @import 'components/navbar';
-@import 'components/dashboard';
-@import 'components/post';
-@import 'components/post-list';
-@import 'components/home';
-@import 'components/profile';
-@import 'components/admin';
-@import 'components/admin-layout';
 @import 'components/loading-spinner';
 @import 'components/error-message';
 @import 'components/search';
@@ -26,4 +18,8 @@
 @import 'components/post-form';
 @import 'components/post-detail';
 @import 'components/search-form';
-@import 'components/comments'; 
+@import 'components/comments';
+@import 'components/admin';
+@import 'components/admin-layout';
+@import 'components/dashboard';
+@import 'components/profile'; 

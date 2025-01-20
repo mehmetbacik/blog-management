@@ -1,39 +1,63 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, logout } = useAuth();
 
   return (
     <nav className="navbar">
       <div className="container">
         <div className="navbar__content">
-          <Link href="/" className="navbar__brand">
+          <Link href="/" className="navbar__logo">
             Blog Management
           </Link>
 
-          <div className="navbar__menu">
+          <div className="navbar__links">
+            <Link 
+              href="/search" 
+              className={`navbar__link ${pathname === '/search' ? 'active' : ''}`}
+            >
+              Search
+            </Link>
+            
             {user ? (
               <>
-                <Link href="/dashboard" className="navbar__link">
+                <Link 
+                  href="/dashboard" 
+                  className={`navbar__link ${pathname === '/dashboard' ? 'active' : ''}`}
+                >
                   Dashboard
                 </Link>
-                <Link href="/posts/new" className="navbar__link">
-                  New Post
-                </Link>
-                <button 
-                  onClick={logout} 
-                  className="button button--outline"
+                <Link 
+                  href="/profile" 
+                  className={`navbar__link ${pathname === '/profile' ? 'active' : ''}`}
                 >
+                  Profile
+                </Link>
+                {user.role === 'admin' && (
+                  <Link 
+                    href="/admin" 
+                    className={`navbar__link ${pathname.startsWith('/admin') ? 'active' : ''}`}
+                  >
+                    Admin
+                  </Link>
+                )}
+                <button onClick={() => {
+                  logout();
+                  router.push('/');
+                }} className="button button--outline">
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Link href="/login" className="navbar__link">
+                <Link href="/login" className="button button--outline">
                   Login
                 </Link>
                 <Link href="/register" className="button">

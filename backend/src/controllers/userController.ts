@@ -87,8 +87,10 @@ export const userController = {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      // Validate current password if trying to change password
-      if (newPassword) {
+      if (username) user.username = username;
+      if (email) user.email = email;
+
+      if (currentPassword && newPassword) {
         const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
           return res.status(400).json({ error: 'Current password is incorrect' });
@@ -96,17 +98,13 @@ export const userController = {
         user.password = newPassword;
       }
 
-      // Update other fields
-      if (username) user.username = username;
-      if (email) user.email = email;
-
       await user.save();
 
-      // Don't send password in response
+      // Create a safe user object without password
       const userResponse = user.toObject();
-      delete userResponse.password;
+      const { password, ...userWithoutPassword } = userResponse;
 
-      res.json(userResponse);
+      res.json(userWithoutPassword);
     } catch (error) {
       res.status(500).json({ error: 'Error updating profile' });
     }
