@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Post, AdminPostsResponse, GetAllPostsParams, UserPostsParams, UserPostsResponse, CommentsResponse, CreateCommentData, Comment } from '@/types';
 import { handleApiError } from '@/utils/api-error';
+import DOMPurify from 'dompurify';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
@@ -183,12 +184,15 @@ export const commentService = {
     }
   },
 
-  createComment: async (commentData: CreateCommentData): Promise<Comment> => {
+  createComment: async (data: CreateCommentData): Promise<Comment> => {
     try {
-      const { data } = await api.post(`/posts/${commentData.postId}/comments`, {
-        content: commentData.content
+      // Sanitize content before sending
+      const sanitizedContent = DOMPurify.sanitize(data.content);
+      
+      const response = await api.post(`/posts/${data.postId}/comments`, {
+        content: sanitizedContent
       });
-      return data;
+      return response.data;
     } catch (error) {
       throw handleApiError(error);
     }

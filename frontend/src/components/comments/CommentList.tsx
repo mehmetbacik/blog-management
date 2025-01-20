@@ -8,6 +8,7 @@ import { CommentItem } from './CommentItem';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Pagination } from '@/components/ui/Pagination';
 import { showToast } from '@/utils/toast';
+import { VirtualList } from '@/components/ui/VirtualList';
 
 interface CommentListProps {
   postId: string;
@@ -63,8 +64,11 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
 
       {comments.length > 0 ? (
         <>
-          <div className="comment-list__items">
-            {comments.map((comment) => (
+          <VirtualList
+            items={comments}
+            height={600}
+            itemHeight={120}
+            renderItem={(comment) => (
               <CommentItem
                 key={comment._id}
                 comment={comment}
@@ -78,8 +82,8 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
                   );
                 }}
               />
-            ))}
-          </div>
+            )}
+          />
 
           {pagination.totalPages > 1 && (
             <Pagination

@@ -25,7 +25,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
         const data = await postService.getPost(params.id);
         setPost(data);
       } catch (error) {
-        showToast.error('Failed to fetch post');
+        showToast.error('Failed to load post');
         router.push('/');
       } finally {
         setLoading(false);
@@ -36,18 +36,16 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   }, [params.id, router]);
 
   if (loading) {
-    return (
-      <div className="container">
-        <LoadingSpinner />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!post) {
     return null;
   }
 
-  const canEdit = user && (user._id === post.author._id || user.role === 'admin');
+  const isAuthor = user && user._id === post.author._id;
+  const isAdmin = user && user.role === 'admin';
+  const canEdit = isAuthor || isAdmin;
 
   return (
     <div className="container">
@@ -90,7 +88,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           <div className="post-detail__actions">
             <Link
               href={`/posts/${post._id}/edit`}
-              className="button button--outline"
+              className="button button--secondary"
             >
               Edit Post
             </Link>

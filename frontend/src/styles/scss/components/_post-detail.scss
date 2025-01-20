@@ -102,4 +102,25 @@
     padding-top: $spacing-unit * 6;
     border-top: 1px solid var(--border-color);
   }
+
+  &__comments {
+    margin-top: $spacing-unit * 12;
+    padding-top: $spacing-unit * 8;
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__login-prompt {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: $spacing-unit * 8;
+    
+    a {
+      color: $primary-color;
+      text-decoration: underline;
+      
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
 } 
