@@ -1,6 +1,6 @@
 import express from 'express';
 import { postController } from '../controllers/postController';
-import { auth, adminAuth } from '../middleware/auth';
+import { auth } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -23,15 +23,17 @@ router.get('/search', postController.search);
  *         name: page
  *         schema:
  *           type: integer
+ *           default: 1
  *         description: Page number (default: 1)
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
+ *           default: 9
  *         description: Number of posts per page (default: 9)
  *     responses:
  *       200:
- *         description: List of published posts with pagination
+ *         description: A list of published posts
  *         content:
  *           application/json:
  *             schema:
@@ -46,16 +48,12 @@ router.get('/search', postController.search);
  *                   properties:
  *                     total:
  *                       type: integer
- *                       description: Total number of posts
  *                     page:
  *                       type: integer
- *                       description: Current page number
  *                     limit:
  *                       type: integer
- *                       description: Posts per page
  *                     totalPages:
  *                       type: integer
- *                       description: Total number of pages
  *       500:
  *         description: Server error
  */
