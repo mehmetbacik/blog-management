@@ -102,7 +102,8 @@ export const userController = {
 
       // Create a safe user object without password
       const userResponse = user.toObject();
-      const { password, ...userWithoutPassword } = userResponse;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const userWithoutPassword = (({ password, ...rest }) => rest)(userResponse);
 
       res.json(userWithoutPassword);
     } catch (error) {
