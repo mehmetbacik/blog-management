@@ -10,7 +10,7 @@ export interface Post {
   _id: string;
   title: string;
   content: string;
-  author: User;
+  author?: User;
   status: 'draft' | 'pending' | 'published';
   tags: string[];
   createdAt: string;
