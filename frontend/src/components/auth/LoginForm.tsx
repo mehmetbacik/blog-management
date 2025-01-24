@@ -2,6 +2,7 @@ import { useForm } from '@/hooks/useForm';
 import { loginSchema } from '@/validations/schemas';
 import { useAuth } from '@/hooks/useAuth';
 import { showToast } from '@/utils/toast';
+import { useRouter } from 'next/navigation';
 
 interface LoginFormData {
   email: string;
@@ -10,12 +11,14 @@ interface LoginFormData {
 
 export const LoginForm = () => {
   const { login } = useAuth();
+  const router = useRouter();
   const { handleSubmit, validateField, formState } = useForm<LoginFormData>({
     schema: loginSchema,
     onSubmit: async (data) => {
       try {
         await login(data.email, data.password);
         showToast.success('Login successful!');
+        router.push('/admin');
       } catch (error) {
         showToast.error('Invalid credentials');
       }
