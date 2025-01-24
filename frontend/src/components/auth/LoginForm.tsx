@@ -12,24 +12,21 @@ interface LoginFormData {
 }
 
 export const LoginForm = () => {
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const { handleSubmit, validateField, formState } = useForm<LoginFormData>({
     schema: loginSchema,
     onSubmit: async (data) => {
       try {
-        await login(data.email, data.password);
+        const user = await login(data.email, data.password);
         showToast.success('Login successful!');
         
-        // Add a small delay before navigation
-        setTimeout(() => {
-          if (user?.role === 'admin') {
-            router.push('/admin');
-          } else {
-            router.push('/dashboard');
-          }
-        }, 100);
+        if (user.role === 'admin') {
+          router.push('/admin');
+        } else {
+          router.push('/dashboard');
+        }
       } catch (error) {
         showToast.error('Invalid credentials');
       }

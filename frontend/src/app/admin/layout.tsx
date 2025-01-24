@@ -1,10 +1,11 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 import { MobileNav } from '@/components/admin/MobileNav';
 import { ThemeToggle } from '@/components/admin/ThemeToggle';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function AdminLayout({
   children,
@@ -12,7 +13,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { logout } = useAuth();
+  const router = useRouter();
   const isActive = (path: string) => pathname === path;
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   return (
     <AuthGuard requireAuth requireAdmin>
@@ -41,6 +49,12 @@ export default function AdminLayout({
             </div>
             <div className="admin-nav__footer">
               <ThemeToggle />
+              <button 
+                onClick={handleLogout}
+                className="button button--outline"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </aside>

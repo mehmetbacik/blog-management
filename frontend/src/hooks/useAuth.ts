@@ -27,10 +27,11 @@ export const useAuth = () => {
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string): Promise<void> => {
+  const login = async (email: string, password: string): Promise<User> => {
     const response: AuthResponse = await authService.login(email, password);
     localStorage.setItem('token', response.token);
     setUser(response.user);
+    return response.user;
   };
 
   const logout = () => {
