@@ -30,29 +30,22 @@ export const Navbar: React.FC = () => {
             >
               Search
             </Link>
-            
+            {user && user.role === 'admin' && (
+              <Link 
+                href="/admin" 
+                className={`navbar__link ${pathname.startsWith('/admin') ? 'active' : ''}`}
+              >
+                Admin Panel
+              </Link>
+            )}
             {user ? (
               <>
-                <Link 
-                  href="/dashboard" 
-                  className={`navbar__link ${pathname === '/dashboard' ? 'active' : ''}`}
-                >
-                  Dashboard
-                </Link>
                 <Link 
                   href="/profile" 
                   className={`navbar__link ${pathname === '/profile' ? 'active' : ''}`}
                 >
                   Profile
                 </Link>
-                {user.role === 'admin' && (
-                  <Link 
-                    href="/admin" 
-                    className={`navbar__link ${pathname.startsWith('/admin') ? 'active' : ''}`}
-                  >
-                    Admin
-                  </Link>
-                )}
                 <button onClick={handleLogout} className="button button--outline">
                   Logout
                 </button>
