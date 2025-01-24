@@ -15,7 +15,7 @@ export default function AdminLayout({
   const isActive = (path: string) => pathname === path;
 
   return (
-    <AuthGuard requireAuth allowedRoles={['admin']}>
+    <AuthGuard requireAuth requireAdmin>
       <div className="admin-layout">
         <aside className="admin-layout__sidebar">
           <div className="admin-nav">

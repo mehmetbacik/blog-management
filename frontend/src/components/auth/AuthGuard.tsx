@@ -1,53 +1,41 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface AuthGuardProps {
   children: React.ReactNode;
   requireAuth?: boolean;
-  requireGuest?: boolean;
-  allowedRoles?: string[];
+  requireAdmin?: boolean;
 }
 
-export const AuthGuard = ({ 
-  children, 
-  requireAuth = false,
-  requireGuest = false,
-  allowedRoles = [] 
-}: AuthGuardProps) => {
+export const AuthGuard = ({ children, requireAuth = false, requireAdmin = false }: AuthGuardProps) => {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     if (!loading) {
       if (requireAuth && !user) {
         router.push('/login');
-      } else if (requireGuest && user) {
-        router.push('/dashboard');
-      } else if (user && allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-        router.push('/');
+        return;
       }
+
+      if (requireAdmin && user?.role !== 'admin') {
+        router.push('/');
+        return;
+      }
+
+      setIsAuthorized(true);
     }
-  }, [loading, user, requireAuth, requireGuest, allowedRoles, router]);
+  }, [user, loading, requireAuth, requireAdmin, router]);
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
-  if (requireAuth && !user) {
-    return null;
-  }
-
-  if (requireGuest && user) {
-    return null;
-  }
-
-  if (user && allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-    return null;
-  }
-
-  return <>{children}</>;
+  return isAuthorized ? <>{children}</> : null;
 }; 

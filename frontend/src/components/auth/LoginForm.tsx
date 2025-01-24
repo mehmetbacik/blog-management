@@ -1,3 +1,5 @@
+'use client';
+
 import { useForm } from '@/hooks/useForm';
 import { loginSchema } from '@/validations/schemas';
 import { useAuth } from '@/hooks/useAuth';
@@ -10,15 +12,24 @@ interface LoginFormData {
 }
 
 export const LoginForm = () => {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const router = useRouter();
+
   const { handleSubmit, validateField, formState } = useForm<LoginFormData>({
     schema: loginSchema,
     onSubmit: async (data) => {
       try {
         await login(data.email, data.password);
         showToast.success('Login successful!');
-        router.push('/admin');
+        
+        // Add a small delay before navigation
+        setTimeout(() => {
+          if (user?.role === 'admin') {
+            router.push('/admin');
+          } else {
+            router.push('/dashboard');
+          }
+        }, 100);
       } catch (error) {
         showToast.error('Invalid credentials');
       }
