@@ -82,9 +82,15 @@ export const postService = {
     return data;
   },
   
-  getPost: async (id: string) => {
-    const { data } = await api.get(`/posts/${id}`);
-    return data;
+  getPost: async (id: string): Promise<Post> => {
+    try {
+      const { data } = await api.get(`/posts/${id}`);
+      console.log('API Response:', data); // Debug log
+      return data;
+    } catch (error) {
+      console.error('API Error:', error); // Debug log
+      throw handleApiError(error);
+    }
   },
   
   createPost: async (postData: { title: string; content: string; tags: string[] }) => {

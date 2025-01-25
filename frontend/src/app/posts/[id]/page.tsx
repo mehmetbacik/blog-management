@@ -22,9 +22,12 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        console.log('Fetching post with ID:', params.id); // Debug log
         const data = await postService.getPost(params.id);
+        console.log('Received post data:', data); // Debug log
         setPost(data);
       } catch (error) {
+        console.error('Error fetching post:', error); // Debug log
         showToast.error('Failed to load post');
         router.push('/');
       } finally {
@@ -36,10 +39,18 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   }, [params.id, router]);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="container">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
+  // Debug log
+  console.log('Current post state:', post);
+
   if (!post || !post.author) {
+    console.log('Post or author is null'); // Debug log
     return null;
   }
 
@@ -63,7 +74,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
               {post.status}
             </span>
           </div>
-          {post.tags.length > 0 && (
+          {post.tags && post.tags.length > 0 && (
             <div className="post-detail__tags">
               {post.tags.map(tag => (
                 <Link
