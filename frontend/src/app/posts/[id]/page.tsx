@@ -39,7 +39,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     return <LoadingSpinner />;
   }
 
-  if (!post) {
+  if (!post || !post.author) {
     return null;
   }
 
