@@ -56,12 +56,27 @@ export const postController = {
   getById: async (req: Request, res: Response) => {
     try {
       const post = await Post.findById(req.params.id)
-        .populate('author', 'username');
+        .populate('author', '_id username')
+        .lean();
+
       if (!post) {
         return res.status(404).json({ error: 'Post not found' });
       }
+
+      // Ensure author exists
+      if (!post.author) {
+        post.author = {
+          _id: 'deleted',
+          username: 'Deleted User'
+        };
+      }
+
+      // Log the response for debugging
+      console.log('Sending post:', post);
+
       res.json(post);
     } catch (error) {
+      console.error('Error in getById:', error);
       res.status(500).json({ error: 'Error fetching post' });
     }
   },

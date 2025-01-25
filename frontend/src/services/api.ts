@@ -93,11 +93,20 @@ export const postService = {
   
   getPost: async (id: string): Promise<Post> => {
     try {
-      const { data } = await api.get(`/posts/${id}`);
-      console.log('API Response:', data); // Debug log
-      return data;
+      const response = await api.get(`/posts/${id}`);
+      console.log('API Response:', response.data);
+      
+      // Ensure we have an author object
+      if (!response.data.author) {
+        response.data.author = {
+          _id: 'deleted',
+          username: 'Deleted User'
+        };
+      }
+      
+      return response.data;
     } catch (error) {
-      console.error('API Error:', error); // Debug log
+      console.error('API Error:', error);
       throw handleApiError(error);
     }
   },

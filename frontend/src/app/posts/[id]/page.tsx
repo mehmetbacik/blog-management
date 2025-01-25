@@ -17,30 +17,27 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const { user } = useAuth();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
-  const [refreshComments, setRefreshComments] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        setLoading(true);
+        setError(null);
         const data = await postService.getPost(params.id);
-        if (!data.author) {
-          data.author = {
-            _id: 'deleted',
-            username: 'Deleted User'
-          };
-        }
+        console.log('Fetched post:', data);
         setPost(data);
       } catch (error) {
         console.error('Error fetching post:', error);
+        setError(error instanceof Error ? error.message : 'Failed to load post');
         showToast.error('Failed to load post');
-        router.push('/');
       } finally {
         setLoading(false);
       }
     };
 
     fetchPost();
-  }, [params.id, router]);
+  }, [params.id]);
 
   if (loading) {
     return (
@@ -50,12 +47,18 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     );
   }
 
+  if (error) {
+    return (
+      <div className="container">
+        <div className="error-message">{error}</div>
+      </div>
+    );
+  }
+
   if (!post) {
     return (
       <div className="container">
-        <div className="error-message">
-          Post not found
-        </div>
+        <div className="error-message">Post not found</div>
       </div>
     );
   }
