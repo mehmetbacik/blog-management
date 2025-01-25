@@ -13,15 +13,17 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
     <div className="post-list">
       {posts.map((post) => (
         <article key={post._id} className="post-card">
-          <h2 className="post-card__title">
-            <Link href={`/posts/${post._id}`}>{post.title}</Link>
-          </h2>
+          <Link href={`/posts/${post._id}`} className="post-card__title">
+            <h2>{post.title}</h2>
+          </Link>
           <div className="post-card__meta">
             <span>By {post.author?.username || "Unknown Author"}</span>
             <span>•</span>
-            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            <span>{new Date(post.createdAt).toLocaleDateString('en-US')}</span>
           </div>
-          <p className="post-card__excerpt">{post.content.slice(0, 150)}...</p>
+          <p className="post-card__excerpt">
+            {post.content.slice(0, 150)}...
+          </p>
           {post.tags.length > 0 && (
             <div className="post-card__tags">
               {post.tags.map((tag) => (

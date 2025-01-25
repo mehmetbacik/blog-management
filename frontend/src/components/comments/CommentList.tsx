@@ -64,11 +64,8 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
 
       {comments.length > 0 ? (
         <>
-          <VirtualList
-            items={comments}
-            height={600}
-            itemHeight={120}
-            renderItem={(comment) => (
+          <div className="comment-list__items">
+            {comments.map((comment) => (
               <CommentItem
                 key={comment._id}
                 comment={comment}
@@ -82,8 +79,8 @@ export const CommentList = ({ postId, refreshTrigger }: CommentListProps) => {
                   );
                 }}
               />
-            )}
-          />
+            ))}
+          </div>
 
           {pagination.totalPages > 1 && (
             <Pagination
