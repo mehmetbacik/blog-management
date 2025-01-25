@@ -5,6 +5,7 @@ import DOMPurify from 'dompurify';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  timeout: 10000,
 });
 
 api.interceptors.request.use((config) => {
@@ -18,6 +19,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('Request timeout. Please try again.');
+    }
+    
+    if (!error.response) {
+      throw new Error('Network error. Please check your connection and try again.');
+    }
+    
     return Promise.reject(await handleApiError(error));
   }
 );

@@ -22,12 +22,16 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        console.log('Fetching post with ID:', params.id); // Debug log
         const data = await postService.getPost(params.id);
-        console.log('Received post data:', data); // Debug log
+        if (!data.author) {
+          data.author = {
+            _id: 'deleted',
+            username: 'Deleted User'
+          };
+        }
         setPost(data);
       } catch (error) {
-        console.error('Error fetching post:', error); // Debug log
+        console.error('Error fetching post:', error);
         showToast.error('Failed to load post');
         router.push('/');
       } finally {
@@ -46,12 +50,14 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     );
   }
 
-  // Debug log
-  console.log('Current post state:', post);
-
-  if (!post || !post.author) {
-    console.log('Post or author is null'); // Debug log
-    return null;
+  if (!post) {
+    return (
+      <div className="container">
+        <div className="error-message">
+          Post not found
+        </div>
+      </div>
+    );
   }
 
   const isAuthor = user && user._id === post.author._id;
