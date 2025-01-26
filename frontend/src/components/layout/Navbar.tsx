@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
@@ -8,7 +8,11 @@ import { useAuth } from '@/hooks/useAuth';
 export const Navbar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user, logout, refreshUser } = useAuth();
+
+  useEffect(() => {
+    refreshUser();
+  }, [pathname, refreshUser]);
 
   const handleLogout = () => {
     logout();

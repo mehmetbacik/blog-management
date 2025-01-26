@@ -18,6 +18,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshComments, setRefreshComments] = useState(0);
 
   useEffect(() => {
     const fetchPost = async () => {

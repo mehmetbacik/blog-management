@@ -20,22 +20,22 @@ export const AuthGuard = ({ children, requireAuth = false, requireAdmin = false 
   useEffect(() => {
     if (!loading) {
       if (requireAuth && !user) {
-        router.push('/login');
+        router.push(`/login?redirect=${pathname}`);
         return;
       }
 
-      if (requireAdmin && user?.role !== 'admin') {
+      if (requireAdmin && (!user || user.role !== 'admin')) {
         router.push('/');
         return;
       }
 
       setIsAuthorized(true);
     }
-  }, [user, loading, requireAuth, requireAdmin, router]);
+  }, [user, loading, requireAuth, requireAdmin, router, pathname]);
 
-  if (loading) {
+  if (loading || !isAuthorized) {
     return <LoadingSpinner />;
   }
 
-  return isAuthorized ? <>{children}</> : null;
+  return <>{children}</>;
 }; 
