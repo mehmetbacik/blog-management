@@ -34,4 +34,26 @@
       font-weight: 500;
     }
   }
+
+  .admin-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: $secondary-color;
+    font-size: inherit;
+    padding: $spacing-unit * 2;
+    transition: $transition-base;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    &.active {
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
 } 

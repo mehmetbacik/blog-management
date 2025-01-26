@@ -19,6 +19,10 @@ export const Navbar: React.FC = () => {
     router.push('/');
   };
 
+  const handleAdminPanel = () => {
+    window.open('/admin', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -35,12 +39,12 @@ export const Navbar: React.FC = () => {
               Search
             </Link>
             {user && user.role === 'admin' && (
-              <Link 
-                href="/admin" 
-                className={`navbar__link ${pathname.startsWith('/admin') ? 'active' : ''}`}
+              <button 
+                onClick={handleAdminPanel}
+                className="navbar__link admin-button"
               >
-                Admin Panel
-              </Link>
+                Admin Panel ↗
+              </button>
             )}
             {user ? (
               <>
