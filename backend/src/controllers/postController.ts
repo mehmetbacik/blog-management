@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Post } from '../models/Post';
 import { AuthRequest } from '../middleware/auth';
+import mongoose from 'mongoose';
 
 export const postController = {
   // Create a new post
@@ -55,28 +56,17 @@ export const postController = {
   // Get post by ID
   getById: async (req: Request, res: Response) => {
     try {
-      const post = await Post.findById(req.params.id)
-        .populate('author', '_id username')
-        .lean();
+      const post = await Post.findOne({
+        _id: new mongoose.Types.ObjectId(req.params.id),
+        status: 'published'
+      }).populate('author', 'username');
 
       if (!post) {
         return res.status(404).json({ error: 'Post not found' });
       }
 
-      // Ensure author exists
-      if (!post.author) {
-        post.author = {
-          _id: 'deleted',
-          username: 'Deleted User'
-        };
-      }
-
-      // Log the response for debugging
-      console.log('Sending post:', post);
-
       res.json(post);
     } catch (error) {
-      console.error('Error in getById:', error);
       res.status(500).json({ error: 'Error fetching post' });
     }
   },
