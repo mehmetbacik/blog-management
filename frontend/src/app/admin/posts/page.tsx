@@ -29,11 +29,6 @@ export default function AdminPostsPage() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      router.push('/');
-      return;
-    }
-
     const page = Number(searchParams.get('page')) || 1;
     const status = searchParams.get('status') || '';
     const search = searchParams.get('search') || '';
@@ -42,6 +37,7 @@ export default function AdminPostsPage() {
 
     const fetchPosts = async () => {
       try {
+        setLoading(true);
         const data = await adminService.getAllPosts({
           status: status as Post['status'],
           search,
@@ -169,8 +165,12 @@ export default function AdminPostsPage() {
                         {post.title}
                       </Link>
                     </td>
-                    <td>{post.author.username}</td>
-                    <td>{post.status}</td>
+                    <td>{post.author?.username || 'Unknown'}</td>
+                    <td>
+                      <span className={`admin__status admin__status--${post.status}`}>
+                        {post.status}
+                      </span>
+                    </td>
                     <td>{new Date(post.createdAt).toLocaleDateString()}</td>
                     <td>
                       <div className="admin__actions">
@@ -179,9 +179,11 @@ export default function AdminPostsPage() {
                           onChange={(e) => handleStatusChange(post._id, e.target.value as Post['status'])}
                           className="admin__select"
                         >
-                          <option value="draft">Draft</option>
-                          <option value="pending">Pending</option>
-                          <option value="published">Published</option>
+                          {statusOptions.map(option => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
                         </select>
                         <button
                           onClick={() => handleDelete(post._id)}
