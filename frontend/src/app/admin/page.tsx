@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/hooks/useAuth';
 import { AdminStats } from '@/types';
 import { adminService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
@@ -12,15 +10,8 @@ import { StatCard } from '@/components/admin/StatCard';
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
-  const router = useRouter();
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      router.push('/');
-      return;
-    }
-
     const fetchStats = async () => {
       try {
         const data = await adminService.getStats();
@@ -33,7 +24,7 @@ export default function AdminDashboardPage() {
     };
 
     fetchStats();
-  }, [user, router]);
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;
