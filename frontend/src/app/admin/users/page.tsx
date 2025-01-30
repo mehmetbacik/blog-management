@@ -18,10 +18,6 @@ export default function AdminUsersPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      router.push('/');
-      return;
-    }
 
     const fetchUsers = async () => {
       try {
