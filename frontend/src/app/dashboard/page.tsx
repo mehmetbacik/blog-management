@@ -8,69 +8,73 @@ import { postService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
 
+interface PostsState {
+  posts: Post[];
+  loading: boolean;
+  error: string | null;
+}
+
 export default function DashboardPage() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [postsState, setPostsState] = useState<PostsState>({
+    posts: [],
+    loading: true,
+    error: null
+  });
+  
   const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      router.push('/login');
-      return;
-    }
-
     const fetchPosts = async () => {
       try {
-        const data = await postService.getPosts();
-        setPosts(data);
-        setError(null);
+        const response = await postService.getUserPosts({
+          page: '1',
+          limit: '10',
+          status: 'all'
+        });
+        
+        setPostsState({
+          posts: response.posts,
+          loading: false,
+          error: null
+        });
       } catch (error) {
-        setError('Failed to fetch posts. Please try again later.');
-      } finally {
-        setLoading(false);
+        setPostsState(prev => ({
+          ...prev,
+          loading: false,
+          error: 'Failed to fetch posts'
+        }));
       }
     };
 
     fetchPosts();
-  }, [user, router]);
+  }, []);
 
-  if (loading) {
-    return (
-      <div className="container">
-        <LoadingSpinner />
-      </div>
-    );
+  if (postsState.loading) {
+    return <LoadingSpinner />;
   }
 
-  if (error) {
-    return (
-      <div className="container">
-        <ErrorMessage message={error} />
-      </div>
-    );
+  if (postsState.error) {
+    return <ErrorMessage message={postsState.error} />;
   }
 
   return (
     <div className="container">
       <div className="dashboard">
-        <header className="dashboard__header">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
+        <div className="dashboard__header">
+          <h1 className="dashboard__title">My Dashboard</h1>
           <button
             onClick={() => router.push('/posts/new')}
-            className="button button--primary"
+            className="button"
           >
             Create New Post
           </button>
-        </header>
+        </div>
 
         <div className="dashboard__content">
-          {posts.length === 0 ? (
-            <p className="text-gray-600">No posts found.</p>
-          ) : (
-            <div className="grid">
-              {posts.map((post) => (
+          {postsState.posts.length > 0 ? (
+            <div className="post-grid">
+              {postsState.posts.map((post) => (
                 <div key={post._id} className="post-card">
                   <h2 className="post-card__title">{post.title}</h2>
                   <p className="post-card__status">Status: {post.status}</p>
@@ -85,6 +89,8 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
+          ) : (
+            <p className="dashboard__empty">No posts yet. Create your first post!</p>
           )}
         </div>
       </div>

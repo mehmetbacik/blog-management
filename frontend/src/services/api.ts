@@ -145,10 +145,15 @@ export const postService = {
       const queryParams = new URLSearchParams();
       if (params.page) queryParams.set('page', params.page);
       if (params.limit) queryParams.set('limit', params.limit);
-      if (params.status) queryParams.set('status', params.status);
+      if (params.status && params.status !== 'all') {
+        queryParams.set('status', params.status);
+      }
 
       const response = await api.get(`/posts/user?${queryParams.toString()}`);
-      return response.data;
+      return {
+        posts: response.data.posts || [],
+        pagination: response.data.pagination
+      };
     } catch (error) {
       throw handleApiError(error);
     }
