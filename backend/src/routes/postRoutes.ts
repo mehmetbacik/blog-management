@@ -6,14 +6,14 @@ const router = express.Router();
 
 // Public routes
 router.get('/', postController.getAllPublished);
+router.get('/search', postController.search);
+router.get('/user', auth, postController.getUserPosts);
 router.get('/:id', postController.getById);
 
 // Protected routes
 router.post('/', auth, postController.create);
 router.put('/:id', auth, postController.update);
 router.delete('/:id', auth, postController.delete);
-router.get('/search', postController.search);
-router.get('/user', auth, postController.getUserPosts);
 
 /**
  * @swagger

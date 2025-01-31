@@ -131,15 +131,18 @@ export const postService = {
     return data;
   },
   
-  getUserPosts: async (params?: UserPostsParams): Promise<UserPostsResponse> => {
-    const searchParams = new URLSearchParams();
-    if (params?.userId) searchParams.append('userId', params.userId);
-    if (params?.page) searchParams.append('page', params.page.toString());
-    if (params?.limit) searchParams.append('limit', params.limit.toString());
-    if (params?.status) searchParams.append('status', params.status);
-    
-    const { data } = await api.get(`/posts/user?${searchParams.toString()}`);
-    return data;
+  getUserPosts: async (params: UserPostsParams): Promise<UserPostsResponse> => {
+    try {
+      const queryParams = new URLSearchParams();
+      if (params.page) queryParams.set('page', params.page);
+      if (params.limit) queryParams.set('limit', params.limit);
+      if (params.status) queryParams.set('status', params.status);
+
+      const response = await api.get(`/posts/user?${queryParams.toString()}`);
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
   },
   
   searchPosts: async (params: SearchParams): Promise<SearchResponse> => {

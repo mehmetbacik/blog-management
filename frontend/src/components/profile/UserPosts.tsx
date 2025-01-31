@@ -42,25 +42,27 @@ export const UserPosts = ({ status }: UserPostsProps) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const pageParam = searchParams.get('page');
-        const page = pageParam ? parseInt(pageParam) : 1;
-        
-        const response = await postService.getUserPosts({
-          page,
-          limit: POSTS_PER_PAGE,
+        setLoading(true);
+        const data = await postService.getUserPosts({
+          page: searchParams.get('page') || '1',
+          limit: String(POSTS_PER_PAGE),
           status
         });
         
-        setPostsState(response);
+        setPostsState({
+          posts: data.posts,
+          pagination: data.pagination
+        });
       } catch (error) {
         showToast.error('Failed to fetch posts');
+        console.error('Error fetching posts:', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchPosts();
-  }, [status, searchParams]);
+  }, [searchParams, status]);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
