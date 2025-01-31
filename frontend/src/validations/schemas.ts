@@ -35,19 +35,17 @@ export const registerSchema = z.object({
 export const postSchema = z.object({
   title: z
     .string()
-    .min(3, 'Title must be at least 3 characters')
-    .max(100, 'Title must not exceed 100 characters'),
+    .min(1, 'Title is required')
+    .max(100, 'Title is too long'),
   content: z
     .string()
-    .min(10, 'Content must be at least 10 characters'),
+    .min(1, 'Content is required')
+    .max(10000, 'Content is too long'),
   tags: z
     .array(z.string())
-    .min(1, 'At least one tag is required')
-    .max(5, 'Maximum 5 tags allowed'),
-  status: z
-    .enum(['draft', 'pending', 'published'])
     .optional()
-    .default('draft'),
+    .default([]),
+  status: z.enum(['draft', 'pending', 'published'])
 });
 
 export const profileUpdateSchema = z.object({

@@ -27,15 +27,32 @@ export const PostForm = ({ initialData, isEditing, postId }: PostFormProps) => {
 
   const { handleSubmit, validateField, formState } = useForm<PostFormData>({
     schema: postSchema,
+    initialData: {
+      title: initialData?.title || '',
+      content: initialData?.content || '',
+      tags: initialData?.tags || [],
+      status: initialData?.status || 'draft'
+    },
     onSubmit: async (data) => {
       try {
+        const tags = tagInput
+          .split(',')
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
+
+        const postData = {
+          ...data,
+          tags
+        };
+
         if (isEditing && postId) {
-          await postService.updatePost(postId, data);
-          showToast.success('Post updated successfully!');
+          await postService.updatePost(postId, postData);
+          showToast.success('Post updated successfully');
         } else {
-          await postService.createPost(data);
-          showToast.success('Post created successfully!');
+          await postService.createPost(postData);
+          showToast.success('Post created successfully');
         }
+        
         router.push('/dashboard');
       } catch (error) {
         showToast.error(isEditing ? 'Failed to update post' : 'Failed to create post');

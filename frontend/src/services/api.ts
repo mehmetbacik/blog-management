@@ -111,9 +111,18 @@ export const postService = {
     }
   },
   
-  createPost: async (postData: { title: string; content: string; tags: string[] }) => {
-    const { data } = await api.post('/posts', postData);
-    return data;
+  createPost: async (postData: {
+    title: string;
+    content: string;
+    tags: string[];
+    status: Post['status'];
+  }) => {
+    try {
+      const response = await api.post('/posts', postData);
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
   },
   
   updatePost: async (id: string, postData: {
