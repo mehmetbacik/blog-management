@@ -45,6 +45,10 @@ import mongoose from 'mongoose';
  *           type: string
  *           format: date-time
  *           description: Post last update date
+ *         category:
+ *           type: string
+ *           enum: [Technology, Science, Business, Lifestyle]
+ *           description: Post category
  */
 const postSchema = new mongoose.Schema({
   title: {
@@ -75,6 +79,11 @@ const postSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+  category: {
+    type: String,
+    enum: ['Technology', 'Science', 'Business', 'Lifestyle'],
+    default: 'Technology'
   },
 });
 
