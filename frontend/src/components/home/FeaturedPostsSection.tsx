@@ -1,3 +1,5 @@
+import { FeaturedPosts } from "./FeaturedPosts";
+
 export function FeaturedPostsSection() {
   return (
     <section className="featured">
