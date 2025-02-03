@@ -6,7 +6,7 @@ import { Post } from '@/types';
 import { postService } from '@/services/api';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
-export const FeaturedPosts = () => {
+export function FeaturedPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,21 +35,22 @@ export const FeaturedPosts = () => {
             <Link href={`/posts/${post._id}`}>{post.title}</Link>
           </h3>
           <div className="featured-post__meta">
-            <span>{post.author.username}</span>
+            <span>
+              {post.author?.username || 'Anonymous'}
+            </span>
             <span>•</span>
-            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-            {post.category && (
-              <>
-                <span>•</span>
-                <span className="featured-post__category">{post.category}</span>
-              </>
-            )}
+            <span>
+              {new Date(post.createdAt).toLocaleDateString()}
+            </span>
           </div>
           <p className="featured-post__excerpt">
             {post.content.slice(0, 150)}...
           </p>
         </article>
       ))}
+      {posts.length === 0 && (
+        <p className="featured-posts__empty">No posts found</p>
+      )}
     </div>
   );
-}; 
+} 

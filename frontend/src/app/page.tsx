@@ -1,14 +1,13 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FeaturedPosts } from '@/components/home/FeaturedPosts';
-import { CategoryPreview } from '@/components/home/CategoryPreview';
 
 export const metadata: Metadata = {
   title: 'Welcome to BlogHub - Your Modern Blogging Platform',
-  description: 'Discover insightful articles across technology, science, business, and lifestyle',
+  description: 'Discover and share amazing stories with our community',
 };
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <div className="home">
       <section className="hero">
@@ -34,13 +33,6 @@ export default async function HomePage() {
         <div className="container">
           <h2 className="section__title">Latest Posts</h2>
           <FeaturedPosts />
-        </div>
-      </section>
-
-      <section className="categories">
-        <div className="container">
-          <h2 className="section__title">Explore Categories</h2>
-          <CategoryPreview />
         </div>
       </section>
     </div>

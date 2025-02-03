@@ -48,6 +48,14 @@
   @include breakpoint('md') {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  &__empty {
+    text-align: center;
+    color: $secondary-color;
+    padding: $spacing-unit * 8;
+    background: rgba($secondary-color, 0.05);
+    border-radius: $border-radius;
+  }
 }
 
 .featured-post {

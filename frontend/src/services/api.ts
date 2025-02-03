@@ -169,6 +169,19 @@ export const postService = {
     const { data } = await api.get(`/posts/search?${searchParams.toString()}`);
     return data;
   },
+  
+  getAllPublished: async (params?: { page?: string; limit?: string }): Promise<PostsResponse> => {
+    try {
+      const queryParams = new URLSearchParams();
+      if (params?.page) queryParams.set('page', params.page);
+      if (params?.limit) queryParams.set('limit', params.limit);
+
+      const { data } = await api.get(`/posts?${queryParams.toString()}`);
+      return data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
 };
 
 export const adminService = {
