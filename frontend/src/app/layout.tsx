@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import { TopBar } from '@/components/layout/Topbar';
 import { Navbar } from '@/components/layout/Navbar';
 import { ToastContainer } from 'react-toastify';
@@ -7,7 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/scss/main.scss';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto ({
+  subsets: ['latin'],
+  weight: '400'
+});
 
 export const metadata: Metadata = {
   title: 'Blog Management System',
@@ -21,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <Providers>
           <TopBar />
           <Navbar />
