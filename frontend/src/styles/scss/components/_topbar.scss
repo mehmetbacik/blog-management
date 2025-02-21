@@ -1,5 +1,5 @@
 .topbar {
-    background: $dark-color;
+    background: $secondary-color;
     color: $light-color;
     font-family: $font-family-base;
     font-size: $font-size-base * 0.875;
@@ -28,7 +28,7 @@
             transition: $transition-base;
             &:hover,
             &.active {
-                color: $warning-color;
+                color: $primary-color;
             }
         }
     }

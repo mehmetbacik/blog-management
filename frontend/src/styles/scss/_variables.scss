@@ -1,11 +1,18 @@
 // Colors
-$primary-color: #2563eb;
-$secondary-color: #475569;
-$success-color: #22c55e;
-$danger-color: #ef4444;
-$warning-color: #f59e0b;
-$light-color: #f8fafc;
-$dark-color: #0f172a;
+$primary-color: #4a90e2; // Soft Blue
+$secondary-color: #475569; // Secondary grayish blue
+$success-color: #22c55e; // Green for success
+$danger-color: #ef4444; // Red for danger
+$warning-color: #f59e0b; // Yellow for warning
+$light-color: #f8fafc; // Light grayish color for backgrounds
+$dark-color: #0f172a; // Dark blue for text and elements
+$background-color: #ffffff; // White background for content area
+$highlight-color: #ff6f61; // Coral for accents (CTA, etc.)
+$heading-color: #333333; // Dark gray for headings
+$text-color: #555555; // Medium gray for body text
+$link-color: #4a90e2; // Soft Blue for links
+$cta-button-color: #50e3c2; // Green for CTA buttons
+$cta-button-hover-color: #38b2a3; // Dark green for button hover
 
 // Typography
 $font-family-base: 'Roboto', sans-serif;
