@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { menuLinks } from "@/data/menuLinks";
+import { socialMediaLinks } from "@/data/socialMedia";
 
 export const TopBar: React.FC = () => {
   const pathname = usePathname();
@@ -27,44 +28,30 @@ export const TopBar: React.FC = () => {
           <div className="topbar__group">
             <span className="topbar__date">{currentDate}</span>
             <div className="topbar__links">
-              <Link
-                href="/contact"
-                className={`topbar__link ${
-                  pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                Contact
-              </Link>
-              <Link href="/login" className="topbar__link">
-                Login
-              </Link>
-              <Link href="/register" className="topbar__link">
-                Register
-              </Link>
+              {menuLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`topbar__link ${
+                    pathname === link.href ? "active" : ""
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
           <div className="topbar__social">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram />
-            </a>
+            {socialMediaLinks.map((social) => (
+              <a
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <social.icon />
+              </a>
+            ))}
           </div>
         </div>
       </div>
