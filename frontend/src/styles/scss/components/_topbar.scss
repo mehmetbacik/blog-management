@@ -2,8 +2,8 @@
     background: $secondary-color;
     color: $light-color;
     font-family: $font-family-base;
-    font-size: $font-size-base * 0.875;
-    padding: $spacing-unit * 4 0;
+    font-size: $font-size-base * 0.75;
+    padding: $spacing-unit * 2 0;
     &__content {
         display: flex;
         justify-content: space-between;
@@ -18,6 +18,8 @@
     &__date {
         font-weight: bold;
         white-space: nowrap;
+        border-right: solid 1px $light-color;
+        padding-right: 1rem;
     }
     &__links {
         display: flex;
@@ -37,7 +39,7 @@
         gap: $spacing-unit * 4;
         a {
             color: $light-color;
-            font-size: $font-size-base * 1.25;
+            font-size: $font-size-base * 0.875;
             transition: $transition-base;
             &:hover {
                 color: $primary-color;
@@ -45,52 +47,9 @@
         }
     }
     /* ---------- RESPONSIVE DESIGN ---------- */
-    /*Medium Screens*/
-    @media (max-width: $md-breakpoint) {
-        .container {
-            padding: 0 $spacing-unit * 3;
-        }
-        &__content {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: $spacing-unit * 2;
-        }
-        &__group {
-            flex-direction: column;
-            gap: $spacing-unit * 2;
-        }
-        &__links {
-            flex-direction: row;
-            gap: $spacing-unit * 2;
-        }
-        &__social {
-            gap: $spacing-unit * 3;
-        }
-    }
-    /*Medium Screens*/
     /*Small Screens*/
     @media (max-width: $sm-breakpoint) {
-        font-size: $font-size-base * 0.75;
-        .container {
-            padding: 0 $spacing-unit * 2;
-        }
-        &__content {
-            flex-direction: column;
-            text-align: center;
-            gap: $spacing-unit;
-        }
-        &__group {
-            flex-direction: column;
-            gap: $spacing-unit;
-        }
-        &__links {
-            flex-direction: column;
-            gap: $spacing-unit;
-        }
-        &__social {
-            gap: $spacing-unit * 2;
-        }
+        display: none;
     }
     /*Small Screens*/
 }
