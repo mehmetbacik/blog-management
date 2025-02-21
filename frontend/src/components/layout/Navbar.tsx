@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useEffect } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
@@ -16,11 +17,11 @@ export const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    router.push('/');
+    router.push("/");
   };
 
   const handleAdminPanel = () => {
-    window.open('/admin', '_blank', 'noopener,noreferrer');
+    window.open("/admin", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -28,18 +29,47 @@ export const Navbar: React.FC = () => {
       <div className="container">
         <div className="navbar__content">
           <Link href="/" className="navbar__logo">
-            Blog Management
+            <Image
+              src="/img/logo.png"
+              alt="Blog Management Logo"
+              width={150}
+              height={50}
+            />
           </Link>
 
           <div className="navbar__links">
-            <Link 
-              href="/search" 
-              className={`navbar__link ${pathname === '/search' ? 'active' : ''}`}
+            <Link
+              href="/"
+              className={`navbar__link ${pathname === "/" ? "active" : ""}`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className={`navbar__link ${
+                pathname === "/about" ? "active" : ""
+              }`}
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className={`navbar__link ${
+                pathname === "/contact" ? "active" : ""
+              }`}
+            >
+              Contact
+            </Link>
+            <Link
+              href="/search"
+              className={`navbar__link ${
+                pathname === "/search" ? "active" : ""
+              }`}
             >
               Search
             </Link>
-            {user && user.role === 'admin' && (
-              <button 
+            {user && user.role === "admin" && (
+              <button
                 onClick={handleAdminPanel}
                 className="navbar__link admin-button"
               >
@@ -48,13 +78,18 @@ export const Navbar: React.FC = () => {
             )}
             {user ? (
               <>
-                <Link 
-                  href="/profile" 
-                  className={`navbar__link ${pathname === '/profile' ? 'active' : ''}`}
+                <Link
+                  href="/profile"
+                  className={`navbar__link ${
+                    pathname === "/profile" ? "active" : ""
+                  }`}
                 >
                   Profile
                 </Link>
-                <button onClick={handleLogout} className="button button--outline">
+                <button
+                  onClick={handleLogout}
+                  className="button button--outline"
+                >
                   Logout
                 </button>
               </>
@@ -73,4 +108,4 @@ export const Navbar: React.FC = () => {
       </div>
     </nav>
   );
-}; 
+};
