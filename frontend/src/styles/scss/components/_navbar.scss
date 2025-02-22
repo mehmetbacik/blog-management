@@ -1,59 +1,129 @@
 .navbar {
-  padding: $spacing-unit * 4 0;
-  border-bottom: 1px solid $border-color;
-  background-color: white;
-  
-  &__content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  &__brand {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: $primary-color;
-  }
-  
-  &__menu {
-    display: flex;
-    align-items: center;
-    gap: $spacing-unit * 4;
-  }
-  
-  &__link {
-    color: $secondary-color;
-    transition: $transition-base;
-    
-    &:hover {
-      color: $primary-color;
+    padding: $spacing-unit * 4 0;
+    border-bottom: 1px solid $border-color;
+    background-color: $background-color;
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    
-    &.active {
-      color: $primary-color;
-      font-weight: 500;
+    &__logo {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $primary-color;
     }
-  }
-
-  .admin-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    color: $secondary-color;
-    font-size: inherit;
-    padding: $spacing-unit * 2;
-    transition: $transition-base;
-
-    &:hover {
-      color: $primary-color;
+    &__hamburger {
+        display: none;
+        cursor: pointer;
     }
-
-    &.active {
-      color: $primary-color;
-      font-weight: 500;
+    &__menu {
+        display: flex;
+        align-items: center;
+        gap: $spacing-unit * 4;
     }
-  }
-} 
+    &__buttons {
+        display: flex;
+        gap: $spacing-unit * 2;
+    }
+    &__link {
+      color: $secondary-color;
+      transition: $transition-base;
+      &:hover {
+          color: $primary-color;
+      }
+      &.active {
+          color: $primary-color;
+          font-weight: 500;
+      }
+    }
+    .admin-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: $secondary-color;
+        font-size: inherit;
+        padding: $spacing-unit * 2;
+        transition: $transition-base;
+        &:hover {
+            color: $primary-color;
+        }
+        &.active {
+            color: $primary-color;
+            font-weight: 500;
+        }
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+    }
+    &__mobile-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100%;
+        background-color: $background-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: $spacing-unit * 4;
+        transition: left 0.3s ease-in-out;
+        z-index: 100;
+        &.open {
+            left: 0;
+        }
+        .navbar__close {
+            position: absolute;
+            top: $spacing-unit * 2;
+            right: $spacing-unit * 2;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: $secondary-color;
+        }
+        .navbar__button--mobile {
+            margin-top: $spacing-unit * 2;
+            background-color: $primary-color;
+            color: $light-color;
+            padding: $spacing-unit * 2;
+            width: 100%;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            &:hover {
+                background-color: $primary-color;
+            }
+        }
+    }
+    /* ---------- RESPONSIVE DESIGN ---------- */
+    /*Small-Medium Screens*/
+    @media screen and (max-width: $md-breakpoint) {
+        &__hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: $secondary-color;
+        }
+        &__menu {
+            display: none;
+        }
+        &__buttons {
+            display: none;
+        }
+    }
+    /*Small-Medium Screens*/
+}
