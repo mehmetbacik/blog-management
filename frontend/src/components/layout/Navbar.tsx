@@ -35,6 +35,11 @@ export const Navbar: React.FC = () => {
     setMenuOpen(false);
   };
 
+  const handleButtonClick = (action: () => void) => {
+    action();
+    closeMenu();
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -142,30 +147,34 @@ export const Navbar: React.FC = () => {
         <Link
           href="/"
           className={`navbar__link ${pathname === "/" ? "active" : ""}`}
+          onClick={() => handleButtonClick(closeMenu)}
         >
           Home
         </Link>
         <Link
           href="/about"
           className={`navbar__link ${pathname === "/about" ? "active" : ""}`}
+          onClick={() => handleButtonClick(closeMenu)}
         >
           About
         </Link>
         <Link
           href="/contact"
           className={`navbar__link ${pathname === "/contact" ? "active" : ""}`}
+          onClick={() => handleButtonClick(closeMenu)}
         >
           Contact
         </Link>
         <Link
           href="/search"
           className={`navbar__link ${pathname === "/search" ? "active" : ""}`}
+          onClick={() => handleButtonClick(closeMenu)}
         >
           <FaSearch />
         </Link>
         {user && user.role === "admin" && (
           <button
-            onClick={handleAdminPanel}
+            onClick={() => handleButtonClick(handleAdminPanel)}
             className="navbar__link admin-button"
           >
             Admin Panel ↗
@@ -178,11 +187,12 @@ export const Navbar: React.FC = () => {
               className={`navbar__link ${
                 pathname === "/profile" ? "active" : ""
               }`}
+              onClick={() => handleButtonClick(closeMenu)}
             >
               Profile
             </Link>
             <button
-              onClick={handleLogout}
+              onClick={() => handleButtonClick(handleLogout)}
               className="navbar__link navbar__button--mobile"
             >
               Logout
@@ -190,12 +200,17 @@ export const Navbar: React.FC = () => {
           </>
         ) : (
           <>
-            <Link href="/login" className="navbar__link navbar__button--mobile">
+            <Link
+              href="/login"
+              className="navbar__link navbar__button--mobile"
+              onClick={() => handleButtonClick(closeMenu)}
+            >
               Login
             </Link>
             <Link
               href="/register"
               className="navbar__link navbar__button--mobile"
+              onClick={() => handleButtonClick(closeMenu)}
             >
               Register
             </Link>
