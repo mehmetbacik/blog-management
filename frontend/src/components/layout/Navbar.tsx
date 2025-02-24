@@ -70,6 +70,14 @@ export const Navbar: React.FC = () => {
               Home
             </Link>
             <Link
+              href="/posts"
+              className={`navbar__link ${
+                pathname === "/posts" ? "active" : ""
+              }`}
+            >
+              Blog
+            </Link>
+            <Link
               href="/about"
               className={`navbar__link ${
                 pathname === "/about" ? "active" : ""
@@ -91,11 +99,11 @@ export const Navbar: React.FC = () => {
           <div className="navbar__buttons">
             <Link
               href="/search"
-              className={`navbar__link ${
+              className={`navbar__button ${
                 pathname === "/search" ? "active" : ""
               }`}
             >
-              <FaSearch />
+              Search
             </Link>
             {user && user.role === "admin" && (
               <button
@@ -124,10 +132,10 @@ export const Navbar: React.FC = () => {
               </>
             ) : (
               <>
-                <Link href="/login" className="button button--outline">
+                <Link href="/login" className="navbar__button">
                   Login
                 </Link>
-                <Link href="/register" className="button">
+                <Link href="/register" className="navbar__button">
                   Register
                 </Link>
               </>
