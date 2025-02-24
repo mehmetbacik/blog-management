@@ -59,22 +59,18 @@
         }
     }
     .admin-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        color: $secondary-color;
-        font-size: inherit;
-        padding: $spacing-unit * 2;
+        background-color: $primary-color;
+        font-size: $font-size-base * 0.875;
+        color: $light-color;
         transition: $transition-base;
+        padding: $spacing-unit * 1.5 $spacing-unit * 3;
+        border: solid 2px transparent;
+        border-radius: 5px;
         &:hover {
+            background-color: $background-color;
             color: $primary-color;
-        }
-        &.active {
-            color: $primary-color;
-            font-weight: 500;
+            border-radius: 5px;
+            border: solid 2px $primary-color;
         }
     }
     .overlay {

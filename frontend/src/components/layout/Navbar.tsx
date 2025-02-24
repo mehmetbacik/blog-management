@@ -108,7 +108,7 @@ export const Navbar: React.FC = () => {
             {user && user.role === "admin" && (
               <button
                 onClick={handleAdminPanel}
-                className="navbar__link admin-button"
+                className="navbar__button admin-button"
               >
                 Admin Panel ↗
               </button>
@@ -117,7 +117,7 @@ export const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/profile"
-                  className={`navbar__link ${
+                  className={`navbar__button ${
                     pathname === "/profile" ? "active" : ""
                   }`}
                 >
@@ -125,7 +125,7 @@ export const Navbar: React.FC = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="button button--outline"
+                  className="navbar__button"
                 >
                   Logout
                 </button>
