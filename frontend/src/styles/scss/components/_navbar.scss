@@ -58,6 +58,39 @@
             border: solid 2px $primary-color;
         }
     }
+    &__dropdown {
+        position: relative;
+    }
+    &__username {
+        font-size: $font-size-base * 0.875;
+        color: $light-color;
+    }
+    &__dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: $background-color;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px;
+        border-radius: 5px;
+        z-index: 100;
+        width: 200px;
+    }
+    &__dropdown-menu.open {
+        display: block;
+    }
+    &__dropdown-item {
+        padding: $spacing-unit * 1.5 $spacing-unit * 3;
+        cursor: pointer;
+        text-align: left;
+        color: $secondary-color;
+        background-color: $background-color;
+        transition: background-color 0.3s ease;
+    }
+    &__dropdown-item:hover {
+        background-color: $primary-color;
+        color: $light-color;
+    }
     .admin-button {
         background-color: $primary-color;
         font-size: $font-size-base * 0.875;

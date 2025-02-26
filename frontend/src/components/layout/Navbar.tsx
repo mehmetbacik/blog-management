@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
+import {
+  FaBars,
+  FaSearch,
+  FaTimes,
+  FaUser,
+  FaSignOutAlt,
+  FaCogs,
+} from "react-icons/fa";
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
@@ -13,6 +20,16 @@ export const Navbar: React.FC = () => {
   const { user, logout, refreshUser } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [user, pathname]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prevState) => !prevState);
+  };
 
   useEffect(() => {
     refreshUser();
@@ -39,6 +56,19 @@ export const Navbar: React.FC = () => {
     action();
     closeMenu();
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
@@ -71,25 +101,19 @@ export const Navbar: React.FC = () => {
             </Link>
             <Link
               href="/posts"
-              className={`navbar__link ${
-                pathname === "/posts" ? "active" : ""
-              }`}
+              className={`navbar__link ${pathname === "/posts" ? "active" : ""}`}
             >
               Blog
             </Link>
             <Link
               href="/about"
-              className={`navbar__link ${
-                pathname === "/about" ? "active" : ""
-              }`}
+              className={`navbar__link ${pathname === "/about" ? "active" : ""}`}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className={`navbar__link ${
-                pathname === "/contact" ? "active" : ""
-              }`}
+              className={`navbar__link ${pathname === "/contact" ? "active" : ""}`}
             >
               Contact
             </Link>
@@ -99,37 +123,31 @@ export const Navbar: React.FC = () => {
           <div className="navbar__buttons">
             <Link
               href="/search"
-              className={`navbar__button ${
-                pathname === "/search" ? "active" : ""
-              }`}
+              className={`navbar__button ${pathname === "/search" ? "active" : ""}`}
             >
               Search
             </Link>
-            {user && user.role === "admin" && (
-              <button
-                onClick={handleAdminPanel}
-                className="navbar__button admin-button"
-              >
-                Admin Panel ↗
-              </button>
-            )}
             {user ? (
-              <>
-                <Link
-                  href="/profile"
-                  className={`navbar__button ${
-                    pathname === "/profile" ? "active" : ""
-                  }`}
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="navbar__button"
-                >
-                  Logout
+              <div className="navbar__dropdown navbar__button" ref={dropdownRef}>
+                <button className="navbar__username" onClick={toggleDropdown}>
+                  <FaUser /> {user.username}
                 </button>
-              </>
+                <div className={`navbar__dropdown-menu ${isDropdownOpen ? "open" : ""}`}>
+                  {user.role === "admin" && (
+                    <button onClick={handleAdminPanel} className="navbar__button admin-button">
+                      <FaCogs /> Admin Panel ↗
+                    </button>
+                  )}
+                  <div className="navbar__dropdown-item">
+                    <Link href="/profile">
+                      <FaUser /> Profile
+                    </Link>
+                  </div>
+                  <div className="navbar__dropdown-item" onClick={handleLogout}>
+                    <FaSignOutAlt /> Logout
+                  </div>
+                </div>
+              </div>
             ) : (
               <>
                 <Link href="/login" className="navbar__button">
@@ -181,10 +199,7 @@ export const Navbar: React.FC = () => {
           <FaSearch />
         </Link>
         {user && user.role === "admin" && (
-          <button
-            onClick={() => handleButtonClick(handleAdminPanel)}
-            className="navbar__link admin-button"
-          >
+          <button onClick={() => handleButtonClick(handleAdminPanel)} className="navbar__link admin-button">
             Admin Panel ↗
           </button>
         )}
@@ -192,34 +207,21 @@ export const Navbar: React.FC = () => {
           <>
             <Link
               href="/profile"
-              className={`navbar__link ${
-                pathname === "/profile" ? "active" : ""
-              }`}
+              className={`navbar__link ${pathname === "/profile" ? "active" : ""}`}
               onClick={() => handleButtonClick(closeMenu)}
             >
               Profile
             </Link>
-            <button
-              onClick={() => handleButtonClick(handleLogout)}
-              className="navbar__link navbar__button--mobile"
-            >
+            <button onClick={() => handleButtonClick(handleLogout)} className="navbar__link navbar__button--mobile">
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link
-              href="/login"
-              className="navbar__link navbar__button--mobile"
-              onClick={() => handleButtonClick(closeMenu)}
-            >
+            <Link href="/login" className="navbar__link navbar__button--mobile" onClick={() => handleButtonClick(closeMenu)}>
               Login
             </Link>
-            <Link
-              href="/register"
-              className="navbar__link navbar__button--mobile"
-              onClick={() => handleButtonClick(closeMenu)}
-            >
+            <Link href="/register" className="navbar__link navbar__button--mobile" onClick={() => handleButtonClick(closeMenu)}>
               Register
             </Link>
           </>
