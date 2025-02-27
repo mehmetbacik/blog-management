@@ -60,51 +60,71 @@
     }
     &__dropdown {
         position: relative;
-    }
-    &__username {
-        font-size: $font-size-base * 0.875;
-        color: $light-color;
-    }
-    &__dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: $background-color;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px;
-        border-radius: 5px;
-        z-index: 100;
-        width: 200px;
-    }
-    &__dropdown-menu.open {
-        display: block;
-    }
-    &__dropdown-item {
-        padding: $spacing-unit * 1.5 $spacing-unit * 3;
-        cursor: pointer;
-        text-align: left;
-        color: $secondary-color;
-        background-color: $background-color;
-        transition: background-color 0.3s ease;
-    }
-    &__dropdown-item:hover {
-        background-color: $primary-color;
-        color: $light-color;
-    }
-    .admin-button {
         background-color: $primary-color;
         font-size: $font-size-base * 0.875;
+        font-weight: bold;
         color: $light-color;
         transition: $transition-base;
         padding: $spacing-unit * 1.5 $spacing-unit * 3;
         border: solid 2px transparent;
         border-radius: 5px;
+        cursor: pointer;
         &:hover {
             background-color: $background-color;
             color: $primary-color;
             border-radius: 5px;
             border: solid 2px $primary-color;
         }
+        &.active {
+            background-color: $background-color;
+            color: $primary-color;
+            border-radius: 5px;
+            border: solid 2px $primary-color;
+        }
+        .navbar__username {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+    &__dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: $background-color;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px;
+        border-radius: 5px;
+        z-index: 100;
+        width: max-content;
+        &.open {
+            display: block;
+        }
+    }
+    &__dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: $spacing-unit * 1.75 $spacing-unit * 3.5;
+        font-size: $font-size-base * 0.875;;
+        cursor: pointer;
+        text-align: left;
+        color: $secondary-color;
+        background-color: $background-color;
+        transition: $transition-base;
+        &:hover {
+            background-color: $primary-color;
+            color: $light-color;
+        }
+        .profile-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+    &__icon {
+        vertical-align: middle;
+        line-height: 1;
     }
     .overlay {
         position: fixed;

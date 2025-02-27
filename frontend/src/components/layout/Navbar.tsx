@@ -59,7 +59,10 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -101,19 +104,25 @@ export const Navbar: React.FC = () => {
             </Link>
             <Link
               href="/posts"
-              className={`navbar__link ${pathname === "/posts" ? "active" : ""}`}
+              className={`navbar__link ${
+                pathname === "/posts" ? "active" : ""
+              }`}
             >
               Blog
             </Link>
             <Link
               href="/about"
-              className={`navbar__link ${pathname === "/about" ? "active" : ""}`}
+              className={`navbar__link ${
+                pathname === "/about" ? "active" : ""
+              }`}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className={`navbar__link ${pathname === "/contact" ? "active" : ""}`}
+              className={`navbar__link ${
+                pathname === "/contact" ? "active" : ""
+              }`}
             >
               Contact
             </Link>
@@ -123,28 +132,56 @@ export const Navbar: React.FC = () => {
           <div className="navbar__buttons">
             <Link
               href="/search"
-              className={`navbar__button ${pathname === "/search" ? "active" : ""}`}
+              className={`navbar__button ${
+                pathname === "/search" ? "active" : ""
+              }`}
             >
-              Search
+              <span className="navbar__icon">
+                <FaSearch />
+              </span>
             </Link>
             {user ? (
-              <div className="navbar__dropdown navbar__button" ref={dropdownRef}>
-                <button className="navbar__username" onClick={toggleDropdown}>
-                  <FaUser /> {user.username}
-                </button>
-                <div className={`navbar__dropdown-menu ${isDropdownOpen ? "open" : ""}`}>
+              <div
+                className={`navbar__dropdown ${isDropdownOpen ? "active" : ""}`}
+                ref={dropdownRef}
+                onClick={toggleDropdown}
+              >
+                <div className="navbar__username">
+                  <span className="navbar__icon">
+                    <FaUser />
+                  </span>
+
+                  <span>{user.username}</span>
+                </div>
+                <div
+                  className={`navbar__dropdown-menu ${
+                    isDropdownOpen ? "open" : ""
+                  }`}
+                >
                   {user.role === "admin" && (
-                    <button onClick={handleAdminPanel} className="navbar__button admin-button">
-                      <FaCogs /> Admin Panel ↗
-                    </button>
+                    <div
+                      onClick={handleAdminPanel}
+                      className="navbar__dropdown-item"
+                    >
+                      <span className="navbar__icon">
+                        <FaCogs />
+                      </span>
+                      <span>Admin Panel</span>
+                    </div>
                   )}
                   <div className="navbar__dropdown-item">
-                    <Link href="/profile">
-                      <FaUser /> Profile
+                    <Link href="/profile" className="profile-wrapper">
+                      <span className="navbar__icon">
+                        <FaUser />
+                      </span>
+                      <span>Profile</span>
                     </Link>
                   </div>
                   <div className="navbar__dropdown-item" onClick={handleLogout}>
-                    <FaSignOutAlt /> Logout
+                    <span className="navbar__icon">
+                      <FaSignOutAlt />
+                    </span>
+                    <span>Logout</span>
                   </div>
                 </div>
               </div>
@@ -199,7 +236,10 @@ export const Navbar: React.FC = () => {
           <FaSearch />
         </Link>
         {user && user.role === "admin" && (
-          <button onClick={() => handleButtonClick(handleAdminPanel)} className="navbar__link admin-button">
+          <button
+            onClick={() => handleButtonClick(handleAdminPanel)}
+            className="navbar__link admin-button"
+          >
             Admin Panel ↗
           </button>
         )}
@@ -207,21 +247,34 @@ export const Navbar: React.FC = () => {
           <>
             <Link
               href="/profile"
-              className={`navbar__link ${pathname === "/profile" ? "active" : ""}`}
+              className={`navbar__link ${
+                pathname === "/profile" ? "active" : ""
+              }`}
               onClick={() => handleButtonClick(closeMenu)}
             >
               Profile
             </Link>
-            <button onClick={() => handleButtonClick(handleLogout)} className="navbar__link navbar__button--mobile">
+            <button
+              onClick={() => handleButtonClick(handleLogout)}
+              className="navbar__link navbar__button--mobile"
+            >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link href="/login" className="navbar__link navbar__button--mobile" onClick={() => handleButtonClick(closeMenu)}>
+            <Link
+              href="/login"
+              className="navbar__link navbar__button--mobile"
+              onClick={() => handleButtonClick(closeMenu)}
+            >
               Login
             </Link>
-            <Link href="/register" className="navbar__link navbar__button--mobile" onClick={() => handleButtonClick(closeMenu)}>
+            <Link
+              href="/register"
+              className="navbar__link navbar__button--mobile"
+              onClick={() => handleButtonClick(closeMenu)}
+            >
               Register
             </Link>
           </>
