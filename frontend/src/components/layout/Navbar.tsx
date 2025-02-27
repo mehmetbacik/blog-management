@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
 
           {/* Hamburger Icon for Mobile */}
           <div className="navbar__hamburger" onClick={toggleMenu}>
-            {menuOpen ? <FaTimes /> : <FaBars />}
+            <FaBars />
           </div>
 
           {/* Menu Links Section (Desktop) */}
@@ -139,6 +139,7 @@ export const Navbar: React.FC = () => {
               <span className="navbar__icon">
                 <FaSearch />
               </span>
+              <span>Search</span>
             </Link>
             {user ? (
               <div
@@ -150,7 +151,6 @@ export const Navbar: React.FC = () => {
                   <span className="navbar__icon">
                     <FaUser />
                   </span>
-
                   <span>{user.username}</span>
                 </div>
                 <div
@@ -188,10 +188,10 @@ export const Navbar: React.FC = () => {
             ) : (
               <>
                 <Link href="/login" className="navbar__button">
-                  Login
-                </Link>
-                <Link href="/register" className="navbar__button">
-                  Register
+                  <span className="navbar__icon">
+                    <FaUser />
+                  </span>
+                  <span>Login</span>
                 </Link>
               </>
             )}

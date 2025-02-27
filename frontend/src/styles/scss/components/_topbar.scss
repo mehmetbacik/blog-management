@@ -36,11 +36,14 @@
     }
     &__social {
         display: flex;
+        align-items: center;
         gap: $spacing-unit * 4;
         a {
             color: $light-color;
             font-size: $font-size-base * 0.875;
             transition: $transition-base;
+            vertical-align: middle;
+            line-height: normal;
             &:hover {
                 color: $primary-color;
             }
