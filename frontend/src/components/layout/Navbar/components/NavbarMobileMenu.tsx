@@ -1,6 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { FaTimes, FaSearch } from "react-icons/fa";
+import {
+  FaTimes,
+  FaSearch,
+  FaCogs,
+  FaUser,
+  FaUserPlus,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { menuItems } from "@/data/navbarMenuLinks";
 
 interface NavbarMobileMenuProps {
@@ -36,7 +43,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
         <Link
           key={path}
           href={path}
-          className={`navbar__link ${pathname === path ? "active" : ""}`}
+          className={`navbar__link navbar__button--mobile ${
+            pathname === path ? "active" : ""
+          }`}
           onClick={closeMenu}
         >
           {label}
@@ -44,17 +53,21 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
       ))}
       <Link
         href="/search"
-        className={`navbar__link ${pathname === "/search" ? "active" : ""}`}
+        className={`navbar__link navbar__button--mobile ${
+          pathname === "/search" ? "active" : ""
+        }`}
         onClick={closeMenu}
       >
         <FaSearch />
+        <span>Search</span>
       </Link>
       {user && user.role === "admin" && (
         <button
           onClick={() => handleButtonClick(onAdminPanel)}
           className="navbar__link navbar__button--mobile"
         >
-          Admin Panel ↗
+          <FaCogs />
+          <span>Admin Panel</span>
         </button>
       )}
       {user ? (
@@ -66,13 +79,15 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             }`}
             onClick={closeMenu}
           >
-            Profile
+            <FaUser />
+            <span>Profile</span>
           </Link>
           <button
             onClick={() => handleButtonClick(onLogout)}
             className="navbar__link navbar__button--mobile"
           >
-            Logout
+            <FaSignOutAlt />
+            <span>Logout</span>
           </button>
         </>
       ) : (
@@ -82,14 +97,16 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             className="navbar__link navbar__button--mobile"
             onClick={closeMenu}
           >
-            Login
+            <FaUser />
+            <span>Login</span>
           </Link>
           <Link
             href="/register"
             className="navbar__link navbar__button--mobile"
             onClick={closeMenu}
           >
-            Register
+            <FaUserPlus />
+            <span>Register</span>
           </Link>
         </>
       )}
