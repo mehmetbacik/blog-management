@@ -14,9 +14,8 @@
         font-weight: 600;
         color: $primary-color;
     }
-    &__hamburger {
+    &__hamburger--wrapper {
         display: none;
-        cursor: pointer;
     }
     &__menu {
         display: flex;
@@ -133,68 +132,91 @@
         vertical-align: middle;
         line-height: 1;
     }
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 50;
-    }
     &__mobile-menu {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 70%;
-        height: 100%;
-        background-color: $background-color;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: $spacing-unit * 4;
-        transition: left 0.3s ease-in-out;
-        z-index: 100;
-        &.open {
-            left: 0;
-        }
-        .navbar__close {
-            position: absolute;
-            top: $spacing-unit * 2;
-            right: $spacing-unit * 2;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: $secondary-color;
-        }
-        .navbar__button--mobile {
-            margin-top: $spacing-unit * 2;
-            background-color: $primary-color;
-            color: $light-color;
-            padding: $spacing-unit * 2;
-            width: 100%;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            &:hover {
-                background-color: $primary-color;
-            }
-        }
+        display: none;
+    }
+    .overlay {
+        display: none;
     }
     /* ---------- RESPONSIVE DESIGN ---------- */
     /*Small-Medium Screens*/
     @media screen and (max-width: $md-breakpoint) {
-        &__hamburger {
+        &__content {
+            grid-template-columns: 1fr 1fr;
+        }
+        &__hamburger--wrapper {
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            .navbar__hamburger {
+                cursor: pointer;
+                background-color: $primary-color;
+                font-size: $font-size-base * 0.875;
+                color: $light-color;
+                transition: $transition-base;
+                padding: $spacing-unit * 1.5 $spacing-unit * 3;
+                border: solid 2px transparent;
+                border-radius: 5px;
+                &:hover {
+                    background-color: $background-color;
+                    color: $primary-color;
+                    border-radius: 5px;
+                    border: solid 2px $primary-color;
+                }
+                .navbar__icon {
+                    font-size: $font-size-base;
+                }
+            }
+        }
+        &__mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 70%;
+            height: 100%;
+            background-color: $background-color;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding-top: $spacing-unit * 4;
+            transition: left 0.3s ease-in-out;
+            z-index: 100;
+            &.open {
+                left: 0;
+            }
+            .navbar__close {
+                position: absolute;
+                top: $spacing-unit * 2;
+                right: $spacing-unit * 2;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: $secondary-color;
+            }
+            .navbar__button--mobile {
+                margin-top: $spacing-unit * 2;
+                background-color: $primary-color;
+                color: $light-color;
+                padding: $spacing-unit * 2;
+                width: 100%;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                &:hover {
+                    background-color: $primary-color;
+                }
+            }
         }
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: $secondary-color;
+        .overlay {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
         }
         &__menu {
             display: none;

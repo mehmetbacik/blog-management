@@ -31,7 +31,9 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({ user, onLogout }) => {
   return (
     <div className="navbar__buttons">
       <Link href="/search" className="navbar__button">
-        <FaSearch />
+        <span className="navbar__icon">
+          <FaSearch />
+        </span>
         <span>Search</span>
       </Link>
       {user ? (
@@ -43,7 +45,9 @@ const NavbarButtons: React.FC<NavbarButtonsProps> = ({ user, onLogout }) => {
         />
       ) : (
         <Link href="/login" className="navbar__button">
-          <FaUser />
+          <span className="navbar__icon">
+            <FaUser />
+          </span>
           <span>Login</span>
         </Link>
       )}

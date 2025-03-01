@@ -37,7 +37,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
   return (
     <div className={`navbar__mobile-menu ${menuOpen ? "open" : ""}`}>
       <div className="navbar__close" onClick={closeMenu}>
-        <FaTimes />
+        <span className="navbar__icon">
+          <FaTimes />
+        </span>
       </div>
       {menuItems.map(({ label, path }) => (
         <Link
@@ -58,7 +60,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
         }`}
         onClick={closeMenu}
       >
-        <FaSearch />
+        <span className="navbar__icon">
+          <FaSearch />
+        </span>
         <span>Search</span>
       </Link>
       {user && user.role === "admin" && (
@@ -66,7 +70,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
           onClick={() => handleButtonClick(onAdminPanel)}
           className="navbar__link navbar__button--mobile"
         >
-          <FaCogs />
+          <span className="navbar__icon">
+            <FaCogs />
+          </span>
           <span>Admin Panel</span>
         </button>
       )}
@@ -79,14 +85,18 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             }`}
             onClick={closeMenu}
           >
-            <FaUser />
+            <span className="navbar__icon">
+              <FaUser />
+            </span>
             <span>Profile</span>
           </Link>
           <button
             onClick={() => handleButtonClick(onLogout)}
             className="navbar__link navbar__button--mobile"
           >
-            <FaSignOutAlt />
+            <span className="navbar__icon">
+              <FaSignOutAlt />
+            </span>
             <span>Logout</span>
           </button>
         </>
@@ -97,7 +107,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             className="navbar__link navbar__button--mobile"
             onClick={closeMenu}
           >
-            <FaUser />
+            <span className="navbar__icon">
+              <FaUser />
+            </span>
             <span>Login</span>
           </Link>
           <Link
@@ -105,7 +117,9 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             className="navbar__link navbar__button--mobile"
             onClick={closeMenu}
           >
-            <FaUserPlus />
+            <span className="navbar__icon">
+              <FaUserPlus />
+            </span>
             <span>Register</span>
           </Link>
         </>

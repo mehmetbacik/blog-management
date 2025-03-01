@@ -37,14 +37,17 @@ export const Navbar: React.FC = () => {
       <div className="container">
         <div className="navbar__content">
           <NavbarLogo onClose={() => setMenuOpen(false)} />
-          <div className="navbar__hamburger" onClick={toggleMenu}>
-            <FaBars />
+          <div className="navbar__hamburger--wrapper">
+            <div className="navbar__hamburger" onClick={toggleMenu}>
+              <span className="navbar__icon">
+                <FaBars />
+              </span>
+            </div>
           </div>
           <NavbarLinks />
           <NavbarButtons user={user} onLogout={handleLogout} />
         </div>
       </div>
-
       {menuOpen && (
         <div className="overlay" onClick={() => setMenuOpen(false)}></div>
       )}

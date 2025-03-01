@@ -20,28 +20,34 @@ const NavbarDropdown: React.FC<NavbarDropdownProps> = ({
     onClick={() => setDropdownOpen(!isDropdownOpen)}
   >
     <div className="navbar__username">
-      <FaUser />
+      <span className="navbar__icon">
+        <FaUser />
+      </span>
       <span>{user.username}</span>
     </div>
     {isDropdownOpen && (
-      <div className={`navbar__dropdown-menu ${
-        isDropdownOpen ? "open" : ""
-      }`}>
+      <div className={`navbar__dropdown-menu ${isDropdownOpen ? "open" : ""}`}>
         {user.role === "admin" && (
           <div
             onClick={() => window.open("/admin", "_blank")}
             className="navbar__dropdown-item"
           >
-            <FaCogs />
+            <span className="navbar__icon">
+              <FaCogs />
+            </span>
             <span>Admin Panel</span>
           </div>
         )}
         <Link href="/profile" className="navbar__dropdown-item">
-          <FaUser />
+          <span className="navbar__icon">
+            <FaUser />
+          </span>
           <span>Profile</span>
         </Link>
         <div className="navbar__dropdown-item" onClick={onLogout}>
-          <FaSignOutAlt />
+          <span className="navbar__icon">
+            <FaSignOutAlt />
+          </span>
           <span>Logout</span>
         </div>
       </div>
