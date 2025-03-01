@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { menuLinks } from "@/data/menuLinks";
+import { menuLinks } from "@/data/topbarMenuLinks";
 import { socialMediaLinks } from "@/data/socialMedia";
 
 export const TopBar: React.FC = () => {
