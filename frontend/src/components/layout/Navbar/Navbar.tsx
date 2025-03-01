@@ -28,6 +28,10 @@ export const Navbar: React.FC = () => {
     router.push("/");
   };
 
+  const handleAdminPanel = () => {
+    router.push("/admin");
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -49,6 +53,8 @@ export const Navbar: React.FC = () => {
         setMenuOpen={setMenuOpen}
         user={user}
         onLogout={handleLogout}
+        onAdminPanel={handleAdminPanel}
+        pathname={pathname}
       />
     </nav>
   );
