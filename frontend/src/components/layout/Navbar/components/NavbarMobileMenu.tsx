@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FaTimes, FaSearch } from "react-icons/fa";
+import { menuItems } from "@/data/navbarMenuLinks";
 
 interface NavbarMobileMenuProps {
   menuOpen: boolean;
@@ -31,34 +32,16 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
       <div className="navbar__close" onClick={closeMenu}>
         <FaTimes />
       </div>
-      <Link
-        href="/"
-        className={`navbar__link ${pathname === "/" ? "active" : ""}`}
-        onClick={closeMenu}
-      >
-        Home
-      </Link>
-      <Link
-        href="/posts"
-        className={`navbar__link ${pathname === "/posts" ? "active" : ""}`}
-        onClick={closeMenu}
-      >
-        Blog
-      </Link>
-      <Link
-        href="/about"
-        className={`navbar__link ${pathname === "/about" ? "active" : ""}`}
-        onClick={closeMenu}
-      >
-        About
-      </Link>
-      <Link
-        href="/contact"
-        className={`navbar__link ${pathname === "/contact" ? "active" : ""}`}
-        onClick={closeMenu}
-      >
-        Contact
-      </Link>
+      {menuItems.map(({ label, path }) => (
+        <Link
+          key={path}
+          href={path}
+          className={`navbar__link ${pathname === path ? "active" : ""}`}
+          onClick={closeMenu}
+        >
+          {label}
+        </Link>
+      ))}
       <Link
         href="/search"
         className={`navbar__link ${pathname === "/search" ? "active" : ""}`}
