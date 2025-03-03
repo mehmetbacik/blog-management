@@ -42,16 +42,19 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
         </span>
       </div>
       <div className="navbar__menu--list">
-        {menuItems.map(({ label, path }) => (
+        {menuItems.map((items) => (
           <Link
-            key={path}
-            href={path}
+            key={items.path}
+            href={items.path}
             className={`navbar__link navbar__button--mobile ${
-              pathname === path ? "active" : ""
+              pathname === items.path ? "active" : ""
             }`}
             onClick={closeMenu}
           >
-            {label}
+            <span className="navbar__icon">
+              <items.icon />
+            </span>
+            {items.label}
           </Link>
         ))}
         <Link
