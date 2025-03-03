@@ -178,7 +178,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-top: $spacing-unit * 4;
+            padding-top: $spacing-unit * 10;
             transition: left 0.3s ease-in-out;
             z-index: 100;
             &.open {
@@ -188,9 +188,13 @@
                 position: absolute;
                 top: $spacing-unit * 2;
                 right: $spacing-unit * 2;
-                font-size: 1.5rem;
+                font-size: $font-size-base;
                 cursor: pointer;
                 color: $secondary-color;
+            }
+            .navbar__logo {
+                display: flex;
+                justify-content: center;
             }
             .navbar__button--mobile {
                 margin-top: $spacing-unit * 2;
@@ -220,7 +224,7 @@
                 width: 40px;
                 height: 2px;
                 border-radius: 5px;
-                margin-top: 20px;
+                margin-top: $spacing-unit * 6;
             }
         }
         &__submenu--list {
@@ -246,7 +250,27 @@
                 }
             }
         }
-        
+        &__user-info {
+            display: flex;
+            align-items: center;
+            padding: $spacing-unit * 4;
+            &__content {
+                display: flex;
+                align-items: center;
+            }
+            &__icon {
+                font-size: $font-size-base * 2;
+                margin-right: $spacing-unit * 3;
+            }
+            &__username {
+                font-size: $font-size-base;
+                font-weight: bold;
+            }
+            &__guest {
+                font-size: $font-size-base;
+                color: $secondary-color;
+            }
+        }
         .overlay {
             display: block;
             position: fixed;

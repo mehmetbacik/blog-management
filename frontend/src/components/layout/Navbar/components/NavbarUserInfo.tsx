@@ -7,16 +7,16 @@ interface NavbarUserInfoProps {
 
 const NavbarUserInfo: React.FC<NavbarUserInfoProps> = ({ user }) => {
   return (
-    <div className="user-info">
+    <div className="navbar__user-info">
       {user ? (
-        <div className="user-info__content">
-          <FaUserCircle className="user-info__icon" />
-          <span className="user-info__username">{user.username ? user.username : "User"} - {user.role}</span>
+        <div className="navbar__user-info__content">
+          <FaUserCircle className="navbar__user-info__icon" />
+          <span className="navbar__user-info__username">{user.role} - {user.username ? user.username : "User"}</span>
         </div>
       ) : (
-        <div className="user-info__content">
-          <FaUserCircle className="user-info__icon" />
-          <span className="user-info__guest">Guest! Please Log in.</span>
+        <div className="navbar__user-info__content">
+          <FaUserCircle className="navbar__user-info__icon" />
+          <span className="navbar__user-info__guest">Guest! Please Log in.</span>
         </div>
       )}
     </div>

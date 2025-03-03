@@ -62,19 +62,19 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             {items.label}
           </Link>
         ))}
-        <Link
-          href="/search"
-          className={`navbar__link navbar__button--mobile ${
-            pathname === "/search" ? "active" : ""
-          }`}
-          onClick={closeMenu}
-        >
-          <span className="navbar__icon">
-            <FaSearch />
-          </span>
-          <span>Search</span>
-        </Link>
       </div>
+      <Link
+        href="/search"
+        className={`navbar__link navbar__button--mobile ${
+          pathname === "/search" ? "active" : ""
+        }`}
+        onClick={closeMenu}
+      >
+        <span className="navbar__icon">
+          <FaSearch />
+        </span>
+        <span>Search</span>
+      </Link>
       <div className="navbar__submenu--list">
         {user && user.role === "admin" && (
           <button
