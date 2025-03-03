@@ -41,89 +41,88 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
           <FaTimes />
         </span>
       </div>
-      {menuItems.map(({ label, path }) => (
-        <Link
-          key={path}
-          href={path}
-          className={`navbar__link navbar__button--mobile ${
-            pathname === path ? "active" : ""
-          }`}
-          onClick={closeMenu}
-        >
-          {label}
-        </Link>
-      ))}
-      <Link
-        href="/search"
-        className={`navbar__link navbar__button--mobile ${
-          pathname === "/search" ? "active" : ""
-        }`}
-        onClick={closeMenu}
-      >
-        <span className="navbar__icon">
-          <FaSearch />
-        </span>
-        <span>Search</span>
-      </Link>
-      {user && user.role === "admin" && (
-        <button
-          onClick={() => handleButtonClick(onAdminPanel)}
-          className="navbar__link navbar__button--mobile"
-        >
-          <span className="navbar__icon">
-            <FaCogs />
-          </span>
-          <span>Admin Panel</span>
-        </button>
-      )}
-      {user ? (
-        <>
+      <div className="navbar__menu--list">
+        {menuItems.map(({ label, path }) => (
           <Link
-            href="/profile"
+            key={path}
+            href={path}
             className={`navbar__link navbar__button--mobile ${
-              pathname === "/profile" ? "active" : ""
+              pathname === path ? "active" : ""
             }`}
             onClick={closeMenu}
           >
-            <span className="navbar__icon">
-              <FaUser />
-            </span>
-            <span>Profile</span>
+            {label}
           </Link>
+        ))}
+        <Link
+          href="/search"
+          className={`navbar__link navbar__button--mobile ${
+            pathname === "/search" ? "active" : ""
+          }`}
+          onClick={closeMenu}
+        >
+          <span className="navbar__icon">
+            <FaSearch />
+          </span>
+          <span>Search</span>
+        </Link>
+      </div>
+      <div className="navbar__submenu--list">
+        {user && user.role === "admin" && (
           <button
-            onClick={() => handleButtonClick(onLogout)}
+            onClick={() => handleButtonClick(onAdminPanel)}
             className="navbar__link navbar__button--mobile"
           >
             <span className="navbar__icon">
-              <FaSignOutAlt />
+              <FaCogs />
             </span>
-            <span>Logout</span>
           </button>
-        </>
-      ) : (
-        <>
-          <Link
-            href="/login"
-            className="navbar__link navbar__button--mobile"
-            onClick={closeMenu}
-          >
-            <span className="navbar__icon">
-              <FaUser />
-            </span>
-            <span>Login</span>
-          </Link>
-          <Link
-            href="/register"
-            className="navbar__link navbar__button--mobile"
-            onClick={closeMenu}
-          >
-            <span className="navbar__icon">
-              <FaUserPlus />
-            </span>
-            <span>Register</span>
-          </Link>
-        </>
-      )}
+        )}
+        {user ? (
+          <>
+            <Link
+              href="/profile"
+              className={`navbar__link navbar__button--mobile ${
+                pathname === "/profile" ? "active" : ""
+              }`}
+              onClick={closeMenu}
+            >
+              <span className="navbar__icon">
+                <FaUser />
+              </span>
+            </Link>
+            <button
+              onClick={() => handleButtonClick(onLogout)}
+              className="navbar__link navbar__button--mobile"
+            >
+              <span className="navbar__icon">
+                <FaSignOutAlt />
+              </span>
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              href="/login"
+              className="navbar__link navbar__button--mobile"
+              onClick={closeMenu}
+            >
+              <span className="navbar__icon">
+                <FaUser />
+              </span>
+            </Link>
+            <Link
+              href="/register"
+              className="navbar__link navbar__button--mobile"
+              onClick={closeMenu}
+            >
+              <span className="navbar__icon">
+                <FaUserPlus />
+              </span>
+            </Link>
+          </>
+        )}
+      </div>
     </div>
   );
 };
