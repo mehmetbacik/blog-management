@@ -10,10 +10,13 @@ import {
 } from "react-icons/fa";
 import { menuItems } from "@/data/navbarMenuLinks";
 
+import NavbarLogo from "./NavbarLogo";
+import NavbarUserInfo from "./NavbarUserInfo";
+
 interface NavbarMobileMenuProps {
   menuOpen: boolean;
   setMenuOpen: (state: boolean) => void;
-  user: { role: string } | null;
+  user: { username: string | null; role: string } | null;
   onLogout: () => void;
   onAdminPanel: () => void;
   pathname: string;
@@ -41,6 +44,8 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
           <FaTimes />
         </span>
       </div>
+      <NavbarLogo onClose={() => setMenuOpen(false)} />
+      <NavbarUserInfo user={user} />
       <div className="navbar__menu--list">
         {menuItems.map((items) => (
           <Link
