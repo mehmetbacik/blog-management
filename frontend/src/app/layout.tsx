@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import { TopBar } from '@/components/layout/Topbar';
+import { TopBar } from '@/components/layout/Topbar/Topbar';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
