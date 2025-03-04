@@ -44,8 +44,10 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
           <FaTimes />
         </span>
       </div>
-      <NavbarLogo onClose={() => setMenuOpen(false)} />
-      <NavbarUserInfo user={user} />
+      <div className="navbar__header">
+        <NavbarLogo onClose={() => setMenuOpen(false)} />
+        <NavbarUserInfo user={user} />
+      </div>
       <div className="navbar__menu--list">
         {menuItems.map((items) => (
           <Link
@@ -62,19 +64,19 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             {items.label}
           </Link>
         ))}
+        <Link
+          href="/search"
+          className={`navbar__link navbar__button--mobile ${
+            pathname === "/search" ? "active" : ""
+          }`}
+          onClick={closeMenu}
+        >
+          <span className="navbar__icon">
+            <FaSearch />
+          </span>
+          <span>Search</span>
+        </Link>
       </div>
-      <Link
-        href="/search"
-        className={`navbar__link navbar__button--mobile ${
-          pathname === "/search" ? "active" : ""
-        }`}
-        onClick={closeMenu}
-      >
-        <span className="navbar__icon">
-          <FaSearch />
-        </span>
-        <span>Search</span>
-      </Link>
       <div className="navbar__submenu--list">
         {user && user.role === "admin" && (
           <button

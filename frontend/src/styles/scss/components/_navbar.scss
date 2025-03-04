@@ -172,7 +172,7 @@
             position: fixed;
             top: 0;
             left: -100%;
-            width: 70%;
+            width: 60%;
             height: 100%;
             background-color: $background-color;
             display: flex;
@@ -192,22 +192,44 @@
                 cursor: pointer;
                 color: $secondary-color;
             }
+            .navbar__header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                &::after {
+                    content: "";
+                    position: relative;
+                    display: block;
+                    background-color: $secondary-color;
+                    width: 40px;
+                    height: 2px;
+                    border-radius: 5px;
+                    margin-top: $spacing-unit * 4;
+                }
+            }
             .navbar__logo {
                 display: flex;
                 justify-content: center;
             }
             .navbar__button--mobile {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 10px;
                 margin-top: $spacing-unit * 2;
-                background-color: $primary-color;
-                color: $light-color;
-                padding: $spacing-unit * 2;
+                background-color: transparent;
+                color: $secondary-color;
+                padding: $spacing-unit * 2 $spacing-unit * 6;
                 width: 100%;
                 text-align: center;
                 border: none;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
+                font-size: $font-size-base * 1.2;
                 &:hover {
-                    background-color: $primary-color;
+                    background-color: $light-color;
                 }
             }
         }
@@ -216,16 +238,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            &::after {
-                content: "";
-                position: relative;
-                display: block;
-                background-color: $primary-color;
-                width: 40px;
-                height: 2px;
-                border-radius: 5px;
-                margin-top: $spacing-unit * 6;
-            }
         }
         &__submenu--list {
             display: flex;
@@ -237,6 +249,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background-color: $secondary-color;
+                color: $light-color;
+                padding: $spacing-unit * 3;
                 &:not(:last-child)::after {
                     content: "";
                     position: absolute;
@@ -253,7 +268,10 @@
         &__user-info {
             display: flex;
             align-items: center;
-            padding: $spacing-unit * 4;
+            padding: $spacing-unit * 3;
+            background-color: $secondary-color;
+            color: $light-color;
+            width: 100%;
             &__content {
                 display: flex;
                 align-items: center;
@@ -263,7 +281,7 @@
                 margin-right: $spacing-unit * 3;
             }
             &__username {
-                font-size: $font-size-base;
+                font-size: $font-size-base * 0.875;
                 font-weight: bold;
             }
             &__guest {
