@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
+import Image from "next/image";
+
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState("");
 
@@ -17,6 +19,31 @@ export const Footer: React.FC = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer__content">
+          {/* Newsletter Subscription */}
+          <div className="footer__newsletter">
+            <h3>Subscribe to Our Newsletter</h3>
+            <form onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+
+          {/* Logo */}
+          <div className="footer__logo">
+            <Image
+              src="/img/logo.png"
+              alt="Blog Management Logo"
+              width={150}
+              height={50}
+            />
+          </div>
+
           {/* Footer Menu */}
           <div className="footer__menu">
             <ul>
@@ -32,22 +59,22 @@ export const Footer: React.FC = () => {
               <li>
                 <a href="/faq">FAQ</a>
               </li>
+              <li>
+                <a href="/policy">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="/cookies">Cookies Policy</a>
+              </li>
+              <li>
+                <a href="/terms">Terms & Conditions</a>
+              </li>
+              <li>
+                <a href="/careers">Careers</a>
+              </li>
+              <li>
+                <a href="/help">Help Center</a>
+              </li>
             </ul>
-          </div>
-
-          {/* Newsletter Subscription */}
-          <div className="footer__newsletter">
-            <h3>Subscribe to Our Newsletter</h3>
-            <form onSubmit={handleSubscribe}>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit">Subscribe</button>
-            </form>
           </div>
 
           {/* Social Media */}

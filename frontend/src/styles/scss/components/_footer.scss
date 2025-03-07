@@ -10,27 +10,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: $spacing-unit * 4;
-    }
-
-    &__menu {
-        ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: $spacing-unit * 2;
-            
-            li {
-                a {
-                    color: $light-color;
-                    text-decoration: none;
-                    transition: $transition-base;
-                    &:hover {
-                        color: $primary-color;
-                    }
-                }
-            }
-        }
+        align-items: center;
     }
 
     &__newsletter {
@@ -40,14 +20,16 @@
         form {
             display: flex;
             gap: $spacing-unit;
-            
+            max-width: 300px;
+            margin: 0 auto;
+
             input {
                 padding: $spacing-unit;
                 border: none;
                 border-radius: $border-radius;
                 flex: 1;
             }
-            
+
             button {
                 padding: $spacing-unit;
                 background: $primary-color;
@@ -63,14 +45,44 @@
         }
     }
 
-    &__copyright {
+    &__logo {
+        img {
+            max-width: 150px;
+            height: auto;
+        }
+    }
+
+    &__menu {
+        ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: $spacing-unit * 4;
+            text-align: center;
+
+            li {
+                a {
+                    color: $light-color;
+                    text-decoration: none;
+                    transition: $transition-base;
+                    &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__social {
         h3 {
             margin-bottom: $spacing-unit * 2;
         }
         div {
             display: flex;
             gap: $spacing-unit * 2;
-            
+            justify-content: center;
+
             a {
                 color: $light-color;
                 font-size: $font-size-base * 1.5;
@@ -82,25 +94,43 @@
         }
     }
 
-    &__bottom {
+    &__copyright {
         text-align: center;
+        margin-top: $spacing-unit * 2;
         margin-top: $spacing-unit * 4;
         border-top: 1px solid rgba($light-color, 0.2);
         padding-top: $spacing-unit * 2;
-
         p {
             margin: 0;
             font-size: $font-size-base * 0.875;
         }
     }
+
     /* ---------- RESPONSIVE DESIGN ---------- */
-    /*Small-Medium Screens*/
     @media (max-width: $md-breakpoint) {
         &__content {
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
+
+        &__logo {
+            margin-top: $spacing-unit * 2;
+        }
+
+        &__menu {
+            ul {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: $spacing-unit * 2;
+            }
+        }
+
+        &__social {
+            div {
+                flex-direction: column;
+                gap: $spacing-unit * 1.5;
+            }
+        }
     }
-    /*Small-Medium Screens*/
 }
