@@ -39,9 +39,29 @@ export const Footer: React.FC = () => {
             <Image
               src="/img/logo.png"
               alt="Blog Management Logo"
-              width={150}
-              height={50}
+              width={75}
+              height={25}
             />
+          </div>
+
+          {/* App Store and Google Play Icons */}
+          <div className="footer__app-links">
+            <a href="https://www.apple.com/app-store/">
+              <Image
+                src="/img/appstore.svg"
+                alt="Download on the App Store"
+                width={135}
+                height={40}
+              />
+            </a>
+            <a href="https://play.google.com/store">
+              <Image
+                src="/img/googleplay.svg"
+                alt="Get it on Google Play"
+                width={135}
+                height={40}
+              />
+            </a>
           </div>
 
           {/* Footer Menu */}

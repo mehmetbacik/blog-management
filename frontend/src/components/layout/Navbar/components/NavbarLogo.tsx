@@ -12,7 +12,7 @@ const NavbarLogo: React.FC<NavbarLogoProps> = ({ onClose }) => (
       <Image
         src="/img/logo.png"
         alt="Blog Management Logo"
-        width={150}
+        width={75}
         height={50}
       />
     </Link>
