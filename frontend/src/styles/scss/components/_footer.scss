@@ -1,0 +1,106 @@
+.footer {
+    background: $secondary-color;
+    color: $light-color;
+    font-family: $font-family-base;
+    font-size: $font-size-base * 0.875;
+    padding: $spacing-unit * 4 0;
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: $spacing-unit * 4;
+    }
+
+    &__menu {
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-unit * 2;
+            
+            li {
+                a {
+                    color: $light-color;
+                    text-decoration: none;
+                    transition: $transition-base;
+                    &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__newsletter {
+        h3 {
+            margin-bottom: $spacing-unit * 2;
+        }
+        form {
+            display: flex;
+            gap: $spacing-unit;
+            
+            input {
+                padding: $spacing-unit;
+                border: none;
+                border-radius: $border-radius;
+                flex: 1;
+            }
+            
+            button {
+                padding: $spacing-unit;
+                background: $primary-color;
+                color: $light-color;
+                border: none;
+                cursor: pointer;
+                transition: $transition-base;
+                border-radius: $border-radius;
+                &:hover {
+                    background: darken($primary-color, 10%);
+                }
+            }
+        }
+    }
+
+    &__copyright {
+        h3 {
+            margin-bottom: $spacing-unit * 2;
+        }
+        div {
+            display: flex;
+            gap: $spacing-unit * 2;
+            
+            a {
+                color: $light-color;
+                font-size: $font-size-base * 1.5;
+                transition: $transition-base;
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+
+    &__bottom {
+        text-align: center;
+        margin-top: $spacing-unit * 4;
+        border-top: 1px solid rgba($light-color, 0.2);
+        padding-top: $spacing-unit * 2;
+
+        p {
+            margin: 0;
+            font-size: $font-size-base * 0.875;
+        }
+    }
+    /* ---------- RESPONSIVE DESIGN ---------- */
+    /*Small-Medium Screens*/
+    @media (max-width: $md-breakpoint) {
+        &__content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+    }
+    /*Small-Medium Screens*/
+}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { TopBar } from '@/components/layout/Topbar/Topbar';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
+import { Footer } from '@/components/layout/Footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/scss/main.scss';
@@ -29,6 +30,7 @@ export default function RootLayout({
           <TopBar />
           <Navbar />
           <main>{children}</main>
+          <Footer />
           <ToastContainer />
         </Providers>
       </body>
