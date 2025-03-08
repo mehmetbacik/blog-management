@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { footerMenuLinks } from "@/data/footerMenuLinks";
 
 import Image from "next/image";
 
@@ -67,33 +68,11 @@ export const Footer: React.FC = () => {
           {/* Footer Menu */}
           <div className="footer__menu">
             <ul>
-              <li>
-                <a href="/about">About Us</a>
-              </li>
-              <li>
-                <a href="/services">Services</a>
-              </li>
-              <li>
-                <a href="/contact">Contact</a>
-              </li>
-              <li>
-                <a href="/faq">FAQ</a>
-              </li>
-              <li>
-                <a href="/policy">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="/cookies">Cookies Policy</a>
-              </li>
-              <li>
-                <a href="/terms">Terms & Conditions</a>
-              </li>
-              <li>
-                <a href="/careers">Careers</a>
-              </li>
-              <li>
-                <a href="/help">Help Center</a>
-              </li>
+              {footerMenuLinks.map((item, index) => (
+                <li key={index}>
+                  <a href={item.path}>{item.label}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
