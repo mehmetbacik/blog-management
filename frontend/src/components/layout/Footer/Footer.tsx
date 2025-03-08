@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { footerMenuLinks } from "@/data/footerMenuLinks";
+import { socialMediaLinks } from "@/data/socialMedia";
 
 import Image from "next/image";
 
@@ -80,34 +81,16 @@ export const Footer: React.FC = () => {
           <div className="footer__social">
             <h3>Follow Us</h3>
             <div>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaFacebook />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaLinkedin />
-              </a>
+              {socialMediaLinks.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <social.icon />
+                </a>
+              ))}
             </div>
           </div>
         </div>
