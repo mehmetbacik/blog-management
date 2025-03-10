@@ -1,45 +1,73 @@
 .footer {
     background: $secondary-color;
     color: $light-color;
-    font-family: $font-family-base;
     font-size: $font-size-base * 0.875;
     padding: $spacing-unit * 4 0;
-
+    margin-top: $spacing-unit * 25;
     &__content {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         flex-wrap: wrap;
         gap: $spacing-unit * 4;
         align-items: center;
-    }
-
-    &__newsletter {
-        h3 {
-            margin-bottom: $spacing-unit * 2;
-        }
-        form {
-            display: flex;
-            gap: $spacing-unit;
-            max-width: 300px;
-            margin: 0 auto;
-
-            input {
-                padding: $spacing-unit;
-                border: none;
-                border-radius: $border-radius;
-                flex: 1;
-            }
-
-            button {
-                padding: $spacing-unit;
-                background: $primary-color;
-                color: $light-color;
-                border: none;
-                cursor: pointer;
-                transition: $transition-base;
-                border-radius: $border-radius;
-                &:hover {
-                    background: darken($primary-color, 10%);
+        &__newsletter--container {
+            width: 100%;
+            background-color: $primary-color;
+            padding: $spacing-unit * 6;
+            border-radius: $border-radius * 2;
+            transform: translateY(-$spacing-unit * 20);
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            .footer__newsletter {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: $spacing-unit * 4;
+                h3 {
+                    flex: 1;
+                    font-size: $font-size-base * 1.2;
+                    color: $light-color;
+                }
+                form {
+                    display: flex;
+                    gap: $spacing-unit * 4;
+                    width: 100%;
+                    max-width: 500px;
+                    position: relative;
+                    input {
+                        flex: 1;
+                        padding: $spacing-unit * 3;
+                        border: 2px solid $light-color;
+                        border-radius: $border-radius * 0.75;
+                        font-size: $font-size-base;
+                        transition: $transition-base;
+                        &:focus {
+                            border-color: $light-color;
+                            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+                            outline: none;
+                        }
+                    }
+                    button {
+                        padding: $spacing-unit * 3;
+                        background: $light-color;
+                        color: $primary-color;
+                        border: solid 1px $light-color;
+                        border-radius:  $border-radius * 0.75;
+                        font-size:$font-size-base;
+                        font-weight: bold;
+                        cursor: pointer;
+                        transition: $transition-base;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        &:hover {
+                            background-color: $primary-color;
+                            color: $light-color;
+                        }
+                        &:active {
+                            transform: scale(0.95);
+                        }
+                    }
                 }
             }
         }
