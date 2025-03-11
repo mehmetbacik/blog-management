@@ -98,8 +98,8 @@
         }
         &__menu--container {
             width: 100%;
-            margin-top: $spacing-unit * 8;
-            margin-bottom: $spacing-unit * 8;
+            margin-top: $spacing-unit * 10;
+            margin-bottom: $spacing-unit * 10;
             .footer__menu {
                 ul {
                     list-style: none;
@@ -121,6 +121,17 @@
                         }
                     }
                 }
+            }
+        }
+        &__applinks--container {
+            width: 100%;
+            margin-top: $spacing-unit * 10;
+            margin-bottom: $spacing-unit * 10;
+            .footer__app-links {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: $spacing-unit * 3;
             }
         }
     }

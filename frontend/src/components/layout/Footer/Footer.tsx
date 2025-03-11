@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
           <div className="footer__content__menu--container">
             <FooterMenu />
           </div>
-          <div>
+          <div className="footer__content__applinks--container">
             <FooterAppLinks />
           </div>
         </div>
