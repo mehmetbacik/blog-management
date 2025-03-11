@@ -96,26 +96,29 @@
                 }
             }
         }
-    }
-
-
-
-    &__menu {
-        ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: $spacing-unit * 4;
-            text-align: center;
-
-            li {
-                a {
-                    color: $light-color;
-                    text-decoration: none;
-                    transition: $transition-base;
-                    &:hover {
-                        color: $primary-color;
+        &__menu--container {
+            width: 100%;
+            margin-top: $spacing-unit * 8;
+            margin-bottom: $spacing-unit * 8;
+            .footer__menu {
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    display: grid;
+                    grid-template-columns: repeat(5, auto);
+                    gap: $spacing-unit * 4;
+                    text-align: center;
+                    justify-content: space-between;
+                    li {
+                        a {
+                            font-size: $font-size-base * 1.1;
+                            color: $light-color;
+                            text-decoration: none;
+                            transition: $transition-base;
+                            &:hover {
+                                color: $primary-color;
+                            }
+                        }
                     }
                 }
             }

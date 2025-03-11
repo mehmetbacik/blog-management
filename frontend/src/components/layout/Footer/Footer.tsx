@@ -20,9 +20,11 @@ export const Footer: React.FC = () => {
             <FooterLogo />
             <FooterSocial />
           </div>
+          <div className="footer__content__menu--container">
+            <FooterMenu />
+          </div>
           <div>
             <FooterAppLinks />
-            <FooterMenu />
           </div>
         </div>
         <FooterCopyright />
