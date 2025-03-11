@@ -26,8 +26,10 @@ export const Footer: React.FC = () => {
           <div className="footer__content__applinks--container">
             <FooterAppLinks />
           </div>
+          <div className="footer__content__copyright--container">
+            <FooterCopyright />
+          </div>
         </div>
-        <FooterCopyright />
       </div>
     </footer>
   );
