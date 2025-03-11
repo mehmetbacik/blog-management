@@ -151,27 +151,32 @@
     /* ---------- RESPONSIVE DESIGN ---------- */
     @media (max-width: $md-breakpoint) {
         &__content {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        &__logo {
-            margin-top: $spacing-unit * 2;
-        }
-
-        &__menu {
-            ul {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: $spacing-unit * 2;
+            &__menu--container {
+                .footer__menu {
+                    ul {
+                        grid-template-columns: repeat(3, auto);
+                    }
+                }
             }
         }
-
-        &__social {
-            div {
+    }
+    @media (max-width: $sm-breakpoint) {
+        &__content {
+            &__social--container {
                 flex-direction: column;
-                gap: $spacing-unit * 1.5;
+                gap: $spacing-unit * 8;
+            }
+            &__menu--container {
+                .footer__menu {
+                    ul {
+                        grid-template-columns: repeat(2, auto);
+                        li {
+                            a {
+                                font-size: $font-size-base;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
