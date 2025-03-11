@@ -16,11 +16,13 @@ export const Footer: React.FC = () => {
           <div className="footer__content__newsletter--container">
             <FooterNewsletter />
           </div>
-          <div>
+          <div className="footer__content__social--container">
             <FooterLogo />
+            <FooterSocial />
+          </div>
+          <div>
             <FooterAppLinks />
             <FooterMenu />
-            <FooterSocial />
           </div>
         </div>
         <FooterCopyright />

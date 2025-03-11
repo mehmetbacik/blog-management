@@ -7,8 +7,8 @@ export const FooterLogo: React.FC = () => {
       <Image
         src="/img/logo.png"
         alt="Blog Management Logo"
-        width={75}
-        height={25}
+        width={113}
+        height={38}
       />
     </div>
   );

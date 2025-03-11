@@ -71,14 +71,34 @@
                 }
             }
         }
-    }
-
-    &__logo {
-        img {
-            max-width: 150px;
-            height: auto;
+        &__social--container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            .footer__social {
+                display: flex;
+                gap: $spacing-unit * 4;
+                justify-content: center;
+                a {
+                    color: $light-color;
+                    font-size: $font-size-base * 2;
+                    transition: $transition-base;
+                    &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+            .footer__logo {
+                img {
+                    max-width: 150px;
+                    height: auto;
+                }
+            }
         }
     }
+
+
 
     &__menu {
         ul {
@@ -97,26 +117,6 @@
                     &:hover {
                         color: $primary-color;
                     }
-                }
-            }
-        }
-    }
-
-    &__social {
-        h3 {
-            margin-bottom: $spacing-unit * 2;
-        }
-        div {
-            display: flex;
-            gap: $spacing-unit * 2;
-            justify-content: center;
-
-            a {
-                color: $light-color;
-                font-size: $font-size-base * 1.5;
-                transition: $transition-base;
-                &:hover {
-                    color: $primary-color;
                 }
             }
         }
