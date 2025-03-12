@@ -1,0 +1,28 @@
+.heroSlider {
+    width: 100%;
+    position: relative;
+  
+    .slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      color: $light-color;
+      text-align: center;
+      font-size: $font-size-base;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+  }
+  
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    color: $light-color;
+  }
+  
+  :global(.swiper-pagination-bullet-active) {
+    background-color: $light-color;
+  }
+  
