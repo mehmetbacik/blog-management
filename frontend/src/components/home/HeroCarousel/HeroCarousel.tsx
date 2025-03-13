@@ -5,22 +5,8 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-const slides = [
-  { id: 1, title: "Discover the World", image: "/carousel/Carousel-1.jpg" },
-  {
-    id: 2,
-    title: "Your Journey Begins",
-    image: "/carousel/Carousel-2.jpg",
-  },
-  { id: 3, title: "Travel with Ease", image: "/carousel/Carousel-3.jpg" },
-  { id: 4, title: "Discover the World", image: "/carousel/Carousel-4.jpg" },
-  {
-    id: 5,
-    title: "Your Journey Begins",
-    image: "/carousel/Carousel-5.jpg",
-  },
-];
+import { carouselData } from "@/data/carouselData";
+import Link from "next/link";
 
 const HeroCarousel = () => {
   return (
@@ -34,11 +20,17 @@ const HeroCarousel = () => {
         pagination={{ clickable: true }}
         navigation
       >
-        {slides.map((slide) => (
+        {carouselData.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="slide">
               <img src={slide.image} alt={slide.title} className="slideImage" />
-              <h2 className="title">{slide.title}</h2>
+              <div className="slideContent">
+                <h2 className="title">{slide.title}</h2>
+                <p className="description">{slide.description}</p>
+                <Link href={slide.url} className="button">
+                  Learn More
+                </Link>
+              </div>
             </div>
           </SwiperSlide>
         ))}
