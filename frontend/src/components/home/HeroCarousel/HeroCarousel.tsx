@@ -10,24 +10,24 @@ import Link from "next/link";
 
 const HeroCarousel = () => {
   return (
-    <div className="heroSlider">
+    <div className="heroSlider__content">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
         loop={true}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
+        /*pagination={{ clickable: true }}*/
         /*navigation*/
       >
         {carouselData.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="slide">
-              <img src={slide.image} alt={slide.title} className="slideImage" />
-              <div className="slideContent">
-                <h2 className="title">{slide.title}</h2>
-                <p className="description">{slide.description}</p>
-                <Link href={slide.url} className="button">
+            <div className="heroSlider__slide--wrapper">
+              <img src={slide.image} alt={slide.title} className="heroSlider__slide--image" />
+              <div className="heroSlider__slide--content">
+                <h2 className="heroSlider__slide--title">{slide.title}</h2>
+                <p className="heroSlider__slide--description">{slide.description}</p>
+                <Link href={slide.url} className="heroSlider__slide--button">
                   Read More
                 </Link>
               </div>
