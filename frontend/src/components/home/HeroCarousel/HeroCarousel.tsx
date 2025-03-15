@@ -18,7 +18,7 @@ const HeroCarousel = () => {
         loop={true}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        navigation
+        /*navigation*/
       >
         {carouselData.map((slide) => (
           <SwiperSlide key={slide.id}>
@@ -28,7 +28,7 @@ const HeroCarousel = () => {
                 <h2 className="title">{slide.title}</h2>
                 <p className="description">{slide.description}</p>
                 <Link href={slide.url} className="button">
-                  Learn More
+                  Read More
                 </Link>
               </div>
             </div>
