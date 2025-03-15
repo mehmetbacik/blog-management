@@ -10,20 +10,22 @@
         flex-direction: row-reverse;
         height: 100%;
       }
+      &__slide--image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        flex: 2;
+      }
       &__slide--content {
         display: flex;
         align-items: flex-start;
         justify-content: center;
         flex-direction: column;
+        flex: 1;
         gap: $spacing-unit * 6;
         background-color: $primary-color;
         padding: $spacing-unit * 8;
         height: 500px;
-      }
-      &__slide--image {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
       }
       &__slide--title {
         font-size: $font-size-base * 1.8;
@@ -55,6 +57,92 @@
             transform: scale(0.95);
         }
       }
+      /* ---------- RESPONSIVE DESIGN ---------- */
+      /*ExtraLarge Screens*/
+      @media (max-width: $xl-breakpoint) {
+        &__slide--image {
+          height: 400px;
+          flex: 3;
+        }
+        &__slide--content {
+          flex: 2;
+          height: 400px;
+        }
+        &__slide--title {
+          font-size: $font-size-base * 1.4;
+        }
+        &__slide--description {
+          font-size: $font-size-base;
+        }
+      }
+      /*ExtraLarge Screens*/
+      /*Large Screens*/
+      @media (max-width: $lg-breakpoint) {
+        &__slide--image {
+          height: 300px;
+          flex: 4;
+        }
+        &__slide--content {
+          flex: 3;
+          height: 300px;
+        }
+        &__slide--title {
+          font-size: $font-size-base * 1.1;
+        }
+        &__slide--description {
+          font-size: $font-size-base * 0.9;
+        }
+      }
+      /*Large Screens*/
+      /*Medium Screens*/
+      @media (max-width: $md-breakpoint) {
+        &__slide--wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+        &__slide--image {
+          height: auto;
+          flex: 1;
+        }
+        &__slide--content {
+          flex: 1;
+          height: 50px;
+        }
+        &__slide--title {
+          font-size: $font-size-base * 1.2;
+        }
+        &__slide--description {
+          font-size: $font-size-base * 0.9;
+        }
+      }
+      /*Medium Screens*/ 
+      /*Small Screens*/
+      @media (max-width: $sm-breakpoint) {
+        &__slide--wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+        &__slide--image {
+          height: auto;
+          flex: 1;
+        }
+        &__slide--content {
+          flex: 1;
+          height: 50px;
+        }
+        &__slide--title {
+          font-size: $font-size-base * 1.1;
+        }
+        &__slide--description {
+          font-size: $font-size-base * 0.8;
+        }
+      }
+      /*Small Screens*/    
+      /* ---------- RESPONSIVE DESIGN ---------- */  
     }
   }
 }
