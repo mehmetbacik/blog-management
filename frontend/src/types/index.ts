@@ -100,3 +100,11 @@ export interface CreateCommentData {
   postId: string;
   content: string;
 } 
+
+export interface NewsItem {
+  image: string;
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+}
