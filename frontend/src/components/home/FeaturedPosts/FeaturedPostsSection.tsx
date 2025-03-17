@@ -1,4 +1,4 @@
-import { FeaturedPosts } from "./FeaturedPosts";
+import { FeaturedPosts } from "./components/FeaturedPosts";
 
 export function FeaturedPostsSection() {
   return (

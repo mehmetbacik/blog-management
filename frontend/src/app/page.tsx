@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { FeaturedPosts } from '@/components/home/FeaturedPosts';
+import { FeaturedPosts } from '@/components/home/FeaturedPosts/components/FeaturedPosts';
 import HeroCarousel from '@/components/home/HeroCarousel/HeroCarousel';
 
 export const metadata: Metadata = {
