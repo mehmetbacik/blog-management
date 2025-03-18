@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Public routes
 router.get('/', postController.getAllPublished);
+router.get('/tags', postController.getAllTags);
 router.get('/search', postController.search);
 router.get('/user', auth, postController.getUserPosts);
 router.get('/:id', postController.getById);

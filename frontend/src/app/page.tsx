@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FeaturedPosts } from '@/components/home/FeaturedPosts/components/FeaturedPosts';
 import HeroCarousel from '@/components/home/HeroCarousel/HeroCarousel';
 import News from '@/components/home/News/News';
+import Tags from '@/components/home/Tags/Tags';
 
 export const metadata: Metadata = {
   title: 'Welcome to BlogHub - Your Modern Blogging Platform',
@@ -16,6 +17,7 @@ export default function HomePage() {
         <div className="container">
           <HeroCarousel />
           <News />
+          <Tags />
           <h1 className="hero__title">
             Welcome to BlogHub
           </h1>

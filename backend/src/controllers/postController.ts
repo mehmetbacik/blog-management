@@ -202,5 +202,27 @@ export const postController = {
     } catch (error) {
       res.status(500).json({ error: 'Error searching posts' });
     }
-  }
+  },
+
+  // Get all unique tags from published posts
+  getAllTags: async (_req: Request, res: Response) => {
+    try {
+      const posts = await Post.find({ status: 'published' });
+      
+      // Collect tags from all posts
+      const allTags = posts.reduce((tags: string[], post) => {
+        if (post.tags && Array.isArray(post.tags)) {
+          return [...tags, ...post.tags];
+        }
+        return tags;
+      }, []);
+
+      // Find unique tags and sort alphabetically
+      const uniqueTags = [...new Set(allTags)].sort();
+
+      res.json(uniqueTags);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching tags' });
+    }
+  },
 }; 

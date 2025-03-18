@@ -182,6 +182,15 @@ export const postService = {
       throw handleApiError(error);
     }
   },
+  
+  getAllTags: async (): Promise<string[]> => {
+    try {
+      const response = await api.get('/posts/tags');
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
 };
 
 export const adminService = {
