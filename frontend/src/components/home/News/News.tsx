@@ -10,14 +10,14 @@ const News: React.FC<NewsItem> = ({
   date,
 }) => {
   return (
-    <div className="newsCard">
-      <img className="newsImage" src={image} alt={title} />
-      <div className="newsContent">
-        <h2 className="newsTitle">{title}</h2>
-        <p className="newsDescription">{description}</p>
-        <div className="newsFooter">
-          <span className="newsAuthor">{author}</span>
-          <span className="newsDate">{date}</span>
+    <div className="newsCard__wrapper">
+      <img className="newsCard__newsImage" src={image} alt={title} />
+      <div className="newsCard__newsContent">
+        <h2 className="newsCard__newsTitle">{title}</h2>
+        <p className="newsCard__newsDescription">{description}</p>
+        <div className="newsCard__newsFooter">
+          <span className="newsCard__newsAuthor">{author}</span>
+          <span className="newsCard__newsDate">{date}</span>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@ const News: React.FC<NewsItem> = ({
 
 const NewsPage = () => {
   return (
-    <div>
+    <div className="newsCard__content">
       {newsData.map((news, index) => (
         <News
           key={index}
