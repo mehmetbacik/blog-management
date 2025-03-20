@@ -1,0 +1,9 @@
+.tooltipContent {
+    background-color: $dark-color;
+    color: $light-color;
+    padding: $spacing-unit * 4 $spacing-unit * 8;
+    border-radius: $border-radius;
+    font-size: $font-size-base;
+    max-width: 250px;
+    word-wrap: break-word;
+}

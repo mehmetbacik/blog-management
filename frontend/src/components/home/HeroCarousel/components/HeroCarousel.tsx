@@ -7,8 +7,17 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { carouselData } from "@/data/carouselData";
 import Link from "next/link";
+import Image from "next/image";
+import CustomTooltip from "@/components/ui/Tooltip";
+import { useCharacterLimit } from "@/hooks/useCharacterLimit";
+
+const truncateText = (text: string, limit: number) => {
+  return text.length > limit ? text.substring(0, limit) + "..." : text;
+};
 
 const HeroCarousel = () => {
+  const charLimit = useCharacterLimit();
+
   return (
     <div className="heroSlider__content">
       <Swiper
@@ -17,16 +26,27 @@ const HeroCarousel = () => {
         slidesPerView={1}
         loop={true}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        /*pagination={{ clickable: true }}*/
-        /*navigation*/
       >
         {carouselData.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="heroSlider__slide--wrapper">
-              <img src={slide.image} alt={slide.title} className="heroSlider__slide--image" />
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                className="heroSlider__slide--image"
+                width={1920}
+                height={1080}
+                priority
+              />
               <div className="heroSlider__slide--content">
-                <h2 className="heroSlider__slide--title">{slide.title}</h2>
-                <p className="heroSlider__slide--description">{slide.description}</p>
+                <CustomTooltip text={slide.title} limit={charLimit.title}>
+                  <h2 className="heroSlider__slide--title">{truncateText(slide.title, charLimit.title)}</h2>
+                </CustomTooltip>
+
+                <CustomTooltip text={slide.description} limit={charLimit.description}>
+                  <p className="heroSlider__slide--description">{truncateText(slide.description, charLimit.description)}</p>
+                </CustomTooltip>
+
                 <Link href={slide.url} className="heroSlider__slide--button">
                   Read More
                 </Link>

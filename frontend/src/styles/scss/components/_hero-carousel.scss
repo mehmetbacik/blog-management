@@ -99,8 +99,9 @@
             flex-direction: column;
           }
           &__slide--image {
+            flex: 2;
             height: auto;
-            flex: 1;
+            max-height: 300px;
           }
           &__slide--content {
             flex: 1;
@@ -121,8 +122,9 @@
             flex-direction: column;
           }
           &__slide--image {
+            flex: 2;
             height: auto;
-            flex: 1;
+            max-height: 250px;
           }
           &__slide--content {
             flex: 1;
