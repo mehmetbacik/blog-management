@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FeaturedPosts } from '@/components/home/FeaturedPosts/components/FeaturedPosts';
-import HeroCarousel from '@/components/home/HeroCarousel/HeroCarousel';
+import HeroCarouselSection from '@/components/home/HeroCarousel/HeroCarouselSection';
 import News from '@/components/home/News/News';
 import Tags from '@/components/home/Tags/Tags';
 
@@ -15,7 +15,7 @@ export default function HomePage() {
     <div className="home">
       <section className="hero">
         <div className="container">
-          <HeroCarousel />
+          <HeroCarouselSection />
           <News />
           <Tags />
           <FeaturedPosts />
