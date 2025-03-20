@@ -5,6 +5,7 @@
       position: relative;
       .heroSlider {
         &__slide--wrapper {
+          position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -27,6 +28,7 @@
           background-color: $primary-color;
           padding: $spacing-unit * 8;
           height: 500px;
+          width: 100%;
         }
         &__slide--title {
           font-size: $font-size-base * 1.8;
@@ -101,17 +103,22 @@
           &__slide--image {
             flex: 2;
             height: auto;
-            max-height: 300px;
+            max-height: 220px;
           }
           &__slide--content {
             flex: 1;
-            height: 50px;
+            padding: $spacing-unit * 5;
+            gap: $spacing-unit * 4;
           }
           &__slide--title {
-            font-size: $font-size-base * 1.2;
+            font-size: $font-size-base;
           }
           &__slide--description {
             font-size: $font-size-base * 0.9;
+          }
+          &__slide--button {
+            padding: $spacing-unit * 2 $spacing-unit * 3;
+            font-size: $font-size-base * 0.8;
           }
         }
         @media (max-width: $sm-breakpoint) {
@@ -124,17 +131,22 @@
           &__slide--image {
             flex: 2;
             height: auto;
-            max-height: 250px;
+            max-height: 200px;
           }
           &__slide--content {
             flex: 1;
-            height: 50px;
+            padding: $spacing-unit * 4;
+            gap: $spacing-unit * 3;
           }
           &__slide--title {
-            font-size: $font-size-base * 1.1;
+            font-size: $font-size-base * 0.975;
           }
           &__slide--description {
             font-size: $font-size-base * 0.8;
+          }
+          &__slide--button {
+            padding: $spacing-unit * 2 $spacing-unit * 3;
+            font-size: $font-size-base * 0.75;
           }
         }   
         /* ---------- RESPONSIVE DESIGN ---------- */  
