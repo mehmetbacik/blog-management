@@ -17,8 +17,8 @@ export default function HomePage() {
         <div className="container">
           <HeroCarouselSection />
           <News />
-          <Tags />
           <FeaturedPosts />
+          <Tags />
         </div>
       </section>
     </div>
