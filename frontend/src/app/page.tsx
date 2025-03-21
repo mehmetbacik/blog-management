@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FeaturedPosts } from '@/components/home/FeaturedPosts/components/FeaturedPosts';
 import HeroCarouselSection from '@/components/home/HeroCarousel/HeroCarouselSection';
 import NewsSection from '@/components/home/News//NewsSection';
-import Tags from '@/components/home/Tags/Tags';
+import TagsSection from '@/components/home/Tags/TagsSection';
 
 export const metadata: Metadata = {
   title: 'Welcome to BlogHub - Your Modern Blogging Platform',
@@ -18,7 +18,7 @@ export default function HomePage() {
           <HeroCarouselSection />
           <NewsSection />
           <FeaturedPosts />
-          <Tags />
+          <TagsSection />
         </div>
       </section>
     </div>
