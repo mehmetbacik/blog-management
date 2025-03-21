@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { FeaturedPosts } from '@/components/home/FeaturedPosts/components/FeaturedPosts';
 import HeroCarouselSection from '@/components/home/HeroCarousel/HeroCarouselSection';
-import News from '@/components/home/News/News';
+import NewsSection from '@/components/home/News//NewsSection';
 import Tags from '@/components/home/Tags/Tags';
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="container">
           <HeroCarouselSection />
-          <News />
+          <NewsSection />
           <FeaturedPosts />
           <Tags />
         </div>
