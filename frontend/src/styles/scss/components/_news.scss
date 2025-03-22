@@ -12,7 +12,7 @@
             gap: $spacing-unit * 2;
             &Image {
               width: 100%;
-              height: 200px;
+              height: 175px;
               object-fit: cover;
             }
             &Content {
@@ -20,27 +20,27 @@
               flex-direction: column;
               gap: $spacing-unit * 2;
               &--title {
-                font-size: $font-size-base * 1.2;
+                font-size: $font-size-base * 1.1;
                 color: $secondary-color;
                 line-height: normal;
               }
               &--description {
-                font-size: $font-family-base;
+                font-size: $font-size-base * 0.9;
                 color: $secondary-color;
               }
             }
             &Footer {
               display: flex;
               flex-direction: column;
-              gap: $spacing-unit;
-              font-size: $font-size-base * 0.85;
+              gap: $spacing-unit * 0.15;
+              font-size: $font-size-base * 0.75;
               color: $secondary-color;
             }
           }
           &__sidebar {
             flex: 1;
             max-width: 600px;
-            height: 400px; 
+            height: 300px; 
             overflow-y: auto;
             border-left: 1px solid $gray-color;
             padding-left: $spacing-unit * 2;
@@ -52,25 +52,43 @@
           }
           &__smallNews {
             display: flex;
-            flex-direction: column;
-            gap: $spacing-unit;
+            align-items: center;
+            gap: $spacing-unit * 2;
             padding: $spacing-unit * 2;
             cursor: pointer;
             transition: $transition-base;
+            border-left: 4px solid transparent;
             &:hover {
-              background: $light-color;
+              background: $softgray-color;
             }
             &.active {
-              background: $secondary-color;
+              background: $softgray-color;
               border-left: 4px solid $primary-color;
               padding-left: $spacing-unit * 2;
             }
-          }
-          &__smallImage {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: $border-radius;
+            &--image {
+              flex: 1;
+              width: 100%;
+              height: 80px;
+              object-fit: cover;
+            }
+            .news__smallNewsContent {
+              flex: 3;
+              display: flex;
+              flex-direction: column;
+              gap: $spacing-unit;
+              &--title {
+                font-size: $font-size-base * 0.9;
+                color: $secondary-color;
+              }
+              &--footer {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-unit * 0.15;
+                color: $secondary-color;
+                font-size: $font-size-base * 0.75;
+              }
+            }
           }
         }
       }
