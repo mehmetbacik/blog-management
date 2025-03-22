@@ -1,12 +1,11 @@
 import { FeaturedPosts } from "./components/FeaturedPosts";
 
-export function FeaturedPostsSection() {
+const FeaturedPostsSection = () => {
   return (
-    <section className="featured">
-      <div className="container">
-        <h2 className="section__title">Latest Posts</h2>
+    <section className="featuredPosts__wrapper">
         <FeaturedPosts />
-      </div>
     </section>
   );
 } 
+
+export default FeaturedPostsSection;
