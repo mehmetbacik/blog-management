@@ -14,11 +14,11 @@ const NewsMain: React.FC<NewsMainProps> = ({ selectedNews }) => {
         className="news__mainImage"
       />
       <div className="news__mainContent">
-        <h2>{selectedNews.title}</h2>
-        <p>{selectedNews.description}</p>
-        <div className="news__footer">
-          <span>{selectedNews.author}</span>
-          <span>{selectedNews.date}</span>
+        <h2 className="news__mainContent--title">{selectedNews.title}</h2>
+        <p className="news__mainContent--description">{selectedNews.description}</p>
+        <div className="news__mainFooter">
+          <span className="news__mainFooter--author">{selectedNews.author}</span>
+          <span className="news__mainFooter--date">{selectedNews.date}</span>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 .home {
   .home {
     &__wrapper {
-      background: linear-gradient(
-        to bottom,
-        rgba($primary-color, 0.05),
-        rgba($primary-color, 0.02)
-      );
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-unit * 5;
+      padding-top: $spacing-unit * 5;
+      padding-bottom: $spacing-unit * 25;
     }
   }
 }
