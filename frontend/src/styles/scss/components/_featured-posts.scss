@@ -2,9 +2,13 @@
   gap: $spacing-unit * 2;
 
   &__empty {
+    background-color: $gray-color;
+    border-radius: $border-radius;
     text-align: center;
-    color: var(--text-secondary);
+    color: $secondary-color;
+    font-weight: bold;
     padding: $spacing-unit * 4;
+    width: 100%;
   }
 
   &__header {
@@ -13,6 +17,7 @@
       align-items: center;
       justify-content: center;
       gap: $spacing-unit * 2;
+      margin-bottom: $spacing-unit * 4;
       &::after {
         content: "";
         position: relative;
