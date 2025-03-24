@@ -1,61 +1,108 @@
 .featured-posts {
+  display: flex;
+  gap: $spacing-unit * 2;
+
+  &__empty {
+    text-align: center;
+    font-size: $font-size-base * 1.1;
+    color: $gray-color;
+    margin-top: $spacing-unit * 2;
+  }
+
+  .featured-post {
+    background: $light-color;
+    padding: $spacing-unit * 2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: $transition-base;
     display: flex;
-    align-items: center;
-    gap: $spacing-unit * 4;
-    padding: $spacing-unit * 3;
-    &__empty {
-      text-align: center;
-      font-size: $font-size-base * 1.2;
-      color: $secondary-color;
+    flex-direction: column;
+    gap: $spacing-unit;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    &__post {
-      background-color: $light-color;
-      border: 1px solid $primary-color;
-      border-radius: $border-radius;
-      padding: $spacing-unit * 3;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: $transition-base;
-      &:hover {
-        transform: translateY(-5px);
-      }
-    }
+
     &__title {
-      font-size: $font-size-base * 1.4;
+      font-size: $font-size-base * 1.2;
       font-weight: bold;
-      color: $secondary-color;
-      margin-bottom: $spacing-unit * 2;
+      color: $primary-color;
+      transition: $transition-base;
+
       a {
         text-decoration: none;
         color: inherit;
-        transition: $transition-base;
+
         &:hover {
-          color: $primary-color;
+          color: darken($primary-color, 10%);
         }
       }
     }
+
     &__meta {
       display: flex;
       align-items: center;
       gap: $spacing-unit;
       font-size: $font-size-base * 0.9;
       color: $secondary-color;
-      margin-bottom: $spacing-unit * 2;
     }
+
     &__excerpt {
       font-size: $font-size-base;
-      color: $secondary-color;
+      color: $gray-color;
       line-height: 1.5;
     }
-  
-    /* ---------- RESPONSIVE DESIGN ---------- */  
-    @media (max-width: $sm-breakpoint) {
-      &__title {
-        font-size: $font-size-base * 1.2;
-      }
-      &__excerpt {
-        font-size: $font-size-base * 0.9;
-      }
-    }
-    /* ---------- RESPONSIVE DESIGN ---------- */
   }
-  
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: $lg-breakpoint) {
+  .featured-posts {
+    gap: $spacing-unit * 1.5;
+  }
+  .featured-post {
+    padding: $spacing-unit * 1.5;
+
+    &__title {
+      font-size: $font-size-base * 1.1;
+    }
+
+    &__excerpt {
+      font-size: $font-size-base * 0.9;
+    }
+  }
+}
+
+@media (max-width: $md-breakpoint) {
+  .featured-post {
+    padding: $spacing-unit;
+
+    &__title {
+      font-size: $font-size-base;
+    }
+
+    &__excerpt {
+      font-size: $font-size-base * 0.85;
+    }
+  }
+}
+
+@media (max-width: $sm-breakpoint) {
+  .featured-post {
+    padding: $spacing-unit * 0.75;
+
+    &__title {
+      font-size: $font-size-base * 0.9;
+    }
+
+    &__meta {
+      font-size: $font-size-base * 0.75;
+    }
+
+    &__excerpt {
+      font-size: $font-size-base * 0.8;
+    }
+  }
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
