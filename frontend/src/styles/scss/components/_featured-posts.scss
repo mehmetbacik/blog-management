@@ -1,12 +1,10 @@
 .featured-posts {
-  display: flex;
   gap: $spacing-unit * 2;
 
   &__empty {
     text-align: center;
-    font-size: $font-size-base * 1.1;
-    color: $gray-color;
-    margin-top: $spacing-unit * 2;
+    color: var(--text-secondary);
+    padding: $spacing-unit * 4;
   }
 
   &__header {

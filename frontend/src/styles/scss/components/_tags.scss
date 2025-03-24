@@ -1,13 +1,35 @@
 .tags {
   margin: $spacing-unit * 8 0;
 
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: $spacing-unit * 4;
-    text-align: center;
-  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-unit * 2;
+    &::after {
+      content: "";
+      position: relative;
+      display: block;
+      background-color: $primary-color;
+      width: 40px;
+      height: 2px;
+      border-radius: $border-radius;
+      margin-top: $spacing-unit * 4;
+    }
+    &--title {
+      color: $secondary-color;
+      text-align: center;
+      font-size: $font-size-base * 1.5;
+      font-weight: 600;
+    }
+    &--description {
+      color: $secondary-color;
+      text-align: center;
+      font-size: $font-size-base;
+      font-weight: 500;
+    }
+}
 
   &__list {
     display: flex;

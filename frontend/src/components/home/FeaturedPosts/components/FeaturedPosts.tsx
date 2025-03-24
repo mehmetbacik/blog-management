@@ -39,24 +39,26 @@ export function FeaturedPosts() {
           articles.
         </div>
       </div>
-      {posts.map((post) => (
-        <article key={post._id} className="featured-post">
-          <h3 className="featured-post__title">
-            <Link href={`/posts/${post._id}`}>{post.title}</Link>
-          </h3>
-          <div className="featured-post__meta">
-            <span>{post.author?.username || "Anonymous"}</span>
-            <span>•</span>
-            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-          </div>
-          <p className="featured-post__excerpt">
-            {post.content.slice(0, 150)}...
-          </p>
-        </article>
-      ))}
-      {posts.length === 0 && (
-        <p className="featured-posts__empty">No posts found</p>
-      )}
+      <div className="post__list">
+        {posts.map((post) => (
+          <article key={post._id} className="featured-post">
+            <h3 className="featured-post__title">
+              <Link href={`/posts/${post._id}`}>{post.title}</Link>
+            </h3>
+            <div className="featured-post__meta">
+              <span>{post.author?.username || "Anonymous"}</span>
+              <span>•</span>
+              <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            </div>
+            <p className="featured-post__excerpt">
+              {post.content.slice(0, 150)}...
+            </p>
+          </article>
+        ))}
+        {posts.length === 0 && (
+          <p className="featured-posts__empty">No posts found</p>
+        )}
+      </div>
     </div>
   );
 }
