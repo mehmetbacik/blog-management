@@ -37,29 +37,28 @@
     flex-wrap: wrap;
     gap: $spacing-unit * 2;
     justify-content: center;
-  }
-
-  &__item {
-    padding: $spacing-unit * 2 $spacing-unit * 4;
-    background: rgba($primary-color, 0.1);
-    border-radius: $border-radius;
-    color: $primary-color;
-    transition: $transition-base;
-    font-size: 0.875rem;
-
-    &:hover {
-      background: $primary-color;
-      color: $light-color;
+    &--item {
+      padding: $spacing-unit * 2 $spacing-unit * 4;
+      background: rgba($primary-color, 0.1);
+      border-radius: $border-radius;
+      color: $primary-color;
+      transition: $transition-base;
+      font-size: 0.875rem;
+  
+      &:hover {
+        background: $primary-color;
+        color: $light-color;
+      }
     }
-  }
-
-  &__empty {
-    background-color: $gray-color;
-    border-radius: $border-radius;
-    text-align: center;
-    color: $secondary-color;
-    font-weight: bold;
-    padding: $spacing-unit * 4;
-    width: 100%;
+  
+    &--empty {
+      background-color: $gray-color;
+      border-radius: $border-radius;
+      text-align: center;
+      color: $secondary-color;
+      font-weight: bold;
+      padding: $spacing-unit * 4;
+      width: 100%;
+    }
   }
 } 
