@@ -3,9 +3,8 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
-      gap: $spacing-unit * 5;
+      gap: $spacing-unit * 10;
       padding-top: $spacing-unit * 5;
-      padding-bottom: $spacing-unit * 25;
     }
   }
 }

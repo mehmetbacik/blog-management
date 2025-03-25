@@ -1,89 +1,106 @@
 .featured-posts {
   gap: $spacing-unit * 2;
-
-  &__empty {
-    background-color: $gray-color;
-    border-radius: $border-radius;
-    text-align: center;
-    color: $secondary-color;
-    font-weight: bold;
-    padding: $spacing-unit * 4;
-    width: 100%;
-  }
-
   &__header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: $spacing-unit * 2;
-      margin-bottom: $spacing-unit * 4;
-      &::after {
-        content: "";
-        position: relative;
-        display: block;
-        background-color: $primary-color;
-        width: 40px;
-        height: 2px;
-        border-radius: $border-radius;
-        margin-top: $spacing-unit * 4;
-      }
-      &--title {
-        color: $secondary-color;
-        text-align: center;
-        font-size: $font-size-base * 1.5;
-        font-weight: 600;
-      }
-      &--description {
-        color: $secondary-color;
-        text-align: center;
-        font-size: $font-size-base;
-        font-weight: 500;
-      }
-  }
-
-  .featured-post {
-    background: $light-color;
-    padding: $spacing-unit * 2;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: $transition-base;
     display: flex;
     flex-direction: column;
-    gap: $spacing-unit;
-
-    &:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 8;
+    &::after {
+      content: "";
+      position: relative;
+      display: block;
+      background-color: $primary-color;
+      width: 40px;
+      height: 2px;
+      border-radius: $border-radius;
+      margin-top: $spacing-unit * 4;
     }
-
-    &__title {
-      font-size: $font-size-base * 1.2;
-      font-weight: bold;
-      color: $primary-color;
-      transition: $transition-base;
-
-      a {
-        text-decoration: none;
-        color: inherit;
-
-        &:hover {
-          color: darken($primary-color, 10%);
+    &--title {
+      color: $secondary-color;
+      text-align: center;
+      font-size: $font-size-base * 1.5;
+      font-weight: 600;
+    }
+    &--description {
+      color: $secondary-color;
+      text-align: center;
+      font-size: $font-size-base;
+      font-weight: 500;
+    }
+  }
+  &__postList--wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: $spacing-unit * 5;
+    .featured-posts {
+      &__postList {
+        &--content {
+          background: $light-color;
+          padding: $spacing-unit * 4;
+          border-radius: $border-radius;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          transition: $transition-base;
+          display: flex;
+          flex-direction: column;
+          gap: $spacing-unit * 2;
+        }
+        &--title {
+          font-size: $font-size-base;
+          font-weight: bold;
+          color: $secondary-color;
+          transition: $transition-base;
+          a {
+            text-decoration: none;
+            color: inherit;
+            &:hover {
+              color: darken($primary-color, 10%);
+            }
+          }
+        }
+        &--info {
+          display: flex;
+          align-items: center;
+          gap: $spacing-unit;
+          font-size: $font-size-base * 0.85;
+          color: $secondary-color;
+        }
+        &--excerpt {
+          font-size: $font-size-base;
+          color: $secondary-color;
+          line-height: 1.5;
+        }
+        &--button {
+          background-color: $secondary-color;
+          padding: $spacing-unit * 1 $spacing-unit * 2;
+          border-radius: $border-radius;
+          border: solid 1px transparent;
+          color: $light-color;
+          font-size: $font-size-base * 0.9;
+          cursor: pointer;
+          transition: $transition-base;
+          text-align: center;
+          &:hover {
+              background-color: $primary-color;
+              border-color: $primary-color;
+              color: $light-color;
+          }
+          &:active {
+              transform: scale(0.95);
+          }
+        }
+        &--empty {
+          background-color: $gray-color;
+          border-radius: $border-radius;
+          text-align: center;
+          color: $secondary-color;
+          font-weight: bold;
+          padding: $spacing-unit * 4;
+          width: 100%;
         }
       }
-    }
-
-    &__meta {
-      display: flex;
-      align-items: center;
-      gap: $spacing-unit;
-      font-size: $font-size-base * 0.9;
-      color: $secondary-color;
-    }
-
-    &__excerpt {
-      font-size: $font-size-base;
-      color: $gray-color;
-      line-height: 1.5;
     }
   }
 }

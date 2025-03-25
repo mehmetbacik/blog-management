@@ -3,6 +3,7 @@
     color: $light-color;
     font-size: $font-size-base * 0.875;
     padding: $spacing-unit * 4 0;
+    margin-top: $spacing-unit * 25;
     &__content {
         display: flex;
         flex-direction: column;
