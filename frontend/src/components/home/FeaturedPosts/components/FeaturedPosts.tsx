@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Post } from "@/types";
 import { postService } from "@/services/api";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { FeaturedPostList } from "./FeaturedPostList";
+import { FeaturedEmptyState } from "./FeaturedEmptyState";
+import { FeaturedHeader } from "./FeaturedHeader";
 
 export function FeaturedPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -28,40 +30,20 @@ export function FeaturedPosts() {
     fetchPosts();
   }, []);
 
-  if (loading) return <LoadingSpinner />;
-
   return (
     <div className="featured-posts">
-      <div className="featured-posts__header">
-        <div className="featured-posts__header--title">Featured Posts</div>
-        <div className="featured-posts__header--description">
-          Discover the latest insights and stay updated with our handpicked
-          articles.
-        </div>
-      </div>
-      <div className="featured-posts__postList--wrapper">
-        {posts.map((post) => (
-          <article key={post._id} className="featured-posts__postList--content">
-            <h3 className="featured-posts__postList--title">
-              <Link href={`/posts/${post._id}`}>{post.title}</Link>
-            </h3>
-            <div className="featured-posts__postList--info">
-              <span>{post.author?.username || "Anonymous"}</span>
-              <span>•</span>
-              <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-            </div>
-            <p className="featured-posts__postList--excerpt">
-              {post.content.slice(0, 150)}...
-            </p>
-            <Link href={`/posts/${post._id}`} className="featured-posts__postList--button">
-              Read More
-            </Link>
-          </article>
-        ))}
-        {posts.length === 0 && (
-          <p className="featured-posts__postList--empty">No posts found</p>
-        )}
-      </div>
+      <FeaturedHeader
+        title="Featured Posts"
+        description="Discover the latest insights and stay updated with our handpicked articles."
+      />
+
+      {loading ? (
+        <LoadingSpinner />
+      ) : posts.length > 0 ? (
+        <FeaturedPostList posts={posts} />
+      ) : (
+        <FeaturedEmptyState message="No posts found" />
+      )}
     </div>
   );
 }
