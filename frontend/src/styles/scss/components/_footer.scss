@@ -149,7 +149,6 @@
     }
 
     /* ---------- RESPONSIVE DESIGN ---------- */
-    /*Medium Screens*/
     @media (max-width: $md-breakpoint) {
         &__content {
             &__menu--container {
@@ -161,8 +160,6 @@
             }
         }
     }
-    /*Medium Screens*/
-    /*Small Screens*/
     @media (max-width: $sm-breakpoint) {
         &__content {
             &__social--container {
@@ -181,7 +178,13 @@
                     }
                 }
             }
+            &__newsletter--container {
+                .footer__newsletter {
+                    form {
+                        flex-direction: column;
+                    }
+                }
+            }
         }
     }
-    /*Small Screens*/
 }

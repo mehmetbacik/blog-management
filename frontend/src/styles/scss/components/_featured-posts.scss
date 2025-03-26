@@ -102,57 +102,18 @@
         }
       }
     }
+    /* ---------- RESPONSIVE DESIGN ---------- */
+    @media (max-width: $sm-breakpoint) {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      .featured-posts {
+        &__postList {
+          &--title {
+            font-size: $font-size-base * 1.1;
+          }
+        }
+      }
+    }
+    /* ---------- RESPONSIVE DESIGN ---------- */
   }
 }
-
-/* ---------- RESPONSIVE DESIGN ---------- */
-@media (max-width: $lg-breakpoint) {
-  .featured-posts {
-    gap: $spacing-unit * 1.5;
-  }
-  .featured-post {
-    padding: $spacing-unit * 1.5;
-
-    &__title {
-      font-size: $font-size-base * 1.1;
-    }
-
-    &__excerpt {
-      font-size: $font-size-base * 0.9;
-    }
-  }
-}
-
-@media (max-width: $md-breakpoint) {
-  .featured-post {
-    padding: $spacing-unit;
-
-    &__title {
-      font-size: $font-size-base;
-    }
-
-    &__excerpt {
-      font-size: $font-size-base * 0.85;
-    }
-  }
-}
-
-@media (max-width: $sm-breakpoint) {
-  .featured-post {
-    padding: $spacing-unit * 0.75;
-
-    &__title {
-      font-size: $font-size-base * 0.9;
-    }
-
-    &__meta {
-      font-size: $font-size-base * 0.75;
-    }
-
-    &__excerpt {
-      font-size: $font-size-base * 0.8;
-    }
-  }
-}
-
-/* ---------- RESPONSIVE DESIGN ---------- */
