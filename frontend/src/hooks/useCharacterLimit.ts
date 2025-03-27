@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const getCharacterLimit = (width: number) => {
-  if (width < 734) return { title: 60, description: 90 };
+  if (width < 734) return { title: 50, description: 90 };
   if (width < 1069) return { title: 50, description: 80 };
   return { title: 80, description: 200 };
 };
