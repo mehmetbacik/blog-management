@@ -57,4 +57,16 @@
       width: 100%;
     }
   }
+      /* ---------- RESPONSIVE DESIGN ---------- */
+      @media (max-width: $sm-breakpoint) {
+        &__header {
+          &--title {
+            font-size: $font-size-base * 1.3;
+          }
+          &--description {
+            font-size: $font-size-base * 0.975;
+          }
+        }
+      }
+      /* ---------- RESPONSIVE DESIGN ---------- */  
 } 
