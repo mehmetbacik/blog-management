@@ -158,6 +158,30 @@
     @media (max-width: $sm-breakpoint) {
       .news__content {
         gap: $spacing-unit * 2;
+        .news__sidebar {
+          flex: auto;
+          padding: $spacing-unit * 0.5;
+          padding-left: 0;
+          border-left: 0;
+          .news__list {
+            .news__smallNews {
+              font-size: $font-size-base * 0.75;
+              .news__smallNews--image {
+                flex: auto;
+                max-width: 100px;
+                height: 70px;
+              }
+              .news__smallNewsContent {
+                .news__smallNewsContent--title {
+                  font-size: $font-size-base * 0.75;
+                }
+                .news__smallNewsContent--footer {
+                  font-size: $font-size-base * 0.65;
+                }
+              }
+            }
+          }
+        }
       }
       .news__main {
         &Image {
@@ -166,13 +190,6 @@
         &Footer {
           font-size: $font-size-base * 0.7;
         }
-      }
-      .news__sidebar {
-        padding: $spacing-unit * 0.5;
-      }
-      .news__smallNews {
-        padding: $spacing-unit;
-        font-size: $font-size-base * 0.75;
       }
     }
     /* ---------- RESPONSIVE DESIGN ---------- */
