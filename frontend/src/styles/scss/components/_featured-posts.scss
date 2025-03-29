@@ -104,6 +104,18 @@
     }
   }
     /* ---------- RESPONSIVE DESIGN ---------- */
+    @media (max-width: $lg-breakpoint) {
+      &__postList--wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: $md-breakpoint) {
+      &__postList--wrapper {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+      }
+    }
     @media (max-width: $sm-breakpoint) {
       &__header {
         &--title {
