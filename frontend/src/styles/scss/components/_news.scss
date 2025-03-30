@@ -98,74 +98,37 @@
     /* ---------- RESPONSIVE DESIGN ---------- */
     @media (max-width: $xl-breakpoint) {
       .news__content {
-        flex-direction: column;
-      }
-      .news__main {
-        &Image {
-          height: 250px;
-        }
-        &Footer {
-          font-size: $font-size-base * 0.85;
-        }
-      }
-      .news__sidebar {
-        max-width: 100%;
-        height: auto;
-        border-left: none;
-        padding-left: 0;
-        overflow-y: auto;
-      }
-    }
-    
-    @media (max-width: $lg-breakpoint) {
-      .news__content {
-        gap: $spacing-unit * 2;
-        .news__main {
-          &Image {
-            height: 250px;
-          }
-        }
         .news__sidebar {
-          flex: auto;
-          max-width: 100%;
-          padding: $spacing-unit * 0.5;
-          padding-left: 0;
-          border-left: 0;
           .news__list {
             .news__smallNews {
-              font-size: $font-size-base * 0.75;
               .news__smallNews--image {
                 flex: auto;
-                max-width: 100px;
-                height: 70px;
-              }
-              .news__smallNewsContent {
-                .news__smallNewsContent--title {
-                  font-size: $font-size-base * 0.95;
-                }
-                .news__smallNewsContent--footer {
-                  font-size: $font-size-base * 0.75;
-                }
+                max-width: 120px;
+                height: 80px;
               }
             }
           }
         }
       }
-    }
-    @media (max-width: $md-breakpoint) {
+    }  
+    @media (max-width: $lg-breakpoint) {
       .news__content {
-        gap: $spacing-unit * 2;
-        .news__main {
-          &Image {
-            height: 220px;
+        .news__sidebar {
+          .news__list {
+            .news__smallNews {
+              .news__smallNews--image {
+                flex: auto;
+                max-width: 120px;
+                height: 80px;
+              }
+            }
           }
         }
+      }
+    }    
+    @media (max-width: $md-breakpoint) {
+      .news__content {
         .news__sidebar {
-          flex: auto;
-          max-width: 100%;
-          padding: $spacing-unit * 0.5;
-          padding-left: 0;
-          border-left: 0;
           .news__list {
             .news__smallNews {
               font-size: $font-size-base * 0.75;
@@ -189,6 +152,7 @@
     }
     @media (max-width: $sm-breakpoint) {
       .news__content {
+        flex-direction: column;
         gap: $spacing-unit * 2;
         .news__main {
           &Image {
