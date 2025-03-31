@@ -1,0 +1,84 @@
+.about {
+  padding: $spacing-unit * 8 0;
+  &__header {
+    margin-bottom: $spacing-unit * 8;
+    text-align: center;
+  }
+  &__title {
+    font-size: $font-size-base * 2.5;
+    font-weight: 700;
+    color: $secondary-color;
+    margin-bottom: $spacing-unit * 4;
+  }
+  &__image {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: $border-radius;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+      height: -webkit-fill-available;
+    }
+  }
+  &__content {
+    margin: 0 auto;
+  }
+  &__section {
+    margin-bottom: $spacing-unit * 8;
+    h2 {
+      font-size: $font-size-base * 1.75;
+      font-weight: 600;
+      color: $secondary-color;
+      margin-bottom: $spacing-unit * 3;
+    }
+    p {
+      font-size: $font-size-base * 1.1;
+      line-height: 1.6;
+      color: $secondary-color;
+    }
+  }
+  &__values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-unit * 4;
+    margin-top: $spacing-unit * 4;
+  }
+  &__value-item {
+    padding: $spacing-unit * 4;
+    background: $white-color;
+    border-radius: $border-radius;
+    transition: $transition-base;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;;
+    }
+    h3 {
+      font-size: $font-size-base * 1.25;
+      font-weight: 600;
+      color: $secondary-color;
+      margin-bottom: $spacing-unit * 2;
+    }
+    p {
+      font-size: $font-size-base;
+      color: $secondary-color;
+    }
+  }
+  /* ---------- RESPONSIVE DESIGN ---------- */
+  @media (max-width: $md-breakpoint) {
+    padding: $spacing-unit * 4 0;
+    &__title {
+      font-size: $font-size-base * 2;
+    }
+    &__image {
+      height: 200px;
+    }
+    &__section {
+      margin-bottom: $spacing-unit * 6;
+      h2 {
+        font-size: $font-size-base * 1.5;
+      }
+    }
+  }
+  /* ---------- RESPONSIVE DESIGN ---------- */
+} 

@@ -3,6 +3,7 @@
   gap: $spacing-unit * 6;
   margin: $spacing-unit * 8 0;
   grid-template-columns: repeat(3, 1fr);
+  /* ---------- RESPONSIVE DESIGN ---------- */
   @media (max-width: $lg-breakpoint) {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -12,6 +13,7 @@
   @media (max-width: $sm-breakpoint) {
     grid-template-columns: repeat(1, 1fr);
   }
+  /* ---------- RESPONSIVE DESIGN ---------- */
 }
 .post-card {
   background: $light-color;
@@ -60,6 +62,7 @@
     color: $secondary-color;
     font-size: $font-size-base *  0.75;
   }
+  /* ---------- RESPONSIVE DESIGN ---------- */
   @media (max-width: $sm-breakpoint) {
       padding: $spacing-unit * 3;
       &__title {
@@ -72,4 +75,5 @@
         font-size: $font-size-base * 0.9;
       }
   }
+  /* ---------- RESPONSIVE DESIGN ---------- */
 }
