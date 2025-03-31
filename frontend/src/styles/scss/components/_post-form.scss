@@ -5,18 +5,15 @@
   padding: $spacing-unit * 6;
   border-radius: $border-radius;
   box-shadow: 0 2px 4px rgba(var(--shadow-color), 0.1);
-
   .form__input--textarea {
     font-family: inherit;
     line-height: 1.6;
   }
 }
-
 .post-page {
   padding: $spacing-unit * 8 0;
-
   &__title {
-    font-size: 2rem;
+    font-size: $font-size-base * 2;
     font-weight: 700;
     color: var(--text-primary);
     text-align: center;

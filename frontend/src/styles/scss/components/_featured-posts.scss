@@ -45,6 +45,7 @@
           transition: $transition-base;
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
           gap: $spacing-unit * 2;
         }
         &--title {

@@ -5,19 +5,16 @@
   border-radius: $border-radius;
   padding: $spacing-unit * 8;
   box-shadow: 0 2px 4px rgba(var(--shadow-color), 0.1);
-
   &__header {
     margin-bottom: $spacing-unit * 8;
   }
-
   &__title {
-    font-size: 2.5rem;
+    font-size: $font-size-base * 2.5;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: $spacing-unit * 4;
     line-height: 1.2;
   }
-
   &__meta {
     display: flex;
     align-items: center;
@@ -25,76 +22,62 @@
     margin-bottom: $spacing-unit * 4;
     flex-wrap: wrap;
   }
-
   &__author {
     color: $primary-color;
     font-weight: 500;
-    
     &:hover {
       text-decoration: underline;
     }
   }
-
   &__date {
     color: var(--text-secondary);
   }
-
   &__status {
     padding: $spacing-unit $spacing-unit * 2;
     border-radius: $border-radius;
-    font-size: 0.875rem;
+    font-size: $font-size-base * 0.875;
     font-weight: 500;
-    
     &--published {
       background: rgba($success-color, 0.1);
       color: $success-color;
     }
-    
     &--draft {
       background: rgba($warning-color, 0.1);
       color: $warning-color;
     }
-    
     &--pending {
       background: rgba($primary-color, 0.1);
       color: $primary-color;
     }
   }
-
   &__tags {
     display: flex;
     gap: $spacing-unit * 2;
     flex-wrap: wrap;
   }
-
   &__tag {
     padding: $spacing-unit $spacing-unit * 2;
     background: rgba(var(--text-secondary), 0.1);
     border-radius: $border-radius;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: $font-size-base *  0.875;
     transition: $transition-base;
-    
     &:hover {
       background: rgba($primary-color, 0.1);
       color: $primary-color;
     }
   }
-
   &__content {
     color: var(--text-primary);
     line-height: 1.8;
-    font-size: 1.125rem;
-
+    font-size: $font-size-base * 1.125;
     p {
       margin-bottom: $spacing-unit * 4;
-      
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
-
   &__actions {
     margin-top: $spacing-unit * 8;
     display: flex;
@@ -102,22 +85,18 @@
     padding-top: $spacing-unit * 6;
     border-top: 1px solid var(--border-color);
   }
-
   &__comments {
     margin-top: $spacing-unit * 12;
     padding-top: $spacing-unit * 8;
     border-top: 1px solid var(--border-color);
   }
-
   &__login-prompt {
     text-align: center;
     color: var(--text-secondary);
     margin-bottom: $spacing-unit * 8;
-    
     a {
       color: $primary-color;
       text-decoration: underline;
-      
       &:hover {
         color: darken($primary-color, 10%);
       }

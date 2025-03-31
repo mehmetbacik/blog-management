@@ -1,66 +1,56 @@
 .post {
   max-width: 800px;
   margin: $spacing-unit * 8 auto;
-  background: white;
+  background: $light-color;
   border-radius: $border-radius;
   padding: $spacing-unit * 8;
   box-shadow: 0 2px 4px rgba($dark-color, 0.1);
-
   &__header {
     margin-bottom: $spacing-unit * 8;
   }
-
   &__title {
-    font-size: 2.5rem;
+    font-size: $font-size-base * 2.5;
     font-weight: 700;
     color: $dark-color;
     margin-bottom: $spacing-unit * 4;
   }
-
   &__meta {
     display: flex;
     align-items: center;
     gap: $spacing-unit * 3;
     color: $secondary-color;
-    font-size: 0.875rem;
+    font-size: $font-size-base * 0.875;
   }
-
   &__status {
     padding: $spacing-unit $spacing-unit * 2;
     background: rgba($primary-color, 0.1);
     border-radius: $border-radius;
     color: $primary-color;
   }
-
   &__content {
-    font-size: 1.125rem;
+    font-size: $font-size-base * 1.125;
     line-height: 1.8;
     color: $dark-color;
-
     p {
       margin-bottom: $spacing-unit * 6;
-
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
-
   &__tags {
     margin-top: $spacing-unit * 8;
     display: flex;
     flex-wrap: wrap;
     gap: $spacing-unit * 2;
   }
-
   &__tag {
     padding: $spacing-unit $spacing-unit * 3;
     background: rgba($secondary-color, 0.1);
     border-radius: $border-radius;
     color: $secondary-color;
-    font-size: 0.875rem;
+    font-size: $font-size-base * 0.875;
   }
-
   &__actions {
     margin-top: $spacing-unit * 8;
     display: flex;
