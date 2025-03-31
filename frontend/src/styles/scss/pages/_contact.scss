@@ -1,0 +1,91 @@
+.contact {
+  padding: $spacing-unit * 8 0;
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-unit * 8;
+  }
+  &__title {
+    font-size: $font-size-base * 2.5;
+    font-weight: 700;
+    color: $secondary-color;
+    margin-bottom: $spacing-unit * 2;
+  }
+  &__subtitle {
+    font-size: $font-size-base * 1.1;
+    color: $secondary-color;
+  }
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: $spacing-unit * 8;
+    @media (max-width: $md-breakpoint) {
+      grid-template-columns: 1fr;
+      gap: $spacing-unit * 4;
+    }
+  }
+  &__info {
+    &-item {
+      margin-bottom: $spacing-unit * 4;
+      h3 {
+        font-size: $font-size-base * 1.2;
+        font-weight: 600;
+        color: $primary-color;
+        margin-bottom: $spacing-unit;
+      }
+      p {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+.contact-form {
+  background: var(--bg-secondary);
+  padding: $spacing-unit * 4;
+  border-radius: $border-radius;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  &__group {
+    margin-bottom: $spacing-unit * 3;
+    label {
+      display: block;
+      margin-bottom: $spacing-unit;
+      font-weight: 500;
+      color: $secondary-color;
+    }
+    input,
+    textarea {
+      width: 100%;
+      padding: $spacing-unit * 1.5;
+      border: 1px solid var(--border-color);
+      border-radius: $border-radius;
+      background: var(--bg-primary);
+      color: $primary-color;
+      transition: $transition-base;
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+  }
+  &__submit {
+    width: 100%;
+    padding: $spacing-unit * 2;
+    background: $primary-color;
+    color: $white-color;
+    border: none;
+    border-radius: $border-radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition-base;
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+} 
