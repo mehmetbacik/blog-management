@@ -208,11 +208,10 @@ npm run test
 npm run test:watch
 ```
 
-## Contributing
-
-If you wish to contribute to the project, please open a pull request. Any contributions and feedback are welcome!
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Contributing
+
+If you wish to contribute to the project, please open a pull request. Any contributions and feedback are welcome!
