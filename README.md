@@ -1,6 +1,6 @@
 # Blog Management System
 
-A full-stack blog management system with role-based authentication, real-time updates, and a modern responsive design.
+A comprehensive blog management system built with full-stack technologies. This project features role-based authentication for secure user access, real-time updates for dynamic content management, and a modern, responsive design for an optimal user experience across devices. Users can create, edit, and manage posts, while admins have full control over user roles and content moderation.
 
 ## Features
 
@@ -86,15 +86,15 @@ A full-stack blog management system with role-based authentication, real-time up
 
 ### Public Pages
 
-- **Home (**\`\`**)**:
+- **Home**:
   - Latest published posts
   - Infinite scroll
   - Search and filter options
-- **Post Detail (**\`\`**)**:
+- **Post Detail**:
   - Full post content
   - Comment section
   - Author information
-- **Search (**\`\`**)**:
+- **Search**:
   - Advanced search functionality
   - Tag-based filtering
   - Category filtering
@@ -104,11 +104,11 @@ A full-stack blog management system with role-based authentication, real-time up
 
 ### User Pages
 
-- **Dashboard (**\`\`**)**:
+- **Dashboard**:
   - User's posts management
   - Post statistics
   - Draft posts
-- **Profile (**\`\`**)**:
+- **Profile**:
   - User settings
   - Profile information
   - Account management
@@ -119,16 +119,16 @@ A full-stack blog management system with role-based authentication, real-time up
 
 ### Admin Pages
 
-- **Admin Dashboard (**\`\`**)**:
+- **Admin Dashboard**:
   - System overview
   - User statistics
   - Post statistics
   - Recent activities
-- **User Management (**\`\`**)**:
+- **User Management**:
   - User list
   - Role management
   - User actions
-- **Post Management (**\`\`**)**:
+- **Post Management**:
   - All posts overview
   - Post moderation
   - Status management
@@ -210,11 +210,7 @@ npm run test:watch
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+If you wish to contribute to the project, please open a pull request. Any contributions and feedback are welcome!
 
 ## License
 
