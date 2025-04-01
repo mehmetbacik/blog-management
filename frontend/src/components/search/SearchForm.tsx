@@ -53,7 +53,7 @@ export const SearchForm = () => {
           <button 
             type="button" 
             onClick={handleClear}
-            className="button button--outline"
+            className="button button--danger"
           >
             Clear
           </button>

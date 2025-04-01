@@ -1,62 +1,94 @@
 .search-form {
-  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 0 auto $spacing-unit * 8;
-  
-  &__group {
+  max-width: 100%;
+  flex-wrap: wrap; 
+  gap: $spacing-unit * 2;
+  &__inputs {
     display: flex;
     gap: $spacing-unit * 4;
-    margin-bottom: $spacing-unit * 4;
-    
-    @media (max-width: map-get($breakpoints, 'md')) {
-      flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    .search-form__input {
+      flex: 1;
+      min-width: 250px;
     }
   }
-  
   &__input {
-    flex: 1;
     padding: $spacing-unit * 3;
     border: 1px solid var(--border-color);
     border-radius: $border-radius;
     background: var(--bg-secondary);
     color: var(--text-primary);
     transition: $transition-base;
-    
+    font-size: $font-size-base; 
     &:focus {
       outline: none;
       border-color: $primary-color;
       box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
     }
-    
     &::placeholder {
       color: var(--text-secondary);
+      font-size: $font-size-base * 0.9;
     }
   }
-  
   &__actions {
     display: flex;
     gap: $spacing-unit * 2;
     justify-content: center;
+    margin-top: $spacing-unit * 2;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  &__button {
+    background-color: $primary-color;
+    font-size: $font-size-base * 0.875;
+    color: $light-color;
+    transition: $transition-base;
+    padding: $spacing-unit * 1.5 $spacing-unit * 3;
+    border: solid 2px transparent;
+    border-radius: 5px;
+    &:hover {
+        background-color: $background-color;
+        color: $primary-color;
+        border-radius: 5px;
+        border: solid 2px $primary-color;
+    }
+    &--danger {
+      background-color: $danger-color;
+      font-size: $font-size-base * 0.875;
+      color: $light-color;
+      transition: $transition-base;
+      padding: $spacing-unit * 1.5 $spacing-unit * 3;
+      border: solid 2px transparent;
+      border-radius: 5px;
+      &:hover {
+        background-color: $background-color;
+        color: $primary-color;
+        border-radius: 5px;
+        border: solid 2px $primary-color;
+      }
+    }
   }
 }
-
 .search-page {
   padding: $spacing-unit * 8 0;
-  
   &__title {
-    font-size: 2rem;
+    font-size: $font-size-base * 2.5;
     font-weight: 700;
     color: var(--text-primary);
     text-align: center;
     margin-bottom: $spacing-unit * 6;
   }
-  
   &__subtitle {
-    font-size: 1.25rem;
+    font-size: $font-size-base * 1.5;
     color: var(--text-secondary);
     text-align: center;
     margin-bottom: $spacing-unit * 6;
   }
-  
   &__empty {
     text-align: center;
     color: var(--text-secondary);
@@ -64,8 +96,7 @@
     background: rgba(var(--text-secondary), 0.05);
     border-radius: $border-radius;
   }
-  
   &__results {
     min-height: 400px;
   }
-} 
+}
